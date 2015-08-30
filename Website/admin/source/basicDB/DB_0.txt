@@ -1,0 +1,137 @@
+/*
+SQLyog Ultimate v8.55 
+MySQL - 5.1.36-community-log : Database - euclidia_framework
+*********************************************************************
+*/
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+/*Table structure for table `control_p_admin` */
+
+CREATE TABLE `control_p_admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `date_of_birth` date DEFAULT NULL,
+  `address` text COLLATE utf8_unicode_ci,
+  `city` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `website` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `control_p_group_id` int(11) NOT NULL,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ACTIVE',
+  PRIMARY KEY (`id`),
+  KEY `display_name` (`first_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_admin` */
+
+insert  into `control_p_admin`(`id`,`email`,`username`,`password`,`first_name`,`last_name`,`date_of_birth`,`address`,`city`,`mobile`,`website`,`control_p_group_id`,`status`) values (1,'admin@domain.com','super_admin','ed49c3fed75a513a79cb8bd1d4715d57','adham','ghannam','1986-05-20','Kfarhim','Kfarhim','',NULL,0,'ACTIVE');
+
+/*Table structure for table `control_p_group` */
+
+CREATE TABLE `control_p_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ACTIVE',
+  PRIMARY KEY (`id`),
+  KEY `display_name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_group` */
+
+insert  into `control_p_group`(`id`,`name`,`status`) values (0,'full_control','ACTIVE');
+
+/*Table structure for table `control_p_login` */
+
+CREATE TABLE `control_p_login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `control_p_admin` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `control_p_group_id` int(11) NOT NULL,
+  `start_date` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `end_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `user_agent` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `online` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'YES',
+  PRIMARY KEY (`id`),
+  KEY `FK_login` (`control_p_group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_login` */
+
+/*Table structure for table `control_p_page_levels` */
+
+CREATE TABLE `control_p_page_levels` (
+  `page` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `menu_display_names` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `menu_pages` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`page`),
+  UNIQUE KEY `display_name` (`page`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_page_levels` */
+
+/*Table structure for table `control_p_privilege` */
+
+CREATE TABLE `control_p_privilege` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ACTIVE',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `display_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_privilege` */
+
+/*Table structure for table `control_p_privilege_to_group` */
+
+CREATE TABLE `control_p_privilege_to_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `control_p_group_id` int(11) NOT NULL,
+  `control_p_privilege_id` int(11) NOT NULL,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ACTIVE',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `NewIndex1` (`control_p_group_id`,`control_p_privilege_id`),
+  KEY `FK_group` (`control_p_privilege_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_privilege_to_group` */
+
+/*Table structure for table `control_p_seq` */
+
+CREATE TABLE `control_p_seq` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `seq_array` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_seq` */
+
+/*Table structure for table `control_p_table_view_columns` */
+
+CREATE TABLE `control_p_table_view_columns` (
+  `id` int(11) NOT NULL DEFAULT '0',
+  `table_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `columns` int(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `control_p_table_view_columns` */
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;

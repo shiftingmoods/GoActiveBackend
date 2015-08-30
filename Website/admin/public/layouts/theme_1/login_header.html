@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" >
+<html xmlns="http://www.w3.org/1999/xhtml"  lang="ar" xml:lang="ar">
+<head>
+    <!--
+    this header dont coontain check if login like the main header
+    -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
+	<script type="text/javascript" src="../public/js/jquery.js"></script>
+			<!---------------------------------CSS------------------------->
+		
+			<link rel="stylesheet" href="../public/css/thickbox.css" type="text/css" media="screen" />
+			<link href="../public/css/style.css" rel="stylesheet" type="text/css">
+			<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../public/css/style.ie7.css"/><![endif]-->
+			<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../public/css/style.ie7.css"/><![endif]-->
+			<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../public/css/style.ie7.css"/><![endif]-->
+			
+</head>
+<div id="login_header"  >
+	
+	<div id="login_inputs"  >
+	<form action="../applications/user/login.php" method="post" >	
+		<table >
+			<tr>
+				<td>
+				Username:
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type ="text" name="username" id="Username" >
+				</td>
+			</tr>
+			<tr>
+				<td>
+				Password:
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<input type ="password" name="password" id="Password" >
+				</td>
+			</tr>
+			<tr>
+				<td>
+		<input style="width:70px" type ="submit" value="Login">
+				</td>
+			</tr>
+			<tr>
+				<td>
+		<?php if(isset($_GET['note'])){echo $_GET['note'];}?>
+				</td>
+			</tr>
+		</table>
+				
+	</form>
+	</div>
+	
+</div>
+<body>

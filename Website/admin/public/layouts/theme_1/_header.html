@@ -1,0 +1,146 @@
+<?php @session_start(); ?>
+<?php if(!isset($_SESSION['email']) && !isset($_SESSION['username']))
+{
+	header('Location:login.php');
+	$log='<a href="logout.php" >Logout</a>';
+	exit();
+}
+else
+{
+	if(isset($_SESSION['email']))
+	{
+		$log= $_SESSION['email'].'&nbsp&nbsp&nbsp<input type="button" id="logout_button" value="Logout" onclick="window.location=\'../applications/user/logout.php\'" >';
+	}
+	if(isset($_SESSION['username']))
+	{
+		$log= $_SESSION['username'].'&nbsp&nbsp&nbsp<input type="button" id="logout_button" value="Logout" onclick="window.location=\'../applications/user/logout.php\'" >';
+	}
+}
+?>
+<?php require_once("../models/index/index.php");
+$index=new index();
+?>
+<?php require_once('../public/configuration.php');
+$cnct=new cnct_class();
+$cnct->cnct();
+?>
+<?php
+if(!isset($_SESSION['lang']))
+{
+	$_SESSION['lang']=1;
+}
+if(isset($_GET['lang']))
+{
+	if($index->checkIdIfExist($_GET['lang'],'language'))
+	{
+		$_SESSION['lang']=$_GET['lang'];
+	}
+}
+$lang=$_SESSION['lang'];
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	
+	<head>
+		<!-----------------------------------Meta--------------------------->
+		
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<meta http-equiv="Page-Enter" content="blendTrans(Duration=0.1)" />
+			<meta http-equiv="Page-Exit" content="blendTrans(Duration=0.1)" />
+			<meta name="keywords" content="" />
+			<meta name="description" content="" />
+			
+		<!---------------------------------Javascript------------------------->
+				
+			<script type="text/javascript" src="../public/js/jquery.js"></script>
+			<script type="text/javascript" src="../public/js/thickbox.js"></script>
+			<script type="text/javascript" src="../public/js/swfobject.js"></script>
+			
+			<!----------------------------------  datepicker ------------------------------------------------->
+			
+			<script type="text/javascript" src="../public/js/datepicker/jquery-1.4.2.min.js"></script>
+			<script src="../public/js/datepicker/jquery-ui.min.js"></script>
+			<!----------------------------------  paging ------------------------------------------------->		
+			<script language="javascript" src="../public/js/paging.js" type="text/javascript"></script>
+			<script language="javascript" src="../public/js/general.js" type="text/javascript"></script>
+			<script language="javascript" src="../public/js/validate.js" type="text/javascript"></script>
+			<!----------------------------------  paging end------------------------------------------------->
+		<!---------------------------------CSS------------------------->
+		
+			<link rel="stylesheet" href="../public/css/thickbox.css" type="text/css" media="screen" />
+			<link href="../public/css/style.css" rel="stylesheet" type="text/css">
+			<link type="text/css" href="../public/css/datepicker/custom-theme/jquery-ui.css" rel="stylesheet" />
+			<!--[if IE 6]><link rel="stylesheet" type="text/css" href="../public/css/style.ie7.css"/><![endif]-->
+			<!--[if IE 7]><link rel="stylesheet" type="text/css" href="../public/css/style.ie7.css"/><![endif]-->
+			<!--[if IE 8]><link rel="stylesheet" type="text/css" href="../public/css/style.ie7.css"/><![endif]-->
+			<title>Site Administrator</title>
+		
+	</head>
+			
+	<body>
+		
+		<!-----------------------Page Header------------------------>
+		<div id="header"  >
+		
+		<div id="log_menu">
+		<?php 
+		/*
+		if($index->checkTableIfExist('language'))
+		{	
+			$languages=$index->getAllGeneralItemsWithJoins('','language');
+			if(count($languages)>0)
+			{
+				echo '<select style="width:50px;float:left;" onchange="window.location=\'?lang=\'+this.value" >';
+				foreach($languages as $idL=>$L)
+				{
+					$selected='';
+					if($lang==$L['id'])
+					{
+						$selected=' selected ';
+					}
+					echo ('<option  value= "'.$L['id'].'" '.$selected.' >'.$L['code'].'</option>');
+				}
+				echo '</select>';
+			}
+		}
+		*/
+		?>
+		<?php echo '<span style="float:right" >'.$log.'</span>'; ?>
+		</div>
+		<div id="home_menu" >
+		<table width="100%" >
+		<tr>
+		<td>
+		<?php echo '<span style="width:100px;float:left;"><a href="../index/index.php">Home</a></span>'; ?>
+		</td>
+		<td>
+		<?php if(isset($_GET['note'])) { echo '<center><span style="color:#e75e26" >'.$_GET['note'].'</span></center>'; } ?>
+		</td>
+		<td>
+		<?php $res=$index->isAllowed_2($_SESSION['control_p_group_id'],'settings'); if($res && file_exists('settings.php')) { echo ('<span style="width:100px;float:right;"><a href="../index/settings.php">Settings</a></span>'); }else{}?>
+		</td>
+		</tr>
+		</table>
+		<?php
+		/*
+		if(isset($_SERVER['HTTP_REFERER'])) 
+		{
+			$back=$_SERVER['HTTP_REFERER'];
+			$x=strrpos($back,'index/')+6;
+			$y=strrpos($back,'.php')-$x;
+			if(substr($back,$x,$y)!='login')
+			{
+		?>
+		<a align="float:left" href="<?php echo $back; ?>" ><?php echo $index->toView(substr($back,$x,$y)); ?></a>
+		<?php
+			}
+		}
+		*/
+		?>
+		</div>
+		
+		
+		
+			
+			
+		</div>

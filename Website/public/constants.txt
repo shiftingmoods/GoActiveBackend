@@ -1,0 +1,26 @@
+<?php
+class ConstantsControl_p_admin
+{
+	const HOST_prod='localhost'; //the servername
+	const ROOT_prod='shifting_omar'; // root folder
+	const DB_prod='shifting_claray'; // database name
+	const PASS_prod='uRwOO}NBmE{R';
+	const HOST_dev='localhost'; //the servername
+	const ROOT_dev='root'; // root folder
+	const DB_dev='claray'; // database name
+	const PASS_dev='Numarkturn1@';
+	const CATEGORY='div'; // div or production
+	const MAIL=''; //sed requests and comments to this email
+	const DEVELOPER_SITE = 'www.eproleb.com';//not used
+	const DOMAIN= 'www.claray.net';
+	const COPYRIGHTYEAR= '2013';
+	const POWEREDBYCOMPANY= '<a mailto:"hind.walieddine@live.com" >Hind Walieddine</a>';
+	const MOBILE='';
+	const LANDLINE='';
+	const FAX='';
+	const ADDRESS='';
+	const CITY='';
+	const COUNTRY='';
+	const MANAGER='';
+}
+?>
