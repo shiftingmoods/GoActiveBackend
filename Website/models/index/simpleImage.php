@@ -2,9 +2,14 @@
 class simpleImage 
 {
    
-   var $image;
-   var $image_type;
- 
+	var $image;
+	var $image_type;
+	var $cnx;
+	
+	function __construct($data)
+	{
+		$this->cnx=$data['cnx'];
+	}
    function load($filename) 
    { 
       $image_info = getimagesize($filename);
@@ -77,8 +82,8 @@ class simpleImage
 	function addImage($data)
 	{
 		$sql='INSERT into `image` (name) VALUES ("'.$data['name'].'")';
-		if(mysql_query($sql))
-		return $id=mysql_insert_id();
+		if(mysqli_query($this->cnx,$sql))
+		return $id=mysqli_insert_id($this->cnx);
 	
 	}
 	
@@ -191,7 +196,7 @@ function uploadFile($data,$name='file') // $name,$status
 		$dir='../../../public/images/'.$item[$id]['name'];
 		$thumbDir='../../../public/images/thumbs/'.$item[$id]['name'];
 		$sql='DELETE FROM `image` WHERE id="'.addslashes($id).'"';
-		if ($result = mysql_query($sql))
+		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			unlink($dir);
 			unlink($thumbDir);

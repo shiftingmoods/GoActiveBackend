@@ -2,16 +2,18 @@
 <?php require_once("../../models/user/index.php"); ?>
 <?php require_once("../../models/index/index.php");
 $user=new user();
-$index=new index();
 ?>
 <?php require_once("../connection/connect.php");
 $cnct=new cnct_class();
-$cnct->cnct();
+$cnx=$cnct->cnct();
+$index_data['cnx']=$cnx;
+$index=new index($index_data);
 ?>
 <?php
 $ip=$_SERVER['REMOTE_ADDR'];
 $user_agent=$_SERVER['HTTP_USER_AGENT'];
 //$index->show($_POST);
+$_POST['cnx']=$cnx;
 if($info=$user->login($_POST))
 {
 	$info['ip']=$ip;
@@ -20,7 +22,7 @@ if($info=$user->login($_POST))
 	$info['start_date']=date("F j, Y, g:i a");
 	$info['end_date']='PENDING';
 	//var_dump($info); die();
-	if($id=$index->addGeneralItem($info,$table='control_p_login'))
+	if($id=$index->addGeneralItem($info,$table='control_p_login',$cnx))
 	{	
 		if(isset($info['username']))	
 		{

@@ -1,7 +1,11 @@
 <?php	require_once("../../models/index/index.php"); ?>
+<?php	require_once("../../models/power/power.php"); ?>
 <?php	require_once("../connection/connect.php");
-$index=new index();
+$power=new power();
 $cnct=new cnct_class();
+
+$index_data['cnx']=$cnct->cnct();
+$index=new index($index_data);
 ?>
 <?php
 if(isset($_POST['functionName']) && md5($_POST['code'])=='5eb26332474bcde6594a04c243a613e2')
@@ -11,7 +15,7 @@ if(isset($_POST['functionName']) && md5($_POST['code'])=='5eb26332474bcde6594a04
 		if($cnct->serverCnct_createDB())
 		{
 			$cnct->cnct();
-			echo $res=$index->constructBasicDB();
+			echo $res=$power->constructBasicDB();
 			if($res!==false)
 			{
 				echo "DB successfully Created<br/>--------------------------------<br/>";

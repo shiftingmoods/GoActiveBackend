@@ -1,12 +1,17 @@
-<?php	require_once("../../models/index/index.php"); ?>
-<?php	require_once("../connection/connect.php");
-$index=new index(); ?>
-<?php	require_once("../../models/index/simpleImage.php");
-$image=new simpleImage();
-$cnct=new cnct_class();
-$cnct->cnct();
-$table=$_POST['table'];
-$Table=$index->capitalize($table);
+<?php	
+	session_start();
+	require_once("../connection/connect.php");
+	require_once("../../models/index/index.php");
+	require_once("../../models/index/simpleImage.php");
+	
+	$cnct=new cnct_class();
+	$cnx=$cnct->cnct();
+	$index_data['cnx']=$cnx;
+	$index=new index($index_data); 
+	$image=new simpleImage($index_data);
+	
+	$table=$_POST['table'];
+	$Table=$index->capitalize($table);
 ?>
 <html>
 <body STYLE="background-color:transparent;color:red;">

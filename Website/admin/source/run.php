@@ -17,7 +17,7 @@ function run(functionName)
 		document.getElementById("note").innerHTML='loading . . .';
 		var xmlhttp;
 		xmlhttp=new XMLHttpRequest();
-		xmlhttp.open("POST",'../applications/main/run.php',true);
+		xmlhttp.open("POST",'../applications/power/power.php',true);
 		xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");  //used just for POST not GET
 		var data='functionName='+functionName+'&name='+document.form.name.value+'&code='+document.form.code.value;
 		xmlhttp.send(data);//fill the send like send(name=industry&parent=role) while using POST
