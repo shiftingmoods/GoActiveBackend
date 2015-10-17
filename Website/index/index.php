@@ -1,5 +1,5 @@
 <?php  include("../public/layouts/theme_1/header.php"); ?>
-<!-- Test-->
+
 <!-------------------------------------- Page Header ----------------------------------------->
 <head>
 
