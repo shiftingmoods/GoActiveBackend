@@ -2,14 +2,9 @@
 class simpleImage 
 {
    
-	var $image;
-	var $image_type;
-	var $cnx;
-	
-	function __construct($data)
-	{
-		$this->cnx=$data['cnx'];
-	}
+   var $image;
+   var $image_type;
+ 
    function load($filename) 
    { 
       $image_info = getimagesize($filename);
@@ -82,8 +77,8 @@ class simpleImage
 	function addImage($data)
 	{
 		$sql='INSERT into `image` (name) VALUES ("'.$data['name'].'")';
-		if(mysqli_query($this->cnx,$sql))
-		return $id=mysqli_insert_id($this->cnx);
+		if(mysql_query($sql))
+		return $id=mysql_insert_id();
 	
 	}
 	
@@ -157,15 +152,15 @@ function uploadFile($data,$name='file') // $name,$status
 		$this->load('../../../public/temp/'.$data['name']);
 		$h=$this->getHeight();
 		$w=$this->getWidth();
-		if($h > '512' || $w > '512')
+		if($h > '1600' || $w > '1600')
 		{
 			if($w > $h)
 			{
-				$this->resizeToWidth('512');
+				$this->resizeToWidth('1600');
 			}
 			else
 			{
-				$this->resizeToHeight('512');
+				$this->resizeToHeight('1600');
 			}
 			$this->save('../../../public/images/'.$data['name']);
 			$this->load('../../../public/temp/'.$data['name']);
@@ -196,7 +191,7 @@ function uploadFile($data,$name='file') // $name,$status
 		$dir='../../../public/images/'.$item[$id]['name'];
 		$thumbDir='../../../public/images/thumbs/'.$item[$id]['name'];
 		$sql='DELETE FROM `image` WHERE id="'.addslashes($id).'"';
-		if ($result = mysqli_query($this->cnx,$sql))
+		if ($result = mysql_query($sql))
 		{
 			unlink($dir);
 			unlink($thumbDir);
