@@ -1,7 +1,14 @@
 <?php
+
 class index
 {
 	public $lang=1;
+	var $cnx;
+	
+	function __construct($data)
+	{
+		$this->cnx=$data['cnx'];
+	}
 	//******************  Set/Get any variable **************************
 	function setVar($data0,$varName)
 	{
@@ -50,38 +57,7 @@ class index
 		{die($item);}
 		return $item;
 	}
-	function constructBasicDB()
-	{
-		if(file_exists("../../source/basicDB/DB.txt"))
-		{
-			$DBdir = "../../source/basicDB/DB.txt";
-			$DBfile = fopen($DBdir, 'r');
-			$DBsql = fread($DBfile, filesize($DBdir));
-			fclose($DBfile);
-			$queries=explode(';',$DBsql,-1);
-			$error='';
-			foreach($queries as $ind=>$query)
-			{	if($query)
-				{
-					if(!mysql_query($query))
-					{
-						$error.= mysql_error().' _'.$query.'_ <br/>';
-					}
-				}
-			}
-			if($error!='')
-			{
-				echo $error.'<br/>--------------------------------<br/>';
-				return false;
-			}
-			else
-			{
-				return $error;
-			}
-		}
-		else
-		return false;
-	}
+	
 	function createStaticPagesAuto()//automaticaly add an "addPage" , "editPage" , "page" for tables in database . And also add the static pages ("settings","login",....)
 	{
 		$c='';
@@ -109,12 +85,12 @@ class index
 		$item=array();
 		$c='';
 		$sql0='SELECT DATABASE()';
-		$result0=mysql_query($sql0);
-		$row0=mysql_fetch_assoc($result0);
+		$result0=mysqli_query($this->cnx,$sql0);
+		$row0=mysqli_fetch_assoc($result0);
 		$DB=$row0['DATABASE()'];
 		$sql="SHOW FULL TABLES ";
-		$result=mysql_query($sql);
-		while($row=mysql_fetch_assoc($result))
+		$result=mysqli_query($this->cnx,$sql);
+		while($row=mysqli_fetch_assoc($result))
 		{
 			if($row['Tables_in_'.$DB]!='image' && $row['Tables_in_'.$DB]!='login')//exclude this tables
 			{
@@ -151,7 +127,7 @@ class index
 		$item=array();
 		$c='';
 		$sql='DROP TABLE `'.$table.'`';
-		$result=mysql_query($sql);
+		$result=mysqli_query($this->cnx,$sql);
 		//if($result)
 		//{
 			if (file_exists("../../index/".$table.".php"))
@@ -190,9 +166,9 @@ class index
 	
 	function deleteAllPrivilegesAuto()//automaticaly add all the pages to the privilege table and also asign them to the super control_p_admin with id=1 and make the basic menu for all pages
 	{
-		$c=mysql_query('TRUNCATE TABLE `control_p_privilege_to_group`');
-		$b=mysql_query('TRUNCATE TABLE `control_p_page_levels`');
-		$a=mysql_query('TRUNCATE TABLE `control_p_privilege`');
+		$c=mysqli_query($this->cnx,'TRUNCATE TABLE `control_p_privilege_to_group`');
+		$b=mysqli_query($this->cnx,'TRUNCATE TABLE `control_p_page_levels`');
+		$a=mysqli_query($this->cnx,'TRUNCATE TABLE `control_p_privilege`');
 		
 		if($a && $b && $c)
 		{
@@ -223,16 +199,16 @@ class index
 					if($itemPage)
 					{
 						$sql1='INSERT INTO control_p_privilege (name) VALUES ("delete_'.substr($file,0,-4).'")';
-						if(!mysql_query($sql1))
+						if(!mysqli_query($this->cnx,$sql1))
 						{
 							echo 'delete_'.substr($file,0,-4).' Privilege Exists<br/>';
 						}
 					}
 					//$sql3='INSERT INTO control_p_page_levels (page,menu_display_names,menu_pages) VALUES ("'.substr($file,0,-4).'","'.$this->toView(substr($Ffile,0,-4)).'","'.substr($Ffile,0,-4).'")';
 					$sql3='INSERT INTO control_p_page_levels (page,menu_display_names,menu_pages) VALUES ("'.substr($file,0,-4).'","","")';
-					if(mysql_query($sql))
+					if(mysqli_query($this->cnx,$sql))
 					{
-							if(mysql_query($sql3))
+							if(mysqli_query($this->cnx,$sql3))
 							{
 								$i++;
 							}
@@ -256,10 +232,10 @@ class index
 			return false;
 		}
 		$sql='SELECT * FROM `control_p_seq` WHERE `page_name`="'.$page.'"';
-		$result=mysql_query($sql);
-		if(mysql_num_rows($result)==1)
+		$result=mysqli_query($this->cnx,$sql);
+		if(mysqli_num_rows($result)==1)
 		{
-			$row=mysql_fetch_assoc($result);
+			$row=mysqli_fetch_assoc($result);
 			if($row['seq_array']!='')
 			{
 				eval($row['seq_array']);
@@ -276,7 +252,8 @@ class index
 	}
 	function checkTableIfExist($table)//check table if exist in db
 	{
-		if(mysql_query('SELECT * FROM `'.$table.'`'))
+		$sql='SELECT * FROM `'.$table.'`';
+		if(mysqli_query($this->cnx,$sql))
 		{
 			return true;
 		}
@@ -287,7 +264,8 @@ class index
 	}
 	function checkColumnIfExist($column,$table)//check table if exist in db
 	{
-		if(mysql_query('SELECT '.$column.' FROM `'.$table.'`'))
+		$sql='SELECT '.$column.' FROM `'.$table.'`';
+		if(mysqli_query($this->cnx,$sql))
 		{
 			return true;
 		}
@@ -530,9 +508,9 @@ class index
 		if(isset($data['column']) && isset($data['id']) && isset($table))
 		{
 			$sql='SELECT '.$data['column'].' FROM `'.$table.'` WHERE id="'.$data['id'].'"';
-			if($result=mysql_query($sql))
+			if($result=mysqli_query($this->cnx,$sql))
 			{
-				$row=mysql_fetch_assoc($result);
+				$row=mysqli_fetch_assoc($result);
 				$item=$row[$data['column']];
 				return $item;
 			}
@@ -587,74 +565,72 @@ class index
 	- $data['multiple'] : boolean to ask for muliple display names if exist or only one of them
 	*/
 	function getTableDisplayName($table,$data)// returns the column that represents the table in the view from indexes in table ..  if not found .. check field "name" if exist and return "name" .. if also not exist .. return primary key
-	{
-			
-			if(!is_array($data))
+	{	
+		if(!is_array($data))
+		{
+			$data['multiple']=false;
+		}
+		else
+		{
+			if(!isset($data['multiple']))
 			{
 				$data['multiple']=false;
 			}
+		}
+
+		$cols=$this->getGeneralColums($table);
+		$PRI=$cols['primaryKeys'];
+		$PRI=$PRI[0];
+		if($this->checkTableIfExist($table.'_language'))
+		{
+			$sql='SHOW KEYS FROM `'.$table.'_language'.'` WHERE Key_name="display_name"';
+		}
+		else
+		{
+			$sql='SHOW KEYS FROM `'.$table.'` WHERE Key_name="display_name"';
+		}
+		$result = mysqli_query($this->cnx,$sql);
+		$row='';
+		while($row0 = mysqli_fetch_assoc($result))
+		{	
+			$row[] = $row0;
+		} 
+		if($row)
+		{ 
+			if(count($row)>1 && $data['multiple'])
+			{
+				foreach($row as $Cid=>$Cvalue)
+				{
+					$return[]=$Cvalue['Column_name'];
+				}
+				return $return;
+			}
 			else
 			{
-				if(!isset($data['multiple']))
-				{
-					$data['multiple']=false;
-				}
+				return $row[0]['Column_name'];
 			}
-	
-			$cols=$this->getGeneralColums($table);
-			$PRI=$cols['primaryKeys'];
-			$PRI=$PRI[0];
+		}
+		else
+		{
 			if($this->checkTableIfExist($table.'_language'))
 			{
-				$sql='SHOW KEYS FROM `'.$table.'_language'.'` WHERE Key_name="display_name"';
+				$sql='SHOW COLUMNS FROM `'.$table.'_language` WHERE Field="name"';
 			}
 			else
 			{
-				$sql='SHOW KEYS FROM `'.$table.'` WHERE Key_name="display_name"';
+				$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="name"';
 			}
-			$result = mysql_query($sql);
-			$row='';
-			while($row0 = mysql_fetch_assoc($result))
-			{	
-				$row[] = $row0;
-			} 
+			$result = mysqli_query($this->cnx,$sql);
+			$row = mysqli_fetch_assoc($result);//  if ($table=='item_language' ) { $this->show($row); die(mysqli_error($this->cnx)); } 
 			if($row)
-			{ 
-				if(count($row)>1 && $data['multiple'])
-				{
-					foreach($row as $Cid=>$Cvalue)
-					{
-						$return[]=$Cvalue['Column_name'];
-					}
-					return $return;
-				}
-				else
-				{
-					return $row[0]['Column_name'];
-				}
+			{
+				return 'name';
 			}
 			else
 			{
-				if($this->checkTableIfExist($table.'_language'))
-				{
-					$sql='SHOW COLUMNS FROM `'.$table.'_language` WHERE Field="name"';
-				}
-				else
-				{
-					$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="name"';
-				}
-				$result = mysql_query($sql);
-				$row = mysql_fetch_assoc($result);//  if ($table=='item_language' ) { $this->show($row); die(mysql_error()); } 
-				if($row)
-				{
-					return 'name';
-				}
-				else
-				{
-					return $PRI;
-				} 
-			}
-		
+				return $PRI;
+			} 
+		}
 	}
 	/* missing language case */
 	function GetFullDisplayName($id,$table)
@@ -713,52 +689,21 @@ class index
 		}
 		return $display_name_value;
 	}
-	
-/*	function getTableDisplayName($table)// returns the column that represents the table in the view from indexes in table ..  if not found .. check field "name" if exist and return "name" .. if also not exist .. return primary key
-	{
-			$cols=$this->getGeneralColums($table);
-			$PRI=$cols['primaryKeys'];
-			$PRI=$PRI[0];
-			
-			$sql='SHOW KEYS FROM `'.$table.'` WHERE Key_name="display_name"';
-			$result = mysql_query($sql);
-			$row = mysql_fetch_assoc($result);
-			if($row)
-			{
-				return $row['Column_name'];
-			}
-			else
-			{
-				//return 'id';
-				$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="name"';
-				$result = mysql_query($sql);
-				$row = mysql_fetch_assoc($result);
-				if($row)
-				{
-					return 'name';
-				}
-				else
-				{
-					return $PRI;
-				}
-			}
-		
-	}*/
+
 	function getColumnIndex($column,$table)// returns the column that represents the table in the view from indexes in table ..  if not found .. check field "name" if exist and return "name" .. if also not exist .. return primary key
 	{
-			$sql='SHOW KEYS FROM `'.$table.'` WHERE Column_name="'.$column.'"';
-			
-			$result = mysql_query($sql);
-			if(mysql_num_rows($result)>0)
-			{ 
-				$row = mysql_fetch_assoc($result);
-				return $row['Key_name'];
-			}
-			else
-			{
-				return $column;
-			}
+		$sql='SHOW KEYS FROM `'.$table.'` WHERE Column_name="'.$column.'"';
 		
+		$result = mysqli_query($this->cnx,$sql);
+		if(mysqli_num_rows($result)>0)
+		{ 
+			$row = mysqli_fetch_assoc($result);
+			return $row['Key_name'];
+		}
+		else
+		{
+			return $column;
+		}
 	}
 	/*
 	output:
@@ -772,19 +717,18 @@ class index
 	*/
 	function getColumnProperties($data,$table)
 	{
-			$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="'.$data['column_name'].'"';
-			
-			$result = mysql_query($sql);
-			if(mysql_num_rows($result)>0)
-			{ 
-				$row = mysql_fetch_assoc($result);
-				return $row;
-			}
-			else
-			{
-				return Array();
-			}
+		$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="'.$data['column_name'].'"';
 		
+		$result = mysqli_query($this->cnx,$sql);
+		if(mysqli_num_rows($result)>0)
+		{ 
+			$row = mysqli_fetch_assoc($result);
+			return $row;
+		}
+		else
+		{
+			return Array();
+		}
 	}
 	function getIdByName($name,$table)
 	{
@@ -792,8 +736,8 @@ class index
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
 		$sql='SELECT '.$PRI.' FROM `'.$table.'` WHERE name="'.$name.'"';
-		$result = mysql_query($sql);
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($this->cnx,$sql);
+		$row = mysqli_fetch_assoc($result);
 		if($row)
 		{
 			return $row[$PRI];
@@ -848,8 +792,8 @@ class index
 	function getViewColumns($table)//returns the number of columns displayed when viewing the table
 	{
 		$sql='SELECT columns FROM control_p_table_view_columns WHERE table_name="'.$table.'" LIMIT 1';
-		$result = mysql_query($sql);
-		if($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($this->cnx,$sql);
+		if($row = mysqli_fetch_assoc($result))
 		{
 			return $row['columns'];
 		}
@@ -891,8 +835,8 @@ class index
 	function getGeneralColums($table)
 	{
 		$sql ='SHOW COLUMNS FROM `'.$table.'`';
-		$result = mysql_query($sql);
-		while($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($this->cnx,$sql);
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item['keys'][$row['Field']] = $row; // fill up the array
 		}//var_dump($row);die();
@@ -918,8 +862,8 @@ class index
 	{
 		$item=array();
 		$sql ='SHOW INDEX FROM `'.$table.'`';
-		$result = mysql_query($sql);
-		while($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($this->cnx,$sql);
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item[]= $row; // fill up the array
 		}//var_dump($row);die();
@@ -930,8 +874,8 @@ class index
 	{
 		$item='';
 		$sql ='SHOW INDEX FROM `'.$table.'` WHERE `Non_unique`="0" ';
-		$result = mysql_query($sql);
-		while($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($this->cnx,$sql);
+		while($row = mysqli_fetch_assoc($result))
 		{
 			$item[$row["Key_name"]][]=$row ;
 		}//var_dump($row);die();
@@ -1027,7 +971,7 @@ class index
 		}
 		$sql = 'DELETE FROM `'.$table.'` '.$fillSQL;
 		//die($sql);
-		if ($result = mysql_query($sql))
+		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			if($images)//delete the images from database and from images folder
 			{
@@ -1064,14 +1008,13 @@ class index
 	}
 	function getGeneralIdByForeignId($data,$table)
 	{
-		
 		$item=array();
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
 		$sql='SELECT `'.$PRI.'` FROM `'.$table.'` WHERE `'.$data["column"].'_id`="'.$data['value'].'" ';
-		$result=mysql_query($sql);
-		while($row = mysql_fetch_assoc($result))
+		$result=mysqli_query($this->cnx,$sql);
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item[] = $row[$PRI];
 		}
@@ -1097,8 +1040,8 @@ class index
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];//this is the primary key default id
 		$sql = 'SELECT '.$PRI.' FROM `'.$table.'` WHERE '.$PRI.'="'.$id.'"'; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($this->cnx,$sql); // use it to fetch
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item[$row[$PRI]] = $row; // fill up the array
 		}
@@ -1112,191 +1055,14 @@ class index
 			return $item;
 		}
 		$sql = 'SELECT `'.$column.'` FROM `'.$table.'` WHERE `'.$column.'`="'.$value.'"'; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($this->cnx,$sql); // use it to fetch
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item[$row[$column]] = $row; // fill up the array
 		}
 		return $item; // array must return something 	
 	}
-//************************************************************************************************
-	/*
-	function getAllItems($status='all',$table) 
-	{
-		if($status=='all')
-		{
-			$sql2='';
-		}	
-		else
-		{
-			$sql2 ='WHERE status = "'.addslashes($status).'"'; 
-		}
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id , name  FROM `'.$table.'` '.$sql2; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
-		{	
-			$item[$row['id']] = $row; // fill up the array
-		}
-		return $item; // array must return something 	
-	}
-	
-	// gets item with specific id    TESTED
-	function getItemById($id,$table) 
-	{
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id,name ,status FROM `'.$table.'` WHERE id = "'.$id.'"'; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
-		{	
-			$item[$row['id']] = $row; // fill up the array
-		}
-		return $item; // array must return something 	
-	}
 
-	//get the item id of the specified name or  returns id  
-	function getItemId($data,$table)
-	{
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id FROM `'.$table.'` WHERE name = "'.$data['name'].'" LIMIT 1 '; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		$row = mysql_fetch_assoc($result);
-		{	
-			$item= $row['id']; // fill up the array
-		}
-		
-		return $item; // array must return something 	
-	}
-
-	//get the item id of the specified mane returns id  
-	function checkItemIfExist($id,$data,$table)
-	{
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id FROM `'.$table.'` WHERE ( name = "'.$data['name'].'" AND id!="'.$id.'")'; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
-		{	
-			$item= $row['id']; // fill up the array
-		}
-		
-		return $item; // array must return something 	
-	}
-	
-	//edit item with the specified id
-	function editItem($id,$data,$table)   //$name_en,$name_ar
-	{
-		if($data['name']=='')
-		{
-			return FALSE;
-		}
-		$sql = 'UPDATE `'.$table.'` SET  name="'.addslashes($this->capitalize($data['name'])).'" , status="'.addslashes($data['status']).'" WHERE id="'.$id.'"';
-		if ($result = mysql_query($sql))
-		{
-			return TRUE ;
-		}
-	}
-
-	//add new item         TESTED
-	function addItem($data,$table)   //$name_en,$name_ar 
-	{
-		if($data['name']=='')
-		{
-			return FALSE;
-		}
-		else
-		{
-			$sql = 'INSERT INTO '.$table.'( name, status) VALUES ( "'.addslashes($this->capitalize($data['name'])).'","'.addslashes($data['status']).'")';
-			if ($result = mysql_query($sql))
-			{
-				return $id=mysql_insert_id();
-			}
-		}
-	}
-
-//**********************************************  add simple item functions **************************
-	//add new Child item
-	function addChildItem($data,$table,$parentTable)    //$data[] contain the name and status ,and $table is the table itself and the $parentTable is the parent table for this table
-	{
-		$sql = 'INSERT INTO '.$table.'( name,'.$parentTable.'_id, status) VALUES ( "'.addslashes($this->capitalize($data['name'])).'","'.addslashes($data[''.$parentTable.'_id']).'","'.addslashes($data['status']).'")';
-		if ($result = mysql_query($sql))
-			{
-				return $id=mysql_insert_id();
-			}
-	}
-
-	function editChildItem($id,$data,$table,$parentTable)
-	{ 
-		$sql = 'UPDATE `'.$table.'` SET  status="'.addslashes($data['status']).'",name="'.addslashes($data['name']).'",'.$parentTable.'_id="'.addslashes($data[$parentTable.'_id']).'" WHERE id="'.addslashes($id).'"';
-		if ($result = mysql_query($sql))
-		{
-			return TRUE ;
-		}
-	
-	}
-	
-	//get the country id of the specified mane returns id  
-	function checkChildItemIfExist($id,$data,$table,$parentTable)
-	{
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id FROM `'.$table.'` WHERE ( name = "'.addslashes($data['name']).'" AND '.$parentTable.'_id="'.addslashes($data[$parentTable.'_id']).'") AND id!="'.addslashes($id).'"'; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
-		{	
-			$item= $row['id']; // fill up the array
-		}
-		
-		return $item; // array must return something 	
-	}	
-
-	//get the city of the specified id   TESTED
-	function getChildItemById($id,$table,$parentTable)
-	{
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id,name,'.$parentTable.'_id ,status FROM `'.$table.'` WHERE id = "'.addslashes($id).'"'; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
-		{	
-			$item[$row['id']] = $row; // fill up the array
-		}
-		return $item; // array must return something 	
-	}
-		
-	//get the city id of the specified username returns id  
-	function getChildItemId($data,$table,$parentTable)
-	{
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id FROM `'.$table.'` WHERE name = "'.addslashes($data['name']).'"  AND '.$parentTable.'_id = "'.addslashes($data[$parentTable.'_id']).'" LIMIT 1 '; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		$row = mysql_fetch_assoc($result);
-		{	
-			$item= $row['id']; // fill up the array
-		}
-		
-		return $item; // array must return something 	
-	}
-	
-	//get all the ACTIVE cities by default  TESTED
-	function getAllChildItems($parentId,$status='all',$table,$parentTable)
-	{
-		if($status=='all')
-		{
-			$sql2='';
-		}	
-		else
-		{
-			$sql2 =' AND status = "'.addslashes($status).'"'; 
-		}
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT id , name  FROM `'.$table.'` WHERE '.$parentTable.'_id ="'.addslashes($parentId).'"'.$sql2; // change by function
-		$result = mysql_query($sql); // use it to fetch
-		while($row = mysql_fetch_assoc($result))
-		{	
-			$item[$row['id']] = $row; // fill up the array
-		}
-		return $item; // array must return something 	
-	}
-	*/
-//*****************************************************end of child item functions *********************
 	function getAllGeneralItemsWith2KeysWithJoins($filterData,$table)//return the same as getAllGeneralItemsWithJoins if the primary keys =1 and  if the primary keys =2
 	{
 		$filterData0=$filterData;
@@ -1537,11 +1303,12 @@ class index
 		}
 		$sql = 'SELECT `'.$table.'`.* '.$joinsSelect.'  FROM `'.$table.'` '.$joinsInner.' '.$filterBy.' '.$orderBy.' '.$limit; // change by function
 		//if($table=='item') die($sql);
-		$result = mysql_query($sql);
+		$result = mysqli_query($this->cnx,$sql);
 
-		//if(mysql_error()) $this->show(mysql_error());
-		while($row = mysql_fetch_assoc($result))
-		{	
+		//if(mysqli_error($this->cnx)) $this->show(mysqli_error($this->cnx));
+
+		while($row = mysqli_fetch_assoc($result))
+		{
 			if($allPRIS==1)
 			{
 				$item[$row[$PRI]] = $row; // fill up the array
@@ -1552,9 +1319,11 @@ class index
 			}
 		}
 		//************* if not found in other language use default ********
+		
+		
 		if($tableLang)
 		{
-			if(!count($row) && $langID!='1')
+			if(!count($item) && $langID!='1')
 			{
 				$filterData0['language_id']='1';
 				return $this->getAllGeneralItemsWith2KeysWithJoins($filterData0,$table);
@@ -1595,7 +1364,7 @@ class index
 		{
 			$item=$this->getAllGeneralItemsWith2KeysWithJoins($filterData,$table);
 		}
-			//die(mysql_error());
+			//die(mysqli_error($this->cnx));
 		return $item; // array must return something 	
 	}
 
@@ -1754,11 +1523,11 @@ class index
 		$item = array(); // use it to avoid return false from database
 		$sql = 'SELECT `'.$table.'`.* '.$joinsSelect.'  FROM `'.$table.'` '.$joinsInner.' '.$filterBy.' '.$orderBy.' '.$limit; // change by function
 		//die($sql);
-		$result = mysql_query($sql); // use it to fetch
+		$result = mysqli_query($this->cnx,$sql); // use it to fetch
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
-		while($row = mysql_fetch_assoc($result))
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item[$row[$PRI]] = $row; // fill up the array
 		}
@@ -1855,11 +1624,11 @@ class index
 		$item = array(); // use it to avoid return false from database
 		$sql = 'SELECT *  FROM `'.$table.'` '.$sql2.' '.$filterBy.' '.$orderBy.' '.$limit; // change by function
 		//var_dump($sql);die();
-		$result = mysql_query($sql); // use it to fetch
+		$result = mysqli_query($this->cnx,$sql); // use it to fetch
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
-		while($row = mysql_fetch_assoc($result))
+		while($row = mysqli_fetch_assoc($result))
 		{	
 			$item[$row[$PRI]] = $row; // fill up the array
 		}
@@ -1894,7 +1663,7 @@ function getGeneralItemById($id,$table)
 			$column=$table.'_id';
 		}
 		//****** set defaults if not defined **************
-		if(!isset($id['useLange']))
+		if(!isset($id['useLang']))
 		{
 			$id['useLang']='false';
 		}
@@ -1975,8 +1744,8 @@ function getGeneralItemById($id,$table)
 		$item = array(); // use it to avoid return false from database
 		$sql = 'SELECT '.$PRI.' FROM `'.$table.'` '.$fillSQL.' LIMIT 1 '; // change by function
 		//die($sql);
-		$result = mysql_query($sql); // use it to fetch
-		$row = mysql_fetch_assoc($result);
+		$result = mysqli_query($this->cnx,$sql); // use it to fetch
+		$row = mysqli_fetch_assoc($result);
 		{	
 			$item= $row[$PRI]; // fill up the array
 		}
@@ -2034,8 +1803,8 @@ function getGeneralItemById($id,$table)
 					$fillSQL=$fillSQL.') AND `'.$PRI.'`!="'.$id.'"';
 					$sql = 'SELECT '.$PRI.' FROM `'.$table.'` '.$fillSQL; // change by function
 					//if($table=="member") echo $sql.'<br/>';
-					$result = mysql_query($sql); // use it to fetch
-					while($row = mysql_fetch_assoc($result))
+					$result = mysqli_query($this->cnx,$sql); // use it to fetch
+					while($row = mysqli_fetch_assoc($result))
 					{
 						$item[]='('.implode(',',$returnA).')'; // return to user like "(phone,email,name)"
 						unset($returnA);// not to effect the new loop term
@@ -2119,7 +1888,7 @@ function getGeneralItemById($id,$table)
 		}
 		$sql = 'UPDATE `'.$table.'` '.$fillSQL;
 		//die($sql);
-		if ($result = mysql_query($sql))
+		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			return TRUE ;
 		}
@@ -2202,7 +1971,7 @@ function getGeneralItemById($id,$table)
 		}
 		$sql = 'UPDATE `'.$table.'` '.$fillSQL;
 		
-		if ($result = mysql_query($sql))
+		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			return TRUE ;
 		}
@@ -2269,9 +2038,9 @@ function getGeneralItemById($id,$table)
 		}
 		$sql = 'INSERT INTO `'.$table.'`('.$fillSQLcol.') VALUES ('.$fillSQLval.')';
 		//die($sql);
-		if ($result = mysql_query($sql))
+		if ($result = mysqli_query($this->cnx,$sql))
 		{
-			if($id=mysql_insert_id())
+			if($id = mysqli_insert_id($this->cnx))
 			{
 				return $id;
 			}
@@ -2341,9 +2110,9 @@ function getGeneralItemById($id,$table)
 		}
 		$sql = 'INSERT INTO `'.$table.'`('.$fillSQLcol.') VALUES ('.$fillSQLval.')';
 		//die($sql);
-		if ($result = mysql_query($sql))
+		if ($result = mysqli_query($this->cnx,$sql))
 		{
-			if($id=mysql_insert_id())
+			if($id=mysqli_insert_id($this->cnx))
 			{
 				return $id;
 			}
@@ -2366,7 +2135,8 @@ function getGeneralItemById($id,$table)
 	// check if this table is a language table and not the main
 	function hasLanguage($table)
 	{
-		if(mysql_query('SELECT language_id FROM `'.$table.'`'))
+		$sql='SELECT language_id FROM `'.$table.'`';
+		if(mysqli_query($this->cnx,$sql))
 		{
 			return true;
 		}
@@ -2377,9 +2147,10 @@ function getGeneralItemById($id,$table)
 	}
 	function isLanguageDefined($data,$table)
 	{
-		if($result=mysql_query('SELECT `language_id` FROM `'.$table.'` WHERE `language_id`="'.$data['language_id'].'" AND `'.str_replace('_language','',$table).'_id`="'.$data['id'].'"'))
+		$sql='SELECT `language_id` FROM `'.$table.'` WHERE `language_id`="'.$data['language_id'].'" AND `'.str_replace('_language','',$table).'_id`="'.$data['id'].'"';
+		if($result=mysqli_query($this->cnx,$sql))
 		{
-			if(mysql_num_rows($result))
+			if(mysqli_num_rows($result))
 			{
 				return true;
 			}
@@ -2476,21 +2247,6 @@ function getGeneralItemById($id,$table)
 	}
 	function getNextStep($page,$seq)
 	{
-		/*$item='end';
-		if($this->checkTableIfExist('Control_p_page_levels'))
-		{
-			$sql='SELECT `next` FROM `Control_p_page_levels` WHERE page="'.$page.'"';
-			$result=mysql_query($sql);
-			if(mysql_num_rows($result)>0)
-			{
-				$row=mysql_fetch_assoc($result);
-				if($row['next'])
-				{
-					$item=$row['next'];
-				}
-			}
-		}
-		return $item;*/
 		$item='end';
 		foreach($seq as $ind=>$data)
 		{
@@ -2506,21 +2262,6 @@ function getGeneralItemById($id,$table)
 	}
 	function getPrevStep($next,$seq)
 	{
-		/*$item='start';
-		if($this->checkTableIfExist('Control_p_page_levels'))
-		{
-			$sql='SELECT `page` FROM `Control_p_page_levels` WHERE next="'.$next.'"';
-			$result=mysql_query($sql);
-			if(mysql_num_rows($result)>0)
-			{
-				$row=mysql_fetch_assoc($result);
-				if($row['page'])
-				{
-					$item=$row['page'];
-				}
-			}
-		}
-		return $item;*/
 		$item='start';
 		foreach($seq as $ind=>$data)
 		if($data['page']==$next)
@@ -2540,10 +2281,10 @@ function getGeneralItemById($id,$table)
 		if($this->checkTableIfExist('Control_p_page_levels'))
 		{
 			$sql='SELECT `next` FROM `Control_p_page_levels` WHERE `page`="'.$page.'"';
-			$result=mysql_query($sql);
-			if(mysql_num_rows($result)>0)
+			$result=mysqli_query($this->cnx,$sql);
+			if(mysqli_num_rows($result)>0)
 			{
-				$row=mysql_fetch_assoc($result);
+				$row=mysqli_fetch_assoc($result);
 				if($row['next'])
 				{
 					if($row['next'])

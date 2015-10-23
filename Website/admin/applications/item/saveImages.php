@@ -1,12 +1,15 @@
-<?php	session_start(); ?>
-<?php	require_once("../../models/index/index.php"); ?>
-<?php	require_once("../connection/connect.php");
-$index=new index(); ?>
-<?php	require_once("../../models/index/simpleImage.php");
-$image=new simpleImage();
-$cnct=new cnct_class();
-$cnct->cnct();
-$images_added=array();
+<?php	
+	session_start();
+	require_once("../connection/connect.php");
+	require_once("../../models/index/index.php");
+	require_once("../../models/index/simpleImage.php");
+	
+	$cnct=new cnct_class();
+	$cnx=$cnct->cnct();
+	$index_data['cnx']=$cnx;
+	$index=new index($index_data); 
+	$image=new simpleImage($index_data);
+	$images_added=array();
 //$index->show($_FILES);
 ?>
 <html>

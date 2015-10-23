@@ -56,7 +56,9 @@ if(isset($_GET['id']))
 		{		
 				$selectedItemIdA['id']=$selectedItemId;
 				$selectedItemIdA['language_id']=$lang;
-				$Aitm = $index->getGeneralItemById($selectedItemIdA,$orgTable); 
+				$selectedItemIdA['useLang']='true';
+				$Aitm = $index->getGeneralItemById($selectedItemIdA,$orgTable);
+ 
 		}
 		else
 		{
@@ -105,6 +107,7 @@ else
 	}	
 	function changeEditMode()
 	{
+		
 		if(document.form.language_id.value=="<?php echo $lang; ?>")
 		{
 			document.form.action='../applications/itemIframe/saveGeneralItemEdit.php?newLang=true';

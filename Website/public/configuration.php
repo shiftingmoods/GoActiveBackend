@@ -1,16 +1,5 @@
 <?php
-if(file_exists('../models/connection/mysql_connect.php'))
-{
-	require_once('../models/connection/mysql_connect.php');
-}
-elseif(file_exists('../../models/connection/mysql_connect.php'))
-{
-	require_once('../../models/connection/mysql_connect.php');
-}
-else
-{
-die('Missing Files, Please Try Again');
-}
+require_once('../models/connection/mysql_connect.php');
 require_once('constants.php');
 class cnct_class
 {
@@ -27,12 +16,13 @@ class cnct_class
 		$mod = $C->getConstant('CATEGORY');
 		if ($mod == 'prod')
 		{
-			$db = $connect->db_connect($C->getConstant('HOST_prod'),$C->getConstant('ROOT_prod'),$C->getConstant('PASS_prod'),$C->getConstant('DB_prod'));
+			$cnx = $connect->db_connect($C->getConstant('HOST_prod'),$C->getConstant('ROOT_prod'),$C->getConstant('PASS_prod'),$C->getConstant('DB_prod'));
 		}
 		else
 		{
-			$db = $connect->db_connect($C->getConstant('HOST_dev'),$C->getConstant('ROOT_dev'),$C->getConstant('PASS_dev'),$C->getConstant('DB_dev'));
+			$cnx = $connect->db_connect($C->getConstant('HOST_dev'),$C->getConstant('ROOT_dev'),$C->getConstant('PASS_dev'),$C->getConstant('DB_dev'));
 		}
+		return $cnx;
 	}
 }
 ?>

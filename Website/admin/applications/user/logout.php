@@ -4,11 +4,12 @@ $user=new user();
 ?>
 <?php	require_once("../connection/connect.php");
 $cnct=new cnct_class();
-$cnct->cnct();
+$cnx=$cnct->cnct();
 ?>
 <?php
-$id=$_SESSION['control_p_login_id'];
-if($user->logout($id))
+$data['id']=$_SESSION['control_p_login_id'];
+$data['cnx']=$cnx;
+if($user->logout($data))
 {
 	
 	if(session_destroy())

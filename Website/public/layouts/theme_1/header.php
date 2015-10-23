@@ -1,13 +1,9 @@
-<?php session_start(); ?>
-<?php require_once("../models/index/index.php");
-$index=new index();
-?>
-<?php require_once("../models/index/custom.php");
-$custom=new custom();
-?>
-<?php require_once('../public/configuration.php');
+<?php 
+require_once('../public/configuration.php');
+require_once("../models/index/index.php");
 $cnct=new cnct_class();
-$cnct->cnct();
+$index_data['cnx']=$cnct->cnct();
+$index=new index($index_data);
 ?>
 <?php
 require_once("../public/constants.php");

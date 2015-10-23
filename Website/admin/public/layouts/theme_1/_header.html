@@ -17,12 +17,14 @@ else
 	}
 }
 ?>
-<?php require_once("../models/index/index.php");
-$index=new index();
-?>
-<?php require_once('../public/configuration.php');
+<?php 
+require_once('../public/configuration.php');
 $cnct=new cnct_class();
-$cnct->cnct();
+$index_data['cnx']=$cnct->cnct();
+?>
+<?php 
+require_once("../models/index/index.php");
+$index=new index($index_data);
 ?>
 <?php
 if(!isset($_SESSION['lang']))

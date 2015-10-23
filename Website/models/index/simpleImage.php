@@ -152,15 +152,15 @@ function uploadFile($data,$name='file') // $name,$status
 		$this->load('../../../public/temp/'.$data['name']);
 		$h=$this->getHeight();
 		$w=$this->getWidth();
-		if($h > '512' || $w > '512')
+		if($h > '1600' || $w > '1600')
 		{
 			if($w > $h)
 			{
-				$this->resizeToWidth('512');
+				$this->resizeToWidth('1600');
 			}
 			else
 			{
-				$this->resizeToHeight('512');
+				$this->resizeToHeight('1600');
 			}
 			$this->save('../../../public/images/'.$data['name']);
 			$this->load('../../../public/temp/'.$data['name']);
