@@ -1306,8 +1306,9 @@ class index
 		$result = mysqli_query($this->cnx,$sql);
 
 		//if(mysqli_error($this->cnx)) $this->show(mysqli_error($this->cnx));
+
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			if($allPRIS==1)
 			{
 				$item[$row[$PRI]] = $row; // fill up the array
@@ -1318,9 +1319,11 @@ class index
 			}
 		}
 		//************* if not found in other language use default ********
+		
+		
 		if($tableLang)
 		{
-			if(!count($row) && $langID!='1')
+			if(!count($item) && $langID!='1')
 			{
 				$filterData0['language_id']='1';
 				return $this->getAllGeneralItemsWith2KeysWithJoins($filterData0,$table);
@@ -1660,7 +1663,7 @@ function getGeneralItemById($id,$table)
 			$column=$table.'_id';
 		}
 		//****** set defaults if not defined **************
-		if(!isset($id['useLange']))
+		if(!isset($id['useLang']))
 		{
 			$id['useLang']='false';
 		}
