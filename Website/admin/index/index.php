@@ -74,6 +74,27 @@ $menu=$index->getMenuList($Mdata);
 		<?php
 		break;
 		case 1:
+			?>
+			<div class="home_table" >
+			<?php
+			$i=0;
+			echo '<table  '.$display.' ><tr>';
+				foreach($menu['menu_pages'] as $menu_id=>$mnu)
+				{
+						$display_name=$menu['menu_display_names'][$menu_id];
+						//var_dump($menu['menu_pages']); die();
+
+						$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu);
+						if($res) {
+						 echo ('<td ><input type="button" title="'.$display_name.'" style="float:left" onclick="window.location=\''.$mnu.'.php\'" value="'.$display_name.'" ></td>');
+						 $i++;
+						 }
+				if($i==6){echo '</tr><tr>'; $i=0;}
+				}
+			echo '<tr></table>';
+				?>
+			</div>
+			<?php
 		break;
 		}
 		?>
