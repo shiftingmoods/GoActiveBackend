@@ -3,38 +3,24 @@
 $Mdata['page']='index';
 $menu=$index->getMenuList($Mdata);
 ?>
-	<div id="body">	
-		
+	<div id="body">
+
 		<div id="firstColumn" >
-		<table >
-		<!---------------------------- Get Menu List In Common of all pages ---------------------------------->
+
+		<table style="margin-top:0px;" >
+
 			<?php
 				foreach($menu['menu_pages'] as $menu_id=>$mnu)
 				{
 					$display_name=$menu['menu_display_names'][$menu_id];
-					$dot_position=strpos($mnu,".");
-					$ext="";//to add .php if there was no extension in the string
-					if($dot_position===false)
-					{
-						$mnu_no_param=$mnu;
-						$ext=".php";
-					}
-					else
-					{
-						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
-					}
 					//var_dump($menu['menu_pages']); die();
-					
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu;?>.php"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
-		<!---------------------------- Get Menu List In Common of all pages End ---------------------------------->
-		<tr><td></td></tr>
-		<tr><td></td></tr>
 		</table>
 		</div>
 		<div id="secondColumn"  >
@@ -57,10 +43,10 @@ $menu=$index->getMenuList($Mdata);
 			//$index->show($pages);
 			//$pages=$index->getAllGeneralItemsWithJoins('','control_p_privilege');
 			$i=0;
-			$display=''; 
+			$display='';
 			if($_SESSION['control_p_group_id']!='0')
 			{
-				 $display='style="display:none"'; 
+				 $display='style="display:none"';
 			}
 			echo '<table  '.$display.' ><tr>';
 			foreach($pages as $id=>$value)
@@ -72,12 +58,12 @@ $menu=$index->getMenuList($Mdata);
 						$btnValue=$index->toView($value);
 						if(strlen($btnValue)>20)
 						{
-							$btnValue=substr($btnValue, 0, -(strlen($btnValue)-20)).'..';  
+							$btnValue=substr($btnValue, 0, -(strlen($btnValue)-20)).'..';
 						}
 						echo ('<td ><input type="button" title="'.$index->toView($value).'" style="float:left" onclick="window.location=\''.$value.'.php\'" value="'.$btnValue.'" ></td>');
 						$i++;
 					}
-					
+
 					if($i==6){echo '</tr><tr>'; $i=0;}
 				}
 			}
@@ -88,30 +74,31 @@ $menu=$index->getMenuList($Mdata);
 		<?php
 		break;
 		case 1:
-		?>
-		<div class="home_table" >
-		<table>
-			<tr>
-				<td>
-				<input type="button" title="Fill New Form" style="float:left" onclick="window.location='../../entry/index.php'" value="Fill New Form" >
-				</td>
-				<td>
-				<input type="button" title="Fill New Form" style="float:left" onclick="window.location='../../index/index.php'" value="Advanced Search" >
-				</td>
-				
-				<td>
-				</td>
-			</tr>
-		</table>
-		</div>
-		<?php
+			?>
+			<div class="home_table" >
+			<?php
+			$i=0;
+			echo '<table  '.$display.' ><tr>';
+				foreach($menu['menu_pages'] as $menu_id=>$mnu)
+				{
+						$display_name=$menu['menu_display_names'][$menu_id];
+						//var_dump($menu['menu_pages']); die();
+
+						$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu);
+						if($res) {
+						 echo ('<td ><input type="button" title="'.$display_name.'" style="float:left" onclick="window.location=\''.$mnu.'.php\'" value="'.$display_name.'" ></td>');
+						 $i++;
+						 }
+				if($i==6){echo '</tr><tr>'; $i=0;}
+				}
+			echo '<tr></table>';
+				?>
+			</div>
+			<?php
 		break;
-		?>
-		
-		<?php
 		}
 		?>
-		</div>	
-		
+		</div>
+
 	</div>
 <?php require_once('../public/layouts/theme_1/_footer.html');
