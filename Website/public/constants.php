@@ -5,7 +5,7 @@ class ConstantsControl_p_admin
 	const ROOT_prod='shifting_riham'; // online user name
 	const DB_prod='shifting_riham'; // online database name
 	const PASS_prod='MixTricks1'; //online user password
-	const HOST_dev='localhost'; //local servername
+	const HOST_dev='localhost:3306'; //local servername
 	const ROOT_dev='root'; // local username
 	const DB_dev='test_old_concept'; // local database name
 	const PASS_dev=''; // locat database password
