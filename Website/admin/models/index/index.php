@@ -841,7 +841,6 @@ class index
 		$result = mysqli_query($this->cnx,$sql);
 		while($row = mysqli_fetch_assoc($result))
 		{
->>>>>>> shiftingmoods/master
 			$item['keys'][$row['Field']] = $row; // fill up the array
 		}//var_dump($row);die();
 		foreach($item['keys'] as $keyId=>$keyValue)
