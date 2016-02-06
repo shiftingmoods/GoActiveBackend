@@ -11,8 +11,9 @@ class user
 		{
 			$sql = 'SELECT id AS control_p_admin,email,control_p_group_id FROM `control_p_admin` WHERE email = "'.$data['email'].'" AND password = MD5("'.$data['password'].'") LIMIT 1';
 		}
-		$result = mysql_query($sql);
-		if($row = mysql_fetch_assoc($result))
+		$result = mysqli_query($data['cnx'],$sql);
+		
+		if($row = mysqli_fetch_assoc($result))
 		{
 			return $row;
 		}
@@ -21,10 +22,12 @@ class user
 			return false;
 		}
 	}
-	function logout($id)
+	function logout($data)
 	{
+		$cnx=$data['cnx'];
+		$id=$data['id'];
 		$sql = 'UPDATE control_p_login SET end_date="'.date("F j, Y, g:i a").'", online="No" WHERE id = "'.$id.'" ';
-		$result = mysql_query($sql);
+		$result = mysqli_query($cnx,$sql);
 		if($result)
 		{
 			return true;

@@ -1,10 +1,14 @@
-<?php	require_once("../../models/index/index.php");
-$index=new index(); ?>
-<?php	require_once("../connection/connect.php");
-$cnct=new cnct_class();
-$cnct->cnct();
-$table=$_POST['table'];
-$Table=$index->capitalize($table);
+<?php
+	require_once("../connection/connect.php");
+	require_once("../../models/index/index.php");
+	
+	$cnct=new cnct_class();
+	$cnx=$cnct->cnct();
+	$index_data['cnx']=$cnx;
+	$index=new index($index_data); 
+	
+	$table=$_POST['table'];
+	$Table=$index->capitalize($table);
 ?>
 <?php
 	$data = array();

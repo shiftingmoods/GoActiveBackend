@@ -12,19 +12,21 @@
 	
 	$table=$_POST['table'];
 	$Table=$index->capitalize($table);
+	$keep_parent='';
+	$index->show($_POST);
+if(isset($_POST['keep_parent']))// keep the parent table selected while adding childs
+{
+	$keep_parent='&'.$_POST['keep_parent'].'='.$_POST[$_POST['keep_parent']];
+}
 ?>
-<html>
-<body STYLE="background-color:transparent;color:red;">
-<p style="vertical-align:middle;border:1px solid gray;">
 <?php
 	//var_dump($_FILES);die();
 	$data = array();
-	$note = 'No Post';
 	if(isset($_POST))
 	{
 		foreach($_POST as $key=>$post)
 		{
-			if($key!='table')
+			if($key!='table' && $key!='keep_parent')
 			{
 //**************************** save schedule as array ********************************
 				if(strpos($key,'schedule_')!==false)								//
@@ -126,24 +128,20 @@
 			}
 		}
 	}
-	$itemExist=$index->checkGeneralItemIfExist($id='',$data,$table);
+	$itemExist=$index->checkGeneralItemIfExist($id='0',$data,$table);
 	if($itemExist)
 	{
-		$note=$index->toView($Table).' '.$itemExist.' Exist';
+		header('Location: ../../index/add'.$Table.'.php?note='.$index->toView($Table).' Exist'.$keep_parent);
 	}
 	else
 	{
 		if($itemAdded = $index->addGeneralItem($data,$table))
 		{	
-			$note=$index->toView($Table).' Added';
+			header('Location: ../../index/add'.$Table.'.php?note='.$index->toView($Table).' Added'.$keep_parent);
 		}
 		else
 		{
-			$note=$index->toView($Table).' Not Added,Please Try Again';
+			header('Location: ../../index/add'.$Table.'.php?note='.$index->toView($Table).' Not Added,Please Try Again'.$keep_parent);
 		}
 	}
-	echo($note);
 ?>
-</p>
-</body>
-</html>

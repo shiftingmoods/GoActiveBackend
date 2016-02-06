@@ -12,14 +12,9 @@
 	
 	$table=$_POST['table'];
 	$Table=$index->capitalize($table);
-//$index->show($_FILES);
 ?>
-<html>
-<body STYLE="background-color:transparent;color:red;">
-<p style="vertical-align:middle;border:1px solid gray;">
 <?php
 	$data = array();
-	$note='<span style="font-size:13px;color:lightred!important" >';
 	if(isset($_POST))
 	{
 		foreach($_POST as $key=>$post)
@@ -49,7 +44,8 @@
 	$itemExist=$index->checkGeneralItemIfExist($id,$data,$table);
 	if($itemExist)
 	{
-		$note=$index->toView($Table).' '.$itemExist.' Exists';
+		header('Location: ../../index/edit'.$Table.'.php?id='.$id.'&note='.$index->toView($Table).' Name Exist');
+		exit;
 	}
 	else
 	{
@@ -89,20 +85,26 @@
 //******************************************* END IN CASE THERE IS IMAGE *****************************************
 		if(isset($_GET['newLang']))
 		{
-			$itemEdited =$index->editGeneralItemNewLang($id,$data,$table);
-			if($itemEdited)
+			if(false)
 			{
-				$note=$index->toView($Table).' New Language Added';
 			}
 			else
-			{die(mysql_error());
-				if(strpos(mysql_error(),'Duplicate entry')=== false)
+			{
+				$itemEdited =$index->editGeneralItemNewLang($id,$data,$table);	
+				if($itemEdited)
 				{
-					$note=$index->toView($Table).' New Language Not Added,Please Try Again';
+					header('Location: ../../index/edit'.$Table.'.php?id='.$id.'&note='.$index->toView($Table).' New Language Added');
 				}
 				else
-				{ 
-					$note=$index->toView($Table).' Language Exists,Try Edit Later';
+				{
+					if(strpos(mysql_error(),'Duplicate entry')=== false)
+					{
+						header('Location: ../../index/edit'.$Table.'.php?id='.$id.'&note='.$index->toView($Table).' New Language Was Not Added,Please Try Again');
+					}
+					else
+					{
+						header('Location: ../../index/edit'.$Table.'.php?id='.$id.'&note='.$index->toView($Table).' New Language Exists,Try Edit Later');
+					}
 				}
 			}
 		}
@@ -115,20 +117,15 @@
 			else
 			{
 				$itemEdited =$index->editGeneralItem($id,$data,$table);
-			}		
+			}	
 			if($itemEdited)
 			{
-				$note=$index->toView($Table).' Edited';
+				header('Location: ../../index/edit'.$Table.'.php?id='.$id.'&note='.$index->toView($Table).' Edited');
 			}
 			else
 			{
-				$note=$index->toView($Table).' Not Edited,Please Try Again';
+				header('Location: ../../index/edit'.$Table.'.php?id='.$id.'&note='.$index->toView($Table).' Not Edited,Please Try Again');
 			}
 		}
 	}
-	$note=$note.'</span>';
-	echo($note);
 ?>
-</p>
-</body>
-</html>

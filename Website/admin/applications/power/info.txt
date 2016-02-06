@@ -1,0 +1,7 @@
+Power:
+
+Used for the hiest level actions like :
+
+- Create DB
+- Delete Tables
+- Update Admin From DB

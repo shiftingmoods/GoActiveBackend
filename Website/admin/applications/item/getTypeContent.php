@@ -1,8 +1,11 @@
-<?php	require_once("../../models/index/index.php"); ?>
-<?php	require_once("../connection/connect.php");
-$index=new index();
-$cnct=new cnct_class();
-$cnct->cnct();
+<?php
+	require_once("../connection/connect.php");
+	require_once("../../models/index/index.php");
+	
+	$cnct=new cnct_class();
+	$cnx=$cnct->cnct();
+	$index_data['cnx']=$cnx;
+	$index=new index($index_data); 
 ?>
 <?php
 if($_POST['id']=="0")
