@@ -164,7 +164,15 @@ function uploadFile($data,$name='file') // $name,$status
 			}
 			$this->save('../../../public/images/'.$data['name']);
 			$this->load('../../../public/temp/'.$data['name']);
-			$this->resize(100,100);
+			if($w > $h)
+			{
+				$this->resizeToWidth('120');
+			}
+			else
+			{
+				$this->resizeToHeight('120');
+			}
+			//$this->resize(100,100);
 			$this->save('../../../public/images/thumbs/'.$data['name']);
 			unlink('../../../public/temp/'.$data['name']);
 			return TRUE;
@@ -173,7 +181,15 @@ function uploadFile($data,$name='file') // $name,$status
 		{
 			$this->save('../../../public/images/'.$data['name']);
 			$this->load('../../../public/temp/'.$data['name']);
-			$this->resize(100,100);
+			if($w > $h)
+			{
+				$this->resizeToWidth('120');
+			}
+			else
+			{
+				$this->resizeToHeight('120');
+			}
+			//$this->resize(100,100);
 			$this->save('../../../public/images/thumbs/'.$data['name']);
 			unlink('../../../public/temp/'.$data['name']);
 			return TRUE;
