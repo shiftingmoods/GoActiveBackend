@@ -4,7 +4,7 @@ class index
 {
 	public $lang=1;
 	var $cnx;
-	
+
 	function __construct($data)
 	{
 		$this->cnx=$data['cnx'];
@@ -23,13 +23,13 @@ class index
 		}
 		$this->$varName=$data['value'];
 	}
-	
+
 	function getVar($varName)
 	{
 		return $this->$varName;
 	}
 	//******************  Set/Get any variable **************************
-	
+
 	function show($data,$fin='yes')
 	{
 		if(!is_array($data))
@@ -57,7 +57,7 @@ class index
 		{die($item);}
 		return $item;
 	}
-	
+
 	function createStaticPagesAuto()//automaticaly add an "addPage" , "editPage" , "page" for tables in database . And also add the static pages ("settings","login",....)
 	{
 		$c='';
@@ -128,8 +128,10 @@ class index
 		$c='';
 		$sql='DROP TABLE `'.$table.'`';
 		$result=mysqli_query($this->cnx,$sql);
-		//if($result)
-		//{
+		if($result)
+		{
+			$c=$c.$table." Table Deleted From DB<br />";
+		}
 			if (file_exists("../../index/".$table.".php"))
 			{	//sleep(1);
 				unlink('../../index/'.$table.".php");
@@ -145,14 +147,13 @@ class index
 				unlink("../../index/edit".ucfirst($table).".php");
 				$c=$c."edit".ucfirst($table).".php File Deleted<br />";
 			}
-		//}
 		if($c=='')
 		{
 			$c='No Changes';
 		}
 		return $c;
 	}
-	
+
 	function clearAdmin()//Delete all files in admin index folder
 	{
 		$files = glob('../../index/*'); // get all file names
@@ -163,13 +164,13 @@ class index
 		}
 		echo ('Index Cleared<br/>--------------------------------<br/>');
 	}
-	
+
 	function deleteAllPrivilegesAuto()//automaticaly add all the pages to the privilege table and also asign them to the super control_p_admin with id=1 and make the basic menu for all pages
 	{
 		$c=mysqli_query($this->cnx,'TRUNCATE TABLE `control_p_privilege_to_group`');
 		$b=mysqli_query($this->cnx,'TRUNCATE TABLE `control_p_page_levels`');
 		$a=mysqli_query($this->cnx,'TRUNCATE TABLE `control_p_privilege`');
-		
+
 		if($a && $b && $c)
 		{
 		echo('Privileges Deleted<br/>--------------------------------<br/>');
@@ -178,10 +179,10 @@ class index
 	function addAllPrivilegesAuto()//automaticaly add all the pages to the privilege table and also asign them to the super control_p_admin with id=1 and make the basic menu for all pages
 	{
 		$i=0;
-		if ($handle = opendir('../../index/')) 
+		if ($handle = opendir('../../index/'))
 		{
 			while (false !== ($file = readdir($handle))) {
-				if ($file != "." && $file != "..") 
+				if ($file != "." && $file != "..")
 				{
 					$Ffile=$file;
 					$itemPage=true;
@@ -212,13 +213,13 @@ class index
 							{
 								$i++;
 							}
-						
+
 					}
 					else
-					{	
+					{
 						echo substr($file,0,-4).' Privilege Exists<br/>';
 					}
-					
+
 				}
 			}
 			closedir($handle);
@@ -281,7 +282,7 @@ class index
 	}
 	function composeSelectBox($data)
 	{
-		
+
 		if($pos=strrpos($data,'_id'))
 		{
 			$table=substr($data, 0, $pos);
@@ -314,7 +315,7 @@ class index
 	}
 	function composeSelectBoxWithFilter($data,$filterData)
 	{
-		
+
 		if($pos=strrpos($data,'_id'))
 		{
 			$table=substr($data, 0, $pos);
@@ -348,67 +349,67 @@ class index
 	{
 		$view=$data['percent'].'%';
 		return $view;
-	}*/	
-	function showValue2($data,$keyId,$table) //show the name() instead of showing the id in the vew page, this function tests the value if it is an id or name :give the function $data['id'],$data['lang'] .. to get acurate language result 	
+	}*/
+	function showValue2($data,$keyId,$table) //show the name() instead of showing the id in the vew page, this function tests the value if it is an id or name :give the function $data['id'],$data['lang'] .. to get acurate language result
 	{
-	//$this->show($data);		
-		setlocale(LC_CTYPE,'arabic');		
-		if($pos=strrpos($keyId,'_id'))		
-		{			
-			$table=substr($keyId, 0, $pos);			
-			if(is_array($data))			
-			{				
-				$item=$this->getGeneralItemByIdAndLangId($data['id'],$data['lang'],$table);				
-				if(isset($item[$data['id']][$this->getTableDisplayName($table,'')]))				
-				{					
-					return $this->capitalize($item[$data['id']][$this->getTableDisplayName($table,'')]);				
-				}				
-				else 				
-				{					
-					return '';				
-				}			
-			}			
-			else			
+	//$this->show($data);
+		setlocale(LC_CTYPE,'arabic');
+		if($pos=strrpos($keyId,'_id'))
+		{
+			$table=substr($keyId, 0, $pos);
+			if(is_array($data))
 			{
-				$item=$this->getGeneralItemById($data,$table);				
-				if(isset($item[$data][$this->getTableDisplayName($table,'')]))				
-				{					
-					if($this->getTableDisplayName($table,'')=='first_name')					
-					{						
-						$all=$this->capitalize($item[$data]['id']);						
-						$all.=': ';						
-						$all.=$this->capitalize($item[$data]['first_name']);						
-						$all.=' ';						
-						$all.=$this->capitalize($item[$data]['last_name']);						
-						return $all;					
-					}					
-					else					
-					{						
-						return $this->capitalize($item[$data][$this->getTableDisplayName($table,'')]);					
-					}				
-				}				
-				else 				
-				{					
-					return '';				
-				}			
-			}		
-		}		
-		else		
-		{			
-			if(is_array($data))			
-			{				
-				return $data['id'];			
-			}			
-			else			
+				$item=$this->getGeneralItemByIdAndLangId($data['id'],$data['lang'],$table);
+				if(isset($item[$data['id']][$this->getTableDisplayName($table,'')]))
+				{
+					return $this->capitalize($item[$data['id']][$this->getTableDisplayName($table,'')]);
+				}
+				else
+				{
+					return '';
+				}
+			}
+			else
 			{
-			
-			
+				$item=$this->getGeneralItemById($data,$table);
+				if(isset($item[$data][$this->getTableDisplayName($table,'')]))
+				{
+					if($this->getTableDisplayName($table,'')=='first_name')
+					{
+						$all=$this->capitalize($item[$data]['id']);
+						$all.=': ';
+						$all.=$this->capitalize($item[$data]['first_name']);
+						$all.=' ';
+						$all.=$this->capitalize($item[$data]['last_name']);
+						return $all;
+					}
+					else
+					{
+						return $this->capitalize($item[$data][$this->getTableDisplayName($table,'')]);
+					}
+				}
+				else
+				{
+					return '';
+				}
+			}
+		}
+		else
+		{
+			if(is_array($data))
+			{
+				return $data['id'];
+			}
+			else
+			{
+
+
 				setlocale(LC_CTYPE,'arabic');
 				$col_prop=$this->getColumnProperties(Array('column_name'=>$keyId),$table);
 				//$this->show($col_prop);
 				switch ($col_prop['Type'])
 				{
-					case 'Text':						
+					case 'Text':
 					return ucfirst($data);
 					break;
 					case 'tinyint(4)':
@@ -442,8 +443,8 @@ class index
 			}
 		}
 	}
-	
-	function showValue($data,$keyId)//show the name() instead of showing the id in the vew page, this function tests the value if it is an id or name :give the function $data['id'],$data['lang'] .. to get acurate language result 
+
+	function showValue($data,$keyId)//show the name() instead of showing the id in the vew page, this function tests the value if it is an id or name :give the function $data['id'],$data['lang'] .. to get acurate language result
 	{
 		//$this->show($data);
 		setlocale(LC_CTYPE,'arabic');
@@ -457,7 +458,7 @@ class index
 				{
 					return $this->capitalize($item[$data['id']][$this->getTableDisplayName($table,'')]);
 				}
-				else 
+				else
 				{
 					return '';
 				}
@@ -481,7 +482,7 @@ class index
 						return $this->capitalize($item[$data][$this->getTableDisplayName($table,'')]);
 					}
 				}
-				else 
+				else
 				{
 					return '';
 				}
@@ -524,7 +525,7 @@ class index
 			return 'Empty';
 		}
 	}
-	
+
 	function isForien($data)//this function check if the column name $data is a forien key or not
 	{
 		if($pos=strrpos($data,'_id'))//if forien it returns ForienTableName_ForienTableDisplayName to be used on view page or search
@@ -565,7 +566,7 @@ class index
 	- $data['multiple'] : boolean to ask for muliple display names if exist or only one of them
 	*/
 	function getTableDisplayName($table,$data)// returns the column that represents the table in the view from indexes in table ..  if not found .. check field "name" if exist and return "name" .. if also not exist .. return primary key
-	{	
+	{
 		if(!is_array($data))
 		{
 			$data['multiple']=false;
@@ -592,11 +593,11 @@ class index
 		$result = mysqli_query($this->cnx,$sql);
 		$row='';
 		while($row0 = mysqli_fetch_assoc($result))
-		{	
+		{
 			$row[] = $row0;
-		} 
+		}
 		if($row)
-		{ 
+		{
 			if(count($row)>1 && $data['multiple'])
 			{
 				foreach($row as $Cid=>$Cvalue)
@@ -620,8 +621,9 @@ class index
 			{
 				$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="name"';
 			}
+
 			$result = mysqli_query($this->cnx,$sql);
-			$row = mysqli_fetch_assoc($result);//  if ($table=='item_language' ) { $this->show($row); die(mysqli_error($this->cnx)); } 
+			$row = mysqli_fetch_assoc($result);//  if ($table=='item_language' ) { $this->show($row); die(mysqli_error($this->cnx)); }
 			if($row)
 			{
 				return 'name';
@@ -629,7 +631,7 @@ class index
 			else
 			{
 				return $PRI;
-			} 
+			}
 		}
 	}
 	/* missing language case */
@@ -659,11 +661,11 @@ class index
 		}
 		return $display_name_value;
 	}
-	
+
 	/*
-		use the function getTableDisplayName to get the colums of display_name then this function take $data['display_name'] and $data['item'] as the item data to return the name of item as string 
+		use the function getTableDisplayName to get the colums of display_name then this function take $data['display_name'] and $data['item'] as the item data to return the name of item as string
 		Example:
-		input 
+		input
 			$data['item']=Array('id'=>'2','first_name'=>'adham','last_name'=>'ghannam');
 			$data['display_name']=Array(0=>'first_name',1=>'last_name');
 		output
@@ -693,10 +695,10 @@ class index
 	function getColumnIndex($column,$table)// returns the column that represents the table in the view from indexes in table ..  if not found .. check field "name" if exist and return "name" .. if also not exist .. return primary key
 	{
 		$sql='SHOW KEYS FROM `'.$table.'` WHERE Column_name="'.$column.'"';
-		
+
 		$result = mysqli_query($this->cnx,$sql);
 		if(mysqli_num_rows($result)>0)
-		{ 
+		{
 			$row = mysqli_fetch_assoc($result);
 			return $row['Key_name'];
 		}
@@ -709,7 +711,7 @@ class index
 	output:
 		Tis Function returns the Properties (field,type,null,.. ) as an array
 		or an empty array if column not found if this table
-	
+
 	input:
 		$table :name of the table this column in
 		$data: array
@@ -718,10 +720,10 @@ class index
 	function getColumnProperties($data,$table)
 	{
 		$sql='SHOW COLUMNS FROM `'.$table.'` WHERE Field="'.$data['column_name'].'"';
-		
+
 		$result = mysqli_query($this->cnx,$sql);
 		if(mysqli_num_rows($result)>0)
-		{ 
+		{
 			$row = mysqli_fetch_assoc($result);
 			return $row;
 		}
@@ -730,6 +732,7 @@ class index
 			return Array();
 		}
 	}
+
 	function getIdByName($name,$table)
 	{
 		$cols=$this->getGeneralColums($table);
@@ -765,7 +768,7 @@ class index
 		{
 			return false;
 		}
-		
+
 	}
 	function isAllowed_2($x,$y)//(same as isAllowed function different input type )check if the inputs control_p_group and page name exists in the table control_p_privilege_to_group
 	{
@@ -787,7 +790,7 @@ class index
 		{
 			return false;
 		}
-		
+
 	}
 	function getViewColumns($table)//returns the number of columns displayed when viewing the table
 	{
@@ -802,7 +805,7 @@ class index
 			return '5';
 		}
 	}
-	function toView($data)//remove "_" and capitalize first letter of th input word and remove "id" if its forien 
+	function toView($data)//remove "_" and capitalize first letter of th input word and remove "id" if its forien
 	{//var_dump($data);
 
 		if(strpos($data,'control_p_')!==false)
@@ -837,7 +840,8 @@ class index
 		$sql ='SHOW COLUMNS FROM `'.$table.'`';
 		$result = mysqli_query($this->cnx,$sql);
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
+>>>>>>> shiftingmoods/master
 			$item['keys'][$row['Field']] = $row; // fill up the array
 		}//var_dump($row);die();
 		foreach($item['keys'] as $keyId=>$keyValue)
@@ -854,9 +858,9 @@ class index
 		}
 		$item['primaryKeys']=array_values($item['primaryKeys']);
 		//var_dump($item['primaryKeys']);
-	
-		return $item; // array must return something 	
-		
+
+		return $item; // array must return something
+
 	}
 	function getGeneralIndexes($table)
 	{
@@ -864,11 +868,11 @@ class index
 		$sql ='SHOW INDEX FROM `'.$table.'`';
 		$result = mysqli_query($this->cnx,$sql);
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			$item[]= $row; // fill up the array
 		}//var_dump($row);die();
-		return $item; // array must return something 	
-		
+		return $item; // array must return something
+
 	}
 	function getGeneralUniqueIndexes($table)
 	{
@@ -879,8 +883,8 @@ class index
 		{
 			$item[$row["Key_name"]][]=$row ;
 		}//var_dump($row);die();
-		return $item; // array must return something 	
-		
+		return $item; // array must return something
+
 	}
 	function getMenuList($data)//get the roots that this this page belongs to ... in an array with each "page" and its "display_name"
 	{
@@ -906,7 +910,7 @@ class index
 				$menu['menu_display_names'][$id2]=$this->toView($value2);
 			}
 		}
-		
+
 		return $menu;
 	}
 	function deleteGeneralItems($data,$table)
@@ -966,7 +970,7 @@ class index
 			}
 		}
 		if($fillSQL=='')
-		{ 
+		{
 			return true;
 		}
 		$sql = 'DELETE FROM `'.$table.'` '.$fillSQL;
@@ -1003,7 +1007,7 @@ class index
 			}
 			$this->deleteGeneralItems($data,'image');
 		}
-		else 
+		else
 		{ /*vardump($data); die();*/ }
 	}
 	function getGeneralIdByForeignId($data,$table)
@@ -1013,16 +1017,17 @@ class index
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
 		$sql='SELECT `'.$PRI.'` FROM `'.$table.'` WHERE `'.$data["column"].'_id`="'.$data['value'].'" ';
+
 		$result=mysqli_query($this->cnx,$sql);
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			$item[] = $row[$PRI];
 		}
 		return $item;
-		
+
 	}
 	function deleteImageFile($name)
-	{	
+	{
 		if($name!='default.jpg')
 		{
 			$dir='../../../public/images/'.$name;
@@ -1040,12 +1045,13 @@ class index
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];//this is the primary key default id
 		$sql = 'SELECT '.$PRI.' FROM `'.$table.'` WHERE '.$PRI.'="'.$id.'"'; // change by function
+
 		$result = mysqli_query($this->cnx,$sql); // use it to fetch
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			$item[$row[$PRI]] = $row; // fill up the array
 		}
-		return $item; // array must return something 	
+		return $item; // array must return something
 	}
 	function checkIfExist($value,$column,$table)
 	{
@@ -1055,12 +1061,13 @@ class index
 			return $item;
 		}
 		$sql = 'SELECT `'.$column.'` FROM `'.$table.'` WHERE `'.$column.'`="'.$value.'"'; // change by function
+
 		$result = mysqli_query($this->cnx,$sql); // use it to fetch
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			$item[$row[$column]] = $row; // fill up the array
 		}
-		return $item; // array must return something 	
+		return $item; // array must return something
 	}
 
 	function getAllGeneralItemsWith2KeysWithJoins($filterData,$table)//return the same as getAllGeneralItemsWithJoins if the primary keys =1 and  if the primary keys =2
@@ -1260,11 +1267,11 @@ class index
 							if( $this->checkTableIfExist($forienTableO.'_language'))//if this table has an extended language table it must innerjoin it and add  where lang to 1
 							{
 								$forienTable=$forienTableO.'_language';
-								
+
 								$colsO=$this->getGeneralColums($forienTableO);
 								$PRIO=$colsO['primaryKeys'];
 								$PRIO=$PRIO[0];
-									
+
 								if($table!=$forienTable)
 								{
 									$joinsInner=' INNER JOIN `'.$forienTable.'` ON (`'.$forienTable.'`.`'.$forienTableO.'_id` = `'.$forienTableO.'`.`'.$PRIO.'`)'.' AND ( `'.$forienTable.'`.language_id="'.$langID.'" ) '.$joinsInner;
@@ -1287,12 +1294,12 @@ class index
 				}
 //***************************************************************************************
 		$item = array(); // use it to avoid return false from database
-		
+
 		$cols=$this->getGeneralColums($table);
 		$PRIS=$cols['primaryKeys'];
 		$PRI=$PRIS[0];
 		$allPRIS=count($cols['primaryKeys']);
-		
+
 		if($tableLang)
 		{
 			$joinsInner.=' INNER JOIN `'.$tableLang.'`
@@ -1319,8 +1326,8 @@ class index
 			}
 		}
 		//************* if not found in other language use default ********
-		
-		
+
+
 		if($tableLang)
 		{
 			if(!count($item) && $langID!='1')
@@ -1340,7 +1347,7 @@ class index
 			}
 		}*/
 		//if($table=='property') $this->show($sql);
-		return $item; // array must return something 	
+		return $item; // array must return something
 	}
 	function getAllGeneralItemsWithJoins($filterData,$table)
 	{
@@ -1365,7 +1372,7 @@ class index
 			$item=$this->getAllGeneralItemsWith2KeysWithJoins($filterData,$table);
 		}
 			//die(mysqli_error($this->cnx));
-		return $item; // array must return something 	
+		return $item; // array must return something
 	}
 
 	function getAllGeneralExactItemsWithJoins($filterData,$table)//this function filter result by exactly the value given (use = not like) and it filter forien table by ids too ex. project_id=2
@@ -1464,7 +1471,7 @@ class index
 						}
 					}
 				}
-				else//the keyword is null and we r using equal not like so no results will be shown 
+				else//the keyword is null and we r using equal not like so no results will be shown
 				{
 					$filterBy='';
 				}
@@ -1518,7 +1525,7 @@ class index
 						}
 					}
 				}
-		
+
 //***************************************************************************************
 		$item = array(); // use it to avoid return false from database
 		$sql = 'SELECT `'.$table.'`.* '.$joinsSelect.'  FROM `'.$table.'` '.$joinsInner.' '.$filterBy.' '.$orderBy.' '.$limit; // change by function
@@ -1527,11 +1534,12 @@ class index
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
+
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			$item[$row[$PRI]] = $row; // fill up the array
 		}
-		return $item; // array must return something 	
+		return $item; // array must return something
 	}
 	function getAllGeneralItems($status='all',$filterData,$table)
 	{
@@ -1615,10 +1623,10 @@ class index
 		if($status=='all')
 		{
 			$sql2='';
-		}	
+		}
 		else
 		{
-			$sql2 ='WHERE status = "'.addslashes($status).'"'; 
+			$sql2 ='WHERE status = "'.addslashes($status).'"';
 		}
 //***************************************************************************************
 		$item = array(); // use it to avoid return false from database
@@ -1628,13 +1636,14 @@ class index
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
+
 		while($row = mysqli_fetch_assoc($result))
-		{	
+		{
 			$item[$row[$PRI]] = $row; // fill up the array
 		}
-		return $item; // array must return something 	
+		return $item; // array must return something
 	}
-	
+
 	/********************************
 	Get item data by item ID
 	$id=x use to get item data without language option
@@ -1643,7 +1652,7 @@ class index
 	$id['language_id']=x where x is the language_id
 	$id['useLang']=false set true to get data in foreign language and not default language  (optional)
 	********************************/
-function getGeneralItemById($id,$table) 
+function getGeneralItemById($id,$table)
 	{
 		//$id0=$id;
 		//$id=Array();
@@ -1658,7 +1667,7 @@ function getGeneralItemById($id,$table)
 			$id=$id0;
 		}
 		else
-		{	
+		{
 			$id[$table.'_id']=$id['id'];
 			$column=$table.'_id';
 		}
@@ -1675,22 +1684,22 @@ function getGeneralItemById($id,$table)
 		// ******************* add language filter **********************
 		if($this->checkTableIfExist($table.'_language') && $id['useLang'])
 		{
-			$filterData['language_id']=$id['language_id'];			
+			$filterData['language_id']=$id['language_id'];
 		}
 		// ******************* add language filter **********************
 		$filterData['limit']='LIMIT 1';
 		$item=$this->getAllGeneralItemsWithJoins($filterData,$table);
-		
+
 		return $item;
 	}
-	
+
 	/********************************
 	Used Only IN Front End To Be Updated and Removed
 	********************************/
 
-	function getGeneralItemByIdAndLangId($id,$table) 
+	function getGeneralItemByIdAndLangId($id,$table)
 	{
-		
+
 		//$id0=$id;
 		//$id=Array();
 		//****** set defaults if not defined **************
@@ -1719,9 +1728,9 @@ function getGeneralItemById($id,$table)
 		}
 	}
 
-	//get the item id of the specified name or  returns id  
+	//get the item id of the specified name or  returns id
 	function getGeneralItemId($data,$table)
-	{	
+	{
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
@@ -1746,11 +1755,11 @@ function getGeneralItemById($id,$table)
 		//die($sql);
 		$result = mysqli_query($this->cnx,$sql); // use it to fetch
 		$row = mysqli_fetch_assoc($result);
-		{	
+		{
 			$item= $row[$PRI]; // fill up the array
 		}
-		
-		return $item; // array must return something 	
+
+		return $item; // array must return something
 	}
 
 	//this function must return an id just if an inpunt of the values given by $data[] are already exists
@@ -1758,14 +1767,14 @@ function getGeneralItemById($id,$table)
 	//give $id the id of the item being edited while editing,else $id=0 while adding new item
 	//give $data['columnNameInDB']="inputValue"; fill all the required colomns
 	function checkGeneralItemIfExist($id,$data0,$table)
-	{	
+	{
 		$item =''; // use it to avoid return false from database
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
 		$data0[$PRI]=$id;
 		$indexes=$this->getGeneralUniqueIndexes($table);
-		
+
 		foreach($indexes as $ind =>$cols2)
 		{
 			$data=array();
@@ -1822,7 +1831,7 @@ function getGeneralItemById($id,$table)
 			return $item;
 		}
 	}
-	
+
 	function editGeneralItem($id,$data,$table)   //$name_en,$name_ar
 	{
 		$cols=$this->getGeneralColums($table);
@@ -1970,7 +1979,7 @@ function getGeneralItemById($id,$table)
 			$fillSQL=$fillSQL.' WHERE '.$PRI.'="'.$id.'"'.$langId;
 		}
 		$sql = 'UPDATE `'.$table.'` '.$fillSQL;
-		
+
 		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			return TRUE ;
@@ -1982,7 +1991,7 @@ function getGeneralItemById($id,$table)
 	}
 
 	function addGeneralItem($data,$table)
-	{ 
+	{
 		if($table=='background'){if(!isset($data['body_background_id'])) $data['body_background_id']=5; if($data['type_id']==0) $data['type_id']=11;}
 		//$this->show($data);
 		if(!is_array($data))
@@ -2007,11 +2016,11 @@ function getGeneralItemById($id,$table)
 					{
 						if($key!='date_cr' && $value!="null")
 						{
-							$fillSQLval=$fillSQLval.'"'.addslashes($value).'"';	
+							$fillSQLval=$fillSQLval.'"'.addslashes($value).'"';
 						}
 						elseif($value=="null")
 						{
-							$fillSQLval=$fillSQLval.' '.addslashes($value).' ';	
+							$fillSQLval=$fillSQLval.' '.addslashes($value).' ';
 						}
 					}
 				}
@@ -2031,7 +2040,7 @@ function getGeneralItemById($id,$table)
 						}
 						elseif($value=="null")
 						{
-							$fillSQLval=$fillSQLval.', '.addslashes($value).' ';	
+							$fillSQLval=$fillSQLval.', '.addslashes($value).' ';
 						}
 					}
 				}
@@ -2164,10 +2173,10 @@ function getGeneralItemById($id,$table)
 			return false;
 		}
 	}
-	function uploadFile($data) // $name,$status 
+	function uploadFile($data) // $name,$status
 	{
 		if(is_uploaded_file($data['tmp_name']))
-		{ 
+		{
 			$new_name=date('d-m-y h-i-s A');
 			$old_name=$data['name'];
 			$strpos=strrpos($old_name,'.');
@@ -2197,7 +2206,7 @@ function getGeneralItemById($id,$table)
 					return false;
 				}
 			}
-			
+
 		}
 		else
 		{
@@ -2205,7 +2214,7 @@ function getGeneralItemById($id,$table)
 		}
 	}
 	function deleteFile($dir)
-	{	
+	{
 		$dir='../../../public/files/'.$dir;
 		if(unlink($dir))
 		{
@@ -2214,19 +2223,19 @@ function getGeneralItemById($id,$table)
 	}
 	function send_one ($text, $subject, $name, $sender_email, $to)
 	{
-		
-		$headers="From:$name <$sender_email>\r\n"; 
-		$headers .= "Reply-To: $sender_email\r\n"; 
-		$headers .= "Date: " . date("r") . "\r\n"; 
-		$headers .= "Return-Path: $sender_email\r\n"; 
-		$headers .= "MIME-Version: 1.0\r\n"; 
-		$headers .= "Message-ID: " . date("r") . $name ."\r\n"; 
-		$headers .= "Content-Type: text/html; charset=utf-8\r\n"; 
-		$headers .= "X-Priority: 1\r\n"; 
-		$headers .= "Importance: High\r\n"; 
-		$headers .= "X-MXMail-Priority: High\r\n"; 
-		$headers .= "X-Mailer: PHP Mailer 1.0\r\n"; 
-		
+
+		$headers="From:$name <$sender_email>\r\n";
+		$headers .= "Reply-To: $sender_email\r\n";
+		$headers .= "Date: " . date("r") . "\r\n";
+		$headers .= "Return-Path: $sender_email\r\n";
+		$headers .= "MIME-Version: 1.0\r\n";
+		$headers .= "Message-ID: " . date("r") . $name ."\r\n";
+		$headers .= "Content-Type: text/html; charset=utf-8\r\n";
+		$headers .= "X-Priority: 1\r\n";
+		$headers .= "Importance: High\r\n";
+		$headers .= "X-MXMail-Priority: High\r\n";
+		$headers .= "X-Mailer: PHP Mailer 1.0\r\n";
+
 		mail($to,$subject, $text, $headers);
 		return true;
 	}
@@ -2268,12 +2277,12 @@ function getGeneralItemById($id,$table)
 		{
 			if($data['col']!='start')
 			{
-				
+
 				$item=$seq[$ind-1]['page'];
 			}
 		}//die($item);
 		return $item;
-		
+
 	}
 	function getParentPage($page)
 	{
