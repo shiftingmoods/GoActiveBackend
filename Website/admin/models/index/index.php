@@ -1097,7 +1097,7 @@ class index
 		}
 		else//empty stinr will be added to the end of sql
 		{
-			$langID='1';
+			$langID=$this->lang;
 		}
 //********************************* End Language Filter **************************************
 		if($this->checkTableIfExist($table.'_language'))
@@ -1301,7 +1301,7 @@ class index
 
 		if($tableLang)
 		{
-			$joinsInner.=' INNER JOIN `'.$tableLang.'`
+			$joinsInner.=' LEFT JOIN `'.$tableLang.'`
 						ON (`'.$table.'`.`'.$PRI.'` = `'.$tableLang.'`.'.$table.'_id)
 						AND(`'.$tableLang.'`.language_id="'.$langID.'") ';
 

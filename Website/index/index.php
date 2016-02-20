@@ -11,17 +11,16 @@
 <body>
 <div id=body>
 <div id="header" >
-	
+
 </div>
 <!-------------------------------------- Page Header End ------------------------------------->
 
 <?php
 $table='item';
-$index->setVar('2','lang');
-$allItems=$index->getAllGeneralItemsWithJoins('','item');
+// $index->setVar('2','lang');
 $languages=$index->getAllGeneralItemsWithJoins('','language');
 
-//$index->show($languages);
+// $index->show($allItems);
 ?>
 
 <!-------------------------------------- paging Step 1 ----------------------------------------->
@@ -57,9 +56,14 @@ if(count($languages)>1)
 
 <?php
 }
+$index->setVar($lang,'lang');
 ?>
 <!-------------------------------------- language Step 1 ----------------------------------------->
+<?php
 
+$allItems=$index->getAllGeneralItemsWithJoins('','item');
+
+?>
 </form>
 <?php
 //************ paging Step 2 ****************************
@@ -80,7 +84,7 @@ if(count($languages)>1)
 	}
 	//$index->show($all_pages);
 //************ pagingE ****************************
-?>			   
+?>
 <table style="width:500px" >
 	<tr style="background:lightgray">
 		<td>
@@ -99,7 +103,7 @@ if(count($languages)>1)
 		Status
 		</td>
 	</tr>
-<?php				   
+<?php
 foreach($pageItems as $id=>$data)
 {
 	$langData=$data;
@@ -111,7 +115,7 @@ foreach($pageItems as $id=>$data)
 		$itemId['language_id']=$lang;
 		*/
 		//$forceNotNull=False; // true : if didn't find data defined in the selected language, return data of the default language instead
-		
+
 		$langData=$index->getGeneralItemByIdAndLangId($data['id'],$table);
 	}
 	echo '<tr>';
@@ -163,7 +167,7 @@ foreach($pageItems as $id=>$data)
 		   {
 				$('#cur_page').val(parseInt(<?php echo $cur_page; ?>)+1);
 				$('#form').submit();
-			   
+
 		   }
 		   $('#cur_page').val('<?php  echo $cur_page; ?>');
 	  </script>
@@ -175,7 +179,7 @@ foreach($pageItems as $id=>$data)
 		  $('#form').submit();
 		});
 	  </script>
-	  
+
 <!-------------------------------------- Page Footer ----------------------------------------->
 </div>
 </body>
@@ -184,5 +188,5 @@ foreach($pageItems as $id=>$data)
     </div>
 </div>
 <!-------------------------------------- Page Footer End ------------------------------------->
-
+<?php $index->show($allItems); ?>
 <?php  include("../public/layouts/theme_1/footer.php"); ?>
