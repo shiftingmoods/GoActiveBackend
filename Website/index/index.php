@@ -60,9 +60,7 @@ $index->setVar($lang,'lang');
 ?>
 <!-------------------------------------- language Step 1 ----------------------------------------->
 <?php
-
 $allItems=$index->getAllGeneralItemsWithJoins('','item');
-
 ?>
 </form>
 <?php
@@ -106,23 +104,23 @@ $allItems=$index->getAllGeneralItemsWithJoins('','item');
 <?php
 foreach($pageItems as $id=>$data)
 {
-	$langData=$data;
-	if($lang!=1)
-	{
-		/*
-		$itemId['id']=$id;
-		$itemId['useLang']=true;
-		$itemId['language_id']=$lang;
-		*/
-		//$forceNotNull=False; // true : if didn't find data defined in the selected language, return data of the default language instead
-
-		$langData=$index->getGeneralItemByIdAndLangId($data['id'],$table);
-	}
+	// $langData=$data;
+	// if($lang!=1)
+	// {
+	// 	/*
+	// 	$itemId['id']=$id;
+	// 	$itemId['useLang']=true;
+	// 	$itemId['language_id']=$lang;
+	// 	*/
+	// 	//$forceNotNull=False; // true : if didn't find data defined in the selected language, return data of the default language instead
+	//
+	// 	$langData=$index->getGeneralItemByIdAndLangId($data['id'],$table);
+	// }
 	echo '<tr>';
 	echo '<td>'.$data["id"].'</td>';
-	echo '<td>'.$langData["name"].'</td>';
+	echo '<td>'.$data["name"].'</td>';
 	echo '<td>'.$data["price"].'</td>';
-	echo '<td>'.$langData["description"].'</td>';
+	echo '<td>'.$data["description"].'</td>';
 	echo '<td>'.$data["status"].'</td>';
 	echo '</tr>';
 }
@@ -188,5 +186,4 @@ foreach($pageItems as $id=>$data)
     </div>
 </div>
 <!-------------------------------------- Page Footer End ------------------------------------->
-<?php $index->show($allItems); ?>
 <?php  include("../public/layouts/theme_1/footer.php"); ?>
