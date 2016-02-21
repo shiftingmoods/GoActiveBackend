@@ -1991,10 +1991,6 @@ function getGeneralItemById($id,$table)
 
 	function addGeneralItem($data,$table)
 	{
-		if(!$value)
-		{
-			continue;
-		}
 		if(!is_array($data))
 		{
 			$data= array();
@@ -2003,6 +1999,10 @@ function getGeneralItemById($id,$table)
 		$fillSQLval='';
 		foreach ($data as $key => $value)
 		{
+			if(!$value)
+			{
+				continue;
+			}
 				if($fillSQLval=='')
 				{
 					if($key!='date_cr')
