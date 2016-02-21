@@ -1991,8 +1991,10 @@ function getGeneralItemById($id,$table)
 
 	function addGeneralItem($data,$table)
 	{
-		if($table=='background'){if(!isset($data['body_background_id'])) $data['body_background_id']=5; if($data['type_id']==0) $data['type_id']=11;}
-		//$this->show($data);
+		if(!$value)
+		{
+			continue;
+		}
 		if(!is_array($data))
 		{
 			$data= array();
