@@ -51,7 +51,18 @@ $menu=$index->getMenuList($Mdata);
 			echo '<table  '.$display.' ><tr>';
 			foreach($pages as $id=>$value)
 			{
-				if( strpos($value,'control_p_')===false && $value!='index' && $value!='manageFiles' && $value!='manageImages' && $value!='login' && $value!='settings' && $value!='viewItem'  && $value!='file'  && $value!='files'  && $value!='del'  && $value!='language' )
+				if(
+				strpos($value,'control_p_')===false
+				&& $value!='index' && $value!='manageFiles'
+				&& $value!='manageImages'
+				&& $value!='login'
+				&& $value!='settings'
+				&& $value!='viewItem'
+				&& $value!='file'  && $value!='files'
+				&& $value!='del'
+				&& $value!='del'
+				&& strpos($value,'language')===false
+				)
 				{
 					if(stripos($value,'add')===false && stripos($value,'edit')===false && stripos($value,'image_to_')===false )
 					{
