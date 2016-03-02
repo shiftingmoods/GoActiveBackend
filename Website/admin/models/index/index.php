@@ -1675,6 +1675,10 @@ function getGeneralItemById($id,$table)
 		{
 			$id['useLang']='false';
 		}
+		if(!isset($id['language_id']))
+		{
+			$id['language_id']=$this->lang;
+		}
 		//****** set defaults if not defined **************
 		$filter['keyword']=$id[$table.'_id'];
 		$filter['filterBy']=$column;
@@ -1999,7 +2003,7 @@ function getGeneralItemById($id,$table)
 		$fillSQLval='';
 		foreach ($data as $key => $value)
 		{
-			if(!$value)
+			if($value==='')
 			{
 				continue;
 			}

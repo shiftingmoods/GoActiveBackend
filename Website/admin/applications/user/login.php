@@ -23,19 +23,19 @@ if($info=$user->login($_POST))
 	$info['end_date']='PENDING';
 	//var_dump($info); die();
 	if($id=$index->addGeneralItem($info,$table='control_p_login',$cnx))
-	{	
-		if(isset($info['username']))	
+	{
+		if(isset($info['username']))   
 		{
-			$_SESSION['username']=$info['username'];	
-		}	
-		else	
-		{
-			$_SESSION['email']=$info['email'];	
+			$_SESSION['username']=$info['username'];
 		}
-			$_SESSION['control_p_group_id']=$info['control_p_group_id'];	
-			$_SESSION['control_p_login_id']=$id;	
-			$_SESSION['id']=$info['control_p_admin'];	
-			$_SESSION['lang']='1';			
+		else
+		{
+			$_SESSION['email']=$info['email'];
+		}
+			$_SESSION['control_p_group_id']=$info['control_p_group_id'];
+			$_SESSION['control_p_login_id']=$id;
+			$_SESSION['id']=$info['control_p_admin'];
+			$_SESSION['lang']='1';
 			?>
 			<script language="javascript" >
 			window.location='../../index/index.php';
@@ -46,10 +46,10 @@ if($info=$user->login($_POST))
 			//header('Location:../../index/index.php');
 	}
 	else
-	{	
+	{
 	?>
 		<script language="javascript" >
-		window.location='../../index/index.php?note=Login Info Was Not Stored';
+		window.location='../../index/login.php?note=Login Info Was Not Stored';
 		</script>
 	<?php
 		die('Please Enable Javascript To Continue2');
