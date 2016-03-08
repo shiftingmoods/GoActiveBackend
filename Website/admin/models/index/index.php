@@ -8,6 +8,7 @@ class index
 	function __construct($data)
 	{
 		$this->cnx=$data['cnx'];
+		date_default_timezone_set("Asia/Beirut");
 	}
 	//******************  Set/Get any variable **************************
 	function setVar($data0,$varName)

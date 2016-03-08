@@ -1,6 +1,11 @@
 <?php
 class user
 {
+	function __construct()
+	{
+		date_default_timezone_set("Asia/Beirut");
+	}
+
 	function login($data)
 	{
 		if(isset($data['username']))
@@ -12,7 +17,7 @@ class user
 			$sql = 'SELECT id AS control_p_admin,email,control_p_group_id FROM `control_p_admin` WHERE email = "'.$data['email'].'" AND password = MD5("'.$data['password'].'") LIMIT 1';
 		}
 		$result = mysqli_query($data['cnx'],$sql);
-		
+
 		if($row = mysqli_fetch_assoc($result))
 		{
 			return $row;
