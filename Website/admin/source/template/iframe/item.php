@@ -31,7 +31,7 @@ if(isset($_SESSION['lang']))
 {
 	$lang=$_SESSION['lang'];
 	$index->setVar($lang,'lang');
-} 
+}
 // echo($index->getVar('lang'));
 //************************ set lang variable *************************
 ?>
@@ -53,8 +53,8 @@ if(isset($_GET))
 }
 //$index->show($_SESSION);
 //******************************************** filter of language ******************************
-/* 
-no more editing and seeing languages in editItem page 
+/*
+no more editing and seeing languages in editItem page
 if($index->hasLanguage($table))
 {
 $filter1['filterBy']='language_id';
@@ -109,8 +109,8 @@ if($index->checkTableIfExist($table.'_language'))
 }
 //$index->show($column);
 ?>
-	<div id="body">	
-		
+	<div id="body">
+
 		<div id="firstColumn" >
 		<div >
 			<input id="add_item_buttom" type="button" style="width:<?php echo(strlen('Add New'.$table)*9); ?>px" onClick="window.location='add<?php echo $Table; ?>.php'" value="Add New<?php echo ' '.$index->toView($table); ?>" >
@@ -132,11 +132,11 @@ if($index->checkTableIfExist($table.'_language'))
 					{
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -160,11 +160,11 @@ if($index->checkTableIfExist($table.'_language'))
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
 					//var_dump($menu['menu_pages']); die();
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -197,9 +197,9 @@ if($index->checkTableIfExist($table.'_language'))
 					<div class="filter" >
 					<select class="filter" name="filterBy" onchange="pageDir('')">
 					<option value="all">All Fields</option>
-		<?php 
+		<?php
 								if($tableLang)
-								{ 
+								{
 									$dispN=$index->getTableDisplayName($tableLang,'');
 		?>
 										<option value="<?php echo $dispN; ?>"<?php if($dispN==$filterData['filterBy']) echo " selected"; ?> ><?php echo $index->toView($dispN); ?></option>
@@ -207,13 +207,13 @@ if($index->checkTableIfExist($table.'_language'))
 								}
 								foreach($filterKeys as $keyId=>$keyValue)
 								{
-									
-									
+
+
 									$filter[$keyId]=$keyValue;
 									switch ($keyId)
 									{
 									case 'id' :
-		?>							
+		?>
 										<option value="<?php echo $keyId; ?>"<?php if($keyId==$filterData['filterBy']) echo " selected"; ?> ><?php echo $index->capitalize($keyId); ?></option>
 		<?php
 									break;
@@ -231,7 +231,7 @@ if($index->checkTableIfExist($table.'_language'))
 					<label class="cb_header" >Order By: </label><br />
 					<div class="filter" >
 					<select class="filter" name="orderBy" onchange="pageDir('')">
-		<?php 
+		<?php
 								if($tableLang)
 								{
 		?>
@@ -249,7 +249,7 @@ if($index->checkTableIfExist($table.'_language'))
 									break;
 									default
 		?>
-									
+
 										<option value="<?php echo $keyId; ?>"<?php if($keyId==$filterData['orderBy']) echo " selected"; ?> ><?php echo $index->toView($keyId); ?></option>
 		<?php
 									}
@@ -278,7 +278,7 @@ if($index->checkTableIfExist($table.'_language'))
 						<option value="<?php echo $j; ?>"<?php if($filterData['perPage']==$j) echo " selected"; ?> ><?php echo $j; ?></option>
 		<?php
 						}
-		?>		
+		?>
 					</select>
 					</div>
 					</td>
@@ -295,19 +295,19 @@ if($index->checkTableIfExist($table.'_language'))
 			</td>
 			</tr>
 					<!------------------------------------------- paging end ---------------------------------->
-		
+
 <?php //die('_'.$canDelete.'_'); ?>
 	<tr>
 		<td  >
 			<form method="post" name="form" action="<?php if($canDelete) echo '../applications/item/deleteGeneralItems.php'; else echo '#'; ?>" onsubmit="<?php if($canDelete) echo "return confirm('Are you sure you want to delete all selected')"; else echo "alert('Sorry, No Permission to Delete. Contact Super Admin For More Permission'); return false; "; ?>" >
 			<table width="100%" >
 				<tr class="table_top" >
-<?php 
+<?php
 						foreach(array_slice($filterKeys, 0, $tableColumns) as $keyId=>$keyValue)//this tr contains the table headers of the constant defined above
 						{
 							if($keyId!=$PRI)
 							{
-?>						
+?>
 								<th class="main_table_hr" ><a href="#NULL" onclick="order('<?php echo $keyId; ?>')" ><?php if ($filterData['orderBy']==$keyId){ if($filterData['order']=='DESC') echo'<img height="18px" src="../public/design-images/desc.png" > '; elseif($filterData['order']=='ASC') echo '<img height="18px" src="../public/design-images/asc.png" > '; } echo $index->toView($keyId);  ?></a></th>
 <?php
 							}
@@ -322,7 +322,7 @@ if($index->checkTableIfExist($table.'_language'))
 								{
 ?>
 								<th class="main_table_hr" ><a href="#NULL" onclick="order('<?php echo $dispN; ?>')" ><?php if ($filterData['orderBy']==$dispN){ if($filterData['order']=='DESC') echo'<img height="18px" src="../public/design-images/desc.png" > '; elseif($filterData['order']=='ASC') echo '<img height="18px" src="../public/design-images/asc.png" > '; } echo $index->toView($dispN);  ?></a></th>
-<?php						
+<?php
 								}
 							}
 						}
@@ -332,16 +332,16 @@ if($index->checkTableIfExist($table.'_language'))
 					foreach($items as $id=>$value)
 					{
 ?>
-						
+
 				<tr class="table_mid" >
 <?php
 //***************************************************************** fill the table cols from cols of main table **********************************
 						foreach(array_slice($filterKeys, 0, $tableColumns) as $keyId=>$keyValue)// fill the table with the same loop  that filled the header of the table
-						{  
+						{
 							switch($keyId)
 							{
 								case $PRI: //this colums conains a checkbox to multi select the table rows in order to multiple delete
-?>									
+?>
 									<td class="PRI_td" >
 									<table class="PRI_table" >
 									<tr>
@@ -352,7 +352,7 @@ if($index->checkTableIfExist($table.'_language'))
 									<img class="icon view_icon" src="../public/design-images/view_icon.png" onclick="window.open('viewItem.php?id=<?php echo $value[$keyId]; ?>&table=<?php echo $table; ?>')" >
 									</td>
 									<td >
-									<?php if($index->hasFiles($table)) { ?><img class="icon files_icon" src="../public/design-images/files_icon.png" onclick="window.location='manageFiles.php?table=<?php echo $table; ?>&id=<?php echo $value[$keyId]; ?>'" ><?php } ?>    
+									<?php if($index->hasFiles($table)) { ?><img class="icon files_icon" src="../public/design-images/files_icon.png" onclick="window.location='manageFiles.php?table=<?php echo $table; ?>&id=<?php echo $value[$keyId]; ?>'" ><?php } ?>
 									</td>
 									<td >
 									<?php if($index->hasImages($table)) { ?><img class="icon img_icon" src="../public/design-images/img_icon.png" onclick="window.location='manageImages.php?table=<?php echo $table; ?>&id=<?php echo $value[$keyId]; ?>'" ><?php } ?>
@@ -364,43 +364,43 @@ if($index->checkTableIfExist($table.'_language'))
 									</table>
 									<span style="float:left;" ><?php if($_SESSION['control_p_group_id']<3) echo'<input type="checkbox" style="width:30px;" name="item'.$value[$keyId].'" value="'.$value[$keyId].'" />'; ?><?php echo 'Id: '.$value[$keyId]; ?>
 									</span>
-									
+
 									</td>
-									<?php	 //$index->show($items);							
+									<?php	 //$index->show($items);
 									if($tableLang)//add the display name of the table_language in the columns after the primarykey
 									{
 ?>
-										<td><?php if(!$for=$index->isForien($dispN)) { echo htmlentities($index->showValue($value[$dispN],$dispN)); } else {echo '<a href="'.$for['table'].'.php?filterBy='.$dispN.'&keyword='.$index->showValue($value[$dispN],$dispN).'">'.$index->showValue($value[$dispN],$dispN).'</a>';} ?></td>	
-<?php						
+										<td><?php echo $index->showValue2($value[$dispN],$dispN,$tableLang); ?></td>	
+<?php
 									}
 									?>
-									
+
 									<?php
 									break;
 								case 'image_id' :
-							
-?>							
+
+?>
 									<td><?php if(file_exists('../../public/images/'.$index->showValue($value[$keyId],$keyId))) { ?><a target="_blank" href="../../public/images/<?php echo $index->showValue($value[$keyId],$keyId); ?>" ><img style="width:50px;height:50px;" src="../../public/images/thumbs/<?php echo $index->showValue($value[$keyId],$keyId); ?>" ></a><?php }else { echo 'No Image'; } ?></td>
 <?php
 								break;
 								default :
 									if(strpos($keyId,'_code')===false)
 									{
-									
+
 ?>
 										<td><?php if(!$for=$index->isForien($keyId)) { echo $index->showValue2($value[$keyId],$keyId,$table); } else {echo '<a href="'.$for['table'].'.php?filterBy='.$keyId.'&keyword='.$index->showValue($value[$keyId],$keyId).'">'.$index->showValue($value[$keyId],$keyId).'</a>';} ?></td>
 <?php
 									}
 									else
 									{
-										
-?>										
-										<td><?php if(!$for=$index->isForien($keyId)) { echo htmlentities($index->showValue($value[$keyId],$keyId)); } else {echo '<a href="'.$for['table'].'.php?filterBy='.$keyId.'&keyword='.$index->showValue($value[$keyId],$keyId).'">'.$index->showValue($value[$keyId],$keyId).'</a>';} ?></td>	
-										
+
+?>
+										<td><?php if(!$for=$index->isForien($keyId)) { echo htmlentities($index->showValue($value[$keyId],$keyId)); } else {echo '<a href="'.$for['table'].'.php?filterBy='.$keyId.'&keyword='.$index->showValue($value[$keyId],$keyId).'">'.$index->showValue($value[$keyId],$keyId).'</a>';} ?></td>
+
 <?php
 									}
 									break;
-							
+
 							}
 						}
 //***************************************************************** End fill the table cols from cols of main table **********************************
@@ -427,9 +427,9 @@ if($index->checkTableIfExist($table.'_language'))
 </td>
 </tr>
 </table>
-		
-		</div>	
-		
+
+		</div>
+
 	</div>
 <script language="javascript">
 	hoverStyle('edit_icon','edit_icon');
