@@ -11,7 +11,7 @@ if(!$index->isAllowed($data))
 		$pathA=explode('/',$_SERVER["HTTP_REFERER"]);
 		if(str_replace('.php','',$pathA[count($pathA)-1])!=$page)
 		{
-			if(strpos($_SERVER["HTTP_REFERER"],'?')===false) $char='?' ; else $char='&'; 
+			if(strpos($_SERVER["HTTP_REFERER"],'?')===false) $char='?' ; else $char='&';
 			//ob_end_clean();
 			$wlurl=$_SERVER["HTTP_REFERER"].$char.'note=No Permition';
 			echo "<script language='javascript' >window.location = '".$wlurl."';</script>";
@@ -44,13 +44,13 @@ $common_menu=$index->getMenuList($index_Mdata);
 if(!isset($seq))
 {
 	//************************* general Variables **************************************
-	
+
 		$seq[$table0]=array();
 		if($index->checkTableIfExist($table0.'_language'))
 		{
 			$seq[$table0.'_language']=array($table0.'_id');
 		}
-	
+
 	//************************* End general Variables **************************************
 }
 
@@ -62,8 +62,8 @@ if(!isset($seq))
 	$_SESSION['postData']['seq']=$seq;
 
 ?>
-	<div id="body">	
-		
+	<div id="body">
+
 		<div id="firstColumn" >
 		<div >
 			<input id="add_item_buttom" type="button" style="width:<?php echo(strlen($tables[0])*9); ?>px" onClick="window.location='<?php echo $tables[0]; ?>.php'" value="<?php echo $index->toView($tables[0]); ?>" >
@@ -85,11 +85,11 @@ if(!isset($seq))
 					{
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -113,11 +113,11 @@ if(!isset($seq))
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
 					//var_dump($menu['menu_pages']); die();
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -129,7 +129,7 @@ if(!isset($seq))
 			<center>
 			<h1>Add<?php echo ' '.$index->toView($tables[0]).' '; ?></h1>
 			</center>
-			
+
 			<form method="POST" action="../applications/itemCustom/saveGeneralItem.php" name='form' id='form' enctype="multipart/form-data" >
 			<?php foreach($tables as $ind=>$table)
 			{
@@ -139,17 +139,17 @@ if(!isset($seq))
 			<?php
 			$cols = $index->getGeneralColums($table);
 			$cols = $cols['keys'];
-			
+
 			?>
 			<?php if($ind!=0) { ?><center><h1><?php echo $index->toView($table).' '; ?></h1></center><?php } ?>
 			<div class="form_div" >
 			<table class="form_table" >
-			<?php 
+			<?php
 
 				if($cols!='0')
 				{
 					foreach($cols as $id=>$value)
-					{ 
+					{
 						$type=$index->getColType($id,$table);
 						if($index->isOptional($id,$table))
 						{
@@ -172,19 +172,19 @@ if(!isset($seq))
 							}
 						if($id!='id' && $id!='status' && $par )
 						{
-						
+
 							$outer= $index->toView($id);
-			?>			
+			?>
 			<script language="javascript">
 			$(function(){
 				$("#da").hide();
 			});
 			</script>
-							
+
 			<?php if($id=='date_cr'){?><tr id="da"><?php }else{ ?><tr><?php } ?><td><label><?php echo $outer; ?>:<?php echo ' '.$star; ?></label></td>
 								<td>
-								
-			<?php				
+
+			<?php
 								$foreignTable=$index->composeSelectBox($id);//return false if the table is not foreign and return an array of all values if its a forien
 								if(($foreignTable || count($foreignTable)=='0') && $id!='image_id')
 							{
@@ -198,7 +198,7 @@ if(!isset($seq))
 								{
 			?>
 									<option value="null">Empty</option>
-								
+
 			<?php
 								}
 								else
@@ -216,7 +216,7 @@ if(!isset($seq))
 									$dataCFDN['display_name']=$display_name;
 									//*********** get what columns to display *******
 									{
-				?>					
+				?>
 									<option value="null">Select</option>
 				<?php
 									}
@@ -256,16 +256,16 @@ if(!isset($seq))
 								switch($id)
 								{
 									case 'password':
-			?>					
-									
+			?>
+
 									<input type="password" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" >
 			<?php
 									break;
 			//******************************************************  in caye item has schedule ****************************************************
 									case 'schedule':
 									$dayz=array( "0" => 'Monday',"1" => 'Tuesday',"2" => 'Wednesday',"3" => 'Thursday',"4" => 'Friday',"5" => 'Saturday',"6" => 'Sunday' );
-			?>					
-									
+			?>
+
 									<table border="0" >
 			<?php
 									foreach($dayz as $id2=>$day)
@@ -311,30 +311,30 @@ if(!isset($seq))
 									break;
 			//******************************************************  in caye item has schedule ****************************************************
 									case 'image_id':
-			?>					
-									
+			?>
+
 									<input type="file" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" />
 			<?php
 									break;
-									
+
 									default:
 									{
 										switch ($type['type'])
 										{
 											case 'int':
-			?>						
-									
+			?>
+
 												<input type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 											break;
 											case 'varchar':
-			?>						
-									
+			?>
+
 												<input type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 											break;
 											case 'date':
-											
+
 												$date=' alt="date" readonly ';
 												$hideDate='';
 												if($id=='date_created')
@@ -342,16 +342,30 @@ if(!isset($seq))
 													$date=' value="'.date('Y-m-d').'" readonly ';
 													$hideDate= '<script language="javascript" >hideDate("'.$table.'['.$id.']");</script>';
 												}
-			?>						
-									
+			?>
+
 												<input type="text"<?php echo ' '.$date; ?> name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
-												echo $hideDate;	
+			<?php
+												echo $hideDate;
+											break;
+											case 'datetime':
+												$date=' alt="datetime" readonly ';
+												$hideDate='';
+												if($id=='date_created')
+												{
+													$date=' value="'.date('Y-m-d H:i:s').'" readonly ';
+													$hideDate= '<script language="javascript" >hideDate("'.$table.'['.$id.']");</script>';
+												}
+			?>
+
+												<input type="text"<?php echo ' '.$date; ?> name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
+			<?php
+												echo $hideDate;
 											break;
 											case 'text':
 			?>
 												<textarea  name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" maxlength="<?php echo $type['length']; ?>" ></textarea>
-			<?php	
+			<?php
 											break;
 											case 'tinyint':
 			?>
@@ -365,7 +379,7 @@ if(!isset($seq))
 														</td>
 													</tr>
 												</table>
-			<?php	
+			<?php
 											break;
 											default:
 			?>
@@ -374,7 +388,7 @@ if(!isset($seq))
 										}
 									}
 								}
-							}	
+							}
 			?>
 								</td>
 							</tr>
@@ -388,7 +402,7 @@ if(!isset($seq))
 					if($showStat==true && $table==$tables[0])
 					{
 			?>
-			<tr><td ><label>Status:</label></td><td> 
+			<tr><td ><label>Status:</label></td><td>
 			<select name="<?php echo $table; ?>[status]" id="status">
 			<option value="ACTIVE">ACTIVE</option>
 			<option value="INACTIVE">INACTIVE</option>
@@ -405,7 +419,7 @@ if(!isset($seq))
 <script language="javascript" >
 /*
 function init() {
-	$('#form').submit(function(){ 
+	$('#form').submit(function(){
 	if(!check('form'))
 	{ return false; }
 	$('#form').target = '_application'; //'upload_target' is the name of the iframe
@@ -413,7 +427,7 @@ function init() {
 	$('#_application').style.height="400px";
 	});
 
-	
+
 }
 */
 /*
@@ -439,28 +453,6 @@ function init() {
 }
 }
 window.onload=init;
-</script>
-<script language="javascript">
-	$(function() {
-		var pickerOpts = 
-		{
-			showAnim: 'fold',
-			//showOn: 'both',
-			hideIfNoPrevNext: true,
-			nextText: 'Later',
-			dateFormat:"dd-mm-yy",
-			changeFirstDay: false,
-			changeMonth: false,
-			changeYear: true,
-			closeAtTop: false,
-			showOtherMonths: true,
-			showStatus: true,
-			showWeeks: true,
-			duration: "fast",
-			yearRange: "1940:1993"
-        };
-		$("input[alt='date']").datepicker(pickerOpts);
-	});
 </script>
 <iframe id="_application" name="_application" src="" style="width:0px;height:0px;"  frameborder="0" scrolling="no" allowtransparency="true" ></iframe>
 </form>

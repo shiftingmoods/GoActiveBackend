@@ -10,7 +10,7 @@ if(!$index->isAllowed($data))
 		$pathA=explode('/',$_SERVER["HTTP_REFERER"]);
 		if(str_replace('.php','',$pathA[count($pathA)-1])!=$page)
 		{
-			if(strpos($_SERVER["HTTP_REFERER"],'?')===false) $char='?' ; else $char='&'; 
+			if(strpos($_SERVER["HTTP_REFERER"],'?')===false) $char='?' ; else $char='&';
 			//ob_end_clean();
 			$wlurl=$_SERVER["HTTP_REFERER"].$char.'note=No Permition';
 			echo "<script language='javascript' >window.location = '".$wlurl."';</script>";
@@ -46,9 +46,9 @@ $common_menu=$index->getMenuList($index_Mdata);
 if(!isset($seq))
 {
 	//************************* general Variables **************************************
-	
+
 		$seq[$table0]=array();
-	
+
 	//************************* End general Variables **************************************
 }
 
@@ -66,11 +66,11 @@ if(!isset($_GET['id']) && isset($_SESSION['context'][$tables[0]]))
 {
 	$_GET['id']=$_SESSION['context'][$tables[0]];
 }
-//***********************************************************************************************************									
+//***********************************************************************************************************
 if(isset($_GET['id']))
 {
 	if($_GET['id']!='0' && filter_var($_GET['id'], FILTER_VALIDATE_INT))
-	{	
+	{
 		$selectedItemId=$_GET['id'];
 		$selectedItemIdMain=$_GET['id'];
 		if(!$index->checkIdIfExist($selectedItemId,$tables[0]))
@@ -79,15 +79,15 @@ if(isset($_GET['id']))
 			header('Location:'.$tables[0].'.php?note=Invalid '.$index->toView($tables[0]).' Id');
 		}
 		if($index->checkTableIfExist($tables[0].'_language'))
-		{ 
+		{
 				$selectedItemIdA['id']=$selectedItemId;
-				$selectedItemIdA['language_id']=$lang; 
+				$selectedItemIdA['language_id']=$lang;
 				$Aitm = $index->getGeneralItemById($selectedItemIdA,$tables[0]);
 		}
 		else
 		{
 				$Aitm = $index->getGeneralItemById($selectedItemId,$tables[0]);
-		}	
+		}
 		$itm = $Aitm[$selectedItemId];
 
 	}
@@ -108,10 +108,10 @@ else
 	function reload()
 	{
 		var selectedItemId = document.form.item.value;
-		
-		
+
+
 		window.location='?selectedItemId='+selectedItemId ;
-	}	
+	}
 	function changeEditMode()
 	{
 		if(document.form.language_id.value=="<?php echo $lang; ?>")
@@ -130,19 +130,18 @@ else
 		}
 	}
 	function init() {
-		document.getElementById('form').onsubmit=function() {
-		if(!check('form'))
-		{ return false; }
-		document.getElementById('form').target = 'upload_target'; //'upload_target' is the name of the iframe
-		document.getElementById('upload_target').style.width="100%";
-		document.getElementById('upload_target').style.height="40px";
-	}
+			document.getElementById('form').onsubmit=function() {
+
+			document.getElementById('form').target = '_application'; //'upload_target' is the name of the iframe
+			document.getElementById('_application').style.width="100%";
+			document.getElementById('_application').style.height="400px";
+		}
 	}
 	window.onload=init;
 	</script>
 
-	<div id="body">	
-		
+	<div id="body">
+
 		<div id="firstColumn" >
 		<div >
 			<input id="add_item_buttom" type="button" style="width:<?php echo(strlen($tables[0])*9); ?>px" onClick="window.location='<?php echo $tables[0]; ?>.php'" value="<?php echo $index->toView($tables[0]); ?>" >
@@ -164,11 +163,11 @@ else
 					{
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -192,11 +191,11 @@ else
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
 					//var_dump($menu['menu_pages']); die();
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -241,7 +240,7 @@ else
 			<input type="hidden" value="<?php echo $selectedItemId;?>" name="<?php echo $table; ?>[item]" >
 			</td>
 			</tr>
-			<?php 
+			<?php
 			if(isset($selectedItemId))
 			{
 				if($selectedItemId!='0')
@@ -290,8 +289,8 @@ else
 									$display_name=$index->getTableDisplayName($Ftable,$dataDN);
 									$dataCFDN['display_name']=$display_name;
 									//*********** get what columns to display *******
-			?>						
-								
+			?>
+
 								<select name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>"<?php if($Ftable=='language') echo (' onchange="changeEditMode()"'); ?> >
 								<option value="null" >Select</option>
 			<?php
@@ -303,7 +302,7 @@ else
 									$defVal='';
 									if($itm[$id]==$item[$PRI])
 									{
-										$defVal='selected="selected"'; 
+										$defVal='selected="selected"';
 									}
 									echo('<option '.$defVal.' value="'.$item[$PRI].'" >'.$FDN.'</option>');
 								}
@@ -316,15 +315,15 @@ else
 								switch($id)
 								{
 									case 'password':
-			?>					
+			?>
 									<input type="password" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.'_optional'; ?>" value="" >
-			<?php				
+			<?php
 									break;
 			//*********************************************************  case when the user has a schedule ******************************
 									case 'schedule':
 									$dayz=array( "0" => 'Monday',"1" => 'Tuesday',"2" => 'Wednesday',"3" => 'Thursday',"4" => 'Friday',"5" => 'Saturday',"6" => 'Sunday' );
-			?>					
-									
+			?>
+
 									<table border="0" >
 			<?php
 									$schedule=unserialize($itm[$id]);
@@ -374,19 +373,19 @@ else
 									break;
 			//*********************************************************  END case when the user has a schedule ******************************
 									case 'image_id':
-			?>					
+			?>
 			<?php if(file_exists('../../public/images/'.$index->showValue($itm[$id],$id))) { ?><img src="../../public/images/thumbs/<?php echo $index->showValue($itm[$id],$id); ?>" ></img><br><?php } ?>
 									<input type="file" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" >
-			<?php				
+			<?php
 									break;
 									default :
 									switch ($type['type'])
 										{
 											case 'int':
-			?>						
-									
+			?>
+
 												<input type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 											break;
 											case 'date':
 												$date=' alt="date" readonly ';
@@ -396,17 +395,31 @@ else
 													$date=' readonly ';
 													$hideDate= '<script language="javascript" >hideDate("'.$table.'['.$id.']");</script>';
 												}
-			?>						
-									
+			?>
+
 												<input type="text"<?php echo ' '.$date; ?> name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
+												echo $hideDate;
+											break;
+											case 'datetime':
+												$date=' alt="datetime" readonly ';
+												$hideDate='';
+												if($id=='date_created')
+												{
+													$date=' readonly ';
+													$hideDate= '<script language="javascript" >hideDate("'.$table.'['.$id.']");</script>';
+												}
+			?>
+
+												<input type="text"<?php echo ' '.$date; ?> name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
+			<?php
 												echo $hideDate;
 											break;
 											case 'varchar':
-			?>						
-									
+			?>
+
 												<input type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 											break;
 											case 'tinyint':
 			?>
@@ -420,12 +433,12 @@ else
 														</td>
 													</tr>
 												</table>
-			<?php	
+			<?php
 											break;
 											case 'text':
 			?>
 												<textarea  name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" maxlength="<?php echo $type['length']; ?>" ><?php echo $itm[$id]; ?></textarea>
-			<?php	
+			<?php
 											break;
 											default:
 			?>
@@ -433,7 +446,7 @@ else
 			<?php
 										}
 								}
-							}	
+							}
 			?>
 							</td>
 							</tr>
@@ -444,7 +457,7 @@ else
 					if($showStat==true && $table==$tables[0])
 					{
 			?>
-			<tr><td><label>Status:</label></td><td> 
+			<tr><td><label>Status:</label></td><td>
 			<select name="<?php echo $table; ?>[status]" id="status">
 			<option value="ACTIVE"<?php if($itm['status']=="ACTIVE") echo("selected"); else echo(""); ?> >ACTIVE</option>
 			<option value="INACTIVE" <?php if($itm['status']=="INACTIVE") echo("selected"); else echo(""); ?> >INACTIVE</option>
@@ -459,40 +472,6 @@ else
 <?php } ?>
 <span id="saveChanges" ><input class="submit" type="submit" value="Save Changes" /></span><?php if(isset($showLangButton)){ ?><span style="display:none" id="saveNewLang" ><input  type="submit" value="Save New Language" onClick="" /></span><td/><td><?php } ?>
 <!------------------------------------------- iframe data ------------------------------------------------------------->
-<script language="javascript" >
-function init() {
-	document.getElementById('form').onsubmit=function() {
-	if(!check('form'))
-	{ return false; }
-	document.getElementById('form').target = '_application'; //'upload_target' is the name of the iframe
-	document.getElementById('_application').style.width="100%";
-	document.getElementById('_application').style.height="400px";
-}
-}
-window.onload=init;
-</script>
-<script language="javascript">
-	$(function() {
-		var pickerOpts = 
-		{
-			showAnim: 'fold',
-			//showOn: 'both',
-			hideIfNoPrevNext: true,
-			nextText: 'Later',
-			dateFormat:"dd-mm-yy",
-			changeFirstDay: false,
-			changeMonth: false,
-			changeYear: true,
-			closeAtTop: false,
-			showOtherMonths: true,
-			showStatus: true,
-			showWeeks: true,
-			duration: "fast",
-			yearRange: "1940:1993"
-        };
-		$("input[alt='date']").datepicker(pickerOpts);
-	});
-</script>
 <iframe id="_application" name="_application" src="" style="width:0px;height:0px;"  frameborder="0" scrolling="no" allowtransparency="true" ></iframe>
 <!--------------------------------------------- End iframe data ------------------------------------------------------------------------>
 </form>

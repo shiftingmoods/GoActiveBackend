@@ -1,17 +1,17 @@
-$(function(){
-	var i;
-	var pickerOpts = {showAnim: 'fold',hideIfNoPrevNext: true,nextText: 'Later',dateFormat:"yy-mm-dd",changeFirstDay: false,changeMonth: false,changeYear: true,closeAtTop: false,showOtherMonths: true,showStatus: true,showWeeks: true,duration: "fast",yearRange: "-100:"};
-	//alert($('input[type=text]').length);
-	for(i=0;i<$('input[type=text]').length;i++)
-	{
-		if($('input[type=text]:eq(' + i + ')').attr('alt')=="date")
-		{	
-			$('input[type=text]:eq(' + i + ')').attr('class',' ');
-			$('input[type=text]:eq(' + i + ')').attr('class','datepickera'+i);
-			$('.datepickera'+i).datepicker(pickerOpts);
-		}
-	}
-});
+// $(function(){
+// 	var i;
+// 	var pickerOpts = {showAnim: 'fold',hideIfNoPrevNext: true,nextText: 'Later',dateFormat:"yy-mm-dd",changeFirstDay: false,changeMonth: false,changeYear: true,closeAtTop: false,showOtherMonths: true,showStatus: true,showWeeks: true,duration: "fast",yearRange: "-100:"};
+// 	//alert($('input[type=text]').length);
+// 	for(i=0;i<$('input[type=text]').length;i++)
+// 	{
+// 		if($('input[type=text]:eq(' + i + ')').attr('alt')=="date")
+// 		{
+// 			$('input[type=text]:eq(' + i + ')').attr('class',' ');
+// 			$('input[type=text]:eq(' + i + ')').attr('class','datepickera'+i);
+// 			$('.datepickera'+i).datepicker(pickerOpts);
+// 		}
+// 	}
+// });
 function getTypeContent()
 {
 		var xmlhttp;
@@ -29,7 +29,7 @@ function getTypeContent()
 								}
 }
 function editTypeContent()
-{	
+{
 		var xmlhttp;
 		xmlhttp=new XMLHttpRequest();
 		xmlhttp.open("POST","../applications/item/getTypeContent.php",true);
@@ -56,3 +56,21 @@ function hoverStyle(image_name,id)
 				$(this).attr("src","../public/design-images/"+image_name+".png");
 			});
 	}
+
+	$( document ).ready(function() {
+
+		$(function() {
+			$("input[alt='datetime']").datetimepicker({
+			 timepicker:true,
+			 format:'Y-m-d H:i:s'
+			});
+		});
+
+		$(".fancybox").fancybox();
+
+		$("input[alt='date']").datetimepicker({
+		 timepicker:false,
+		 format:'Y-m-d'
+		});
+
+	});

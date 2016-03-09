@@ -10,7 +10,7 @@ if(!$index->isAllowed($data))
 		$pathA=explode('/',$_SERVER["HTTP_REFERER"]);
 		if(str_replace('.php','',$pathA[count($pathA)-1])!=$page)
 		{
-			if(strpos($_SERVER["HTTP_REFERER"],'?')===false) $char='?' ; else $char='&'; 
+			if(strpos($_SERVER["HTTP_REFERER"],'?')===false) $char='?' ; else $char='&';
 			//ob_end_clean();
 			header('Location:'.$_SERVER["HTTP_REFERER"].$char.'note=No Permition');
 		}
@@ -29,7 +29,7 @@ if(!$index->isAllowed($data))
 //************************************* check if the user control_p_group allow him to enter this page *******
 //******************************************* constants *****************************************
 $table=strtolower(substr($page,4));
-$orgTable=strtolower(substr($page,4,-9)); 
+$orgTable=strtolower(substr($page,4,-9));
 $Table=$index->capitalize($table);
 //******************************************* constants end *************************************
 //******************************************************** sub menu *****************************
@@ -45,7 +45,7 @@ $common_menu=$index->getMenuList($index_Mdata);
 if(isset($_GET['id']))
 {
 	if($_GET['id']!='0')
-	{	
+	{
 		$selectedItemId=$_GET['id'];
 		if(!$index->checkIdIfExist($selectedItemId,$table))
 		{
@@ -53,12 +53,12 @@ if(isset($_GET['id']))
 			header('Location:'.$table.'.php?note=Invalid '.$Table.' Id');
 		}
 		if($index->hasLanguage($table))
-		{		
+		{
 				$selectedItemIdA['id']=$selectedItemId;
 				$selectedItemIdA['language_id']=$lang;
 				$selectedItemIdA['useLang']='true';
 				$Aitm = $index->getGeneralItemById($selectedItemIdA,$orgTable);
- 
+
 		}
 		else
 		{
@@ -68,7 +68,7 @@ if(isset($_GET['id']))
 		$itm = $Aitm[$selectedItemId];
 		$cols = $index->getGeneralColums($table);
 		$keys = $cols['keys'];
-		
+
 	}
 }
 else
@@ -96,18 +96,18 @@ else
 												}
 											}
 										}
-				
+
 	}
 	function reload()
 	{
 		var selectedItemId = document.form.item.value;
-		
-		
+
+
 		window.location='?selectedItemId='+selectedItemId ;
-	}	
+	}
 	function changeEditMode()
 	{
-		
+
 		if(document.form.language_id.value=="<?php echo $lang; ?>")
 		{
 			document.form.action='../applications/itemIframe/saveGeneralItemEdit.php?newLang=true';
@@ -137,8 +137,8 @@ else
 	}
 	window.onload=init;
 	</script>
-	<div id="body">	
-		
+	<div id="body">
+
 		<div id="firstColumn" >
 		<div >
 		<input id="add_item_buttom" type="button" style="width:<?php echo(100+strlen($orgTable)*9); ?>px" onClick="window.location='<?php echo 'edit'.ucfirst($orgTable); ?>.php?id=<?php echo $selectedItemId; ?>'" value="<?php echo 'Edit '.$index->toView($orgTable).' Info'; ?>" >
@@ -160,11 +160,11 @@ else
 					{
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr style="font-weight:bold"><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -188,11 +188,11 @@ else
 						$mnu_no_param=substr($mnu,0,strpos($mnu,"."));
 					}
 					//var_dump($menu['menu_pages']); die();
-					
+
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu_no_param); if($res) { ?><tr ><td><span ><a href="<?php echo $mnu.$ext;?>"><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -202,7 +202,7 @@ else
 		<div id="secondColumn"  >
 
 		<center><h1>Edit<?php echo ' '.$index->toView($table); ?></h1></center>
-		
+
 		<form method="post" name="form" id="form" action="../applications/itemIframe/saveGeneralItemEdit.php" enctype="multipart/form-data"  >
 		<div class="form_div" >
 			<table class="form_table" >
@@ -213,7 +213,7 @@ else
 			<input type="hidden" value="<?php echo $selectedItemId;?>" name="item" >
 			</td>
 			</tr>
-		<?php 
+		<?php
 		if(isset($selectedItemId))
 		{
 			if($selectedItemId!='0')
@@ -326,15 +326,15 @@ else
 							switch($id)
 							{
 								case 'password':
-		?>					
+		?>
 								<input type="password" name="<?php echo $id; ?>" id="<?php echo $outer.'_optional'; ?>" value="" >
-		<?php				
+		<?php
 								break;
 		//*********************************************************  case when the user has a schedule ******************************
 								case 'schedule':
 								$dayz=array( "0" => 'Monday',"1" => 'Tuesday',"2" => 'Wednesday',"3" => 'Thursday',"4" => 'Friday',"5" => 'Saturday',"6" => 'Sunday' );
-		?>					
-								
+		?>
+
 								<table border="0" >
 		<?php
 								$schedule=unserialize($itm[$id]);
@@ -384,25 +384,25 @@ else
 								break;
 		//*********************************************************  END case when the user has a schedule ******************************
 								case 'image_id':
-		?>					
+		?>
 		<?php if(file_exists('../../public/images/'.$index->showValue($itm[$id],$id))) { ?><img src="../../public/images/thumbs/<?php echo $index->showValue($itm[$id],$id); ?>" ></img><br><?php } ?>
 								<input type="file" name="<?php echo $id; ?>" id="<?php echo $outer.$optional; ?>" >
-		<?php				
+		<?php
 								break;
 								default :
 								switch ($type['type'])
 									{
 										case 'int':
-		?>						
-								
+		?>
+
 											<input type="text" name="<?php echo $id; ?>" id="<?php echo $outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-		<?php	
+		<?php
 										break;
 										case 'varchar':
-		?>						
-								
+		?>
+
 											<input type="text" name="<?php echo $id; ?>" id="<?php echo $outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-		<?php	
+		<?php
 										break;
 										case 'date':
 											$date=' alt="date" readonly ';
@@ -412,10 +412,24 @@ else
 												$date=' readonly ';
 												$hideDate= '<script language="javascript" >hideDate("'.$id.'");</script>';
 											}
-		?>						
-								
+		?>
+
 											<input type="text"<?php echo ' '.$date; ?> name="<?php echo $id; ?>" id="<?php echo $outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-		<?php	
+		<?php
+											echo $hideDate;
+										break;
+										case 'datetime':
+											$date=' alt="datetime" readonly ';
+											$hideDate='';
+											if($id=='date_created')
+											{
+												$date=' readonly ';
+												$hideDate= '<script language="javascript" >hideDate("'.$id.'");</script>';
+											}
+		?>
+
+											<input type="text"<?php echo ' '.$date; ?> name="<?php echo $id; ?>" id="<?php echo $outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
+		<?php
 											echo $hideDate;
 										break;
 										case 'tinyint':
@@ -430,12 +444,12 @@ else
 													</td>
 												</tr>
 											</table>
-		<?php	
+		<?php
 										break;
 										case 'text':
 		?>
 											<textarea  name="<?php echo $id; ?>" id="<?php echo $outer.$optional; ?>" maxlength="<?php echo $type['length']; ?>" ><?php echo $itm[$id]; ?></textarea>
-		<?php	
+		<?php
 										break;
 										default:
 		?>
@@ -443,7 +457,7 @@ else
 		<?php
 									}
 							}
-						}	
+						}
 		?>
 						</td>
 						</tr>
@@ -454,7 +468,7 @@ else
 				if($showStat==true)
 				{
 		?>
-		<tr><td><label>Status:</label></td><td> 
+		<tr><td><label>Status:</label></td><td>
 		<select name="status" id="status">
 		<option value="ACTIVE"<?php if($itm['status']=="ACTIVE") echo("selected"); else echo(""); ?> >ACTIVE</option>
 		<option value="INACTIVE" <?php if($itm['status']=="INACTIVE") echo("selected"); else echo(""); ?> >INACTIVE</option>

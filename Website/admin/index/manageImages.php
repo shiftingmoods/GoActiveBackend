@@ -1,8 +1,12 @@
-<?php require_once('../public/layouts/theme_1/_header.html');?>
-<?php require_once("../models/index/index.php");
-$index=new index();
+<?php require_once('../public/layouts/theme_1/_header.html');
+
+require_once('../public/configuration.php');
 $cnct=new cnct_class();
-$cnct->cnct();
+$index_data['cnx']=$cnct->cnct();
+
+require_once("../models/index/index.php");
+$index=new index($index_data);
+
 //************************************* check if the user control_p_group allow him to enter this page *******
 $path_parts = pathinfo(__FILE__);
 $page=$path_parts['filename'];
@@ -51,26 +55,8 @@ $FD['multiFilterBy'][]=$F;
 $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 //$index->show($FD);
 ?>
-<!----------------------------------  Fancy Box ------------------------------------------------->
-<script type="text/javascript" src="../public/js/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-<script type="text/javascript" src="../public/js/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
-<link rel="stylesheet" type="text/css" href="../public/js/fancybox/jquery.fancybox-1.3.4.css" media="screen" />
-<script language="javascript">
-	$(document).ready(function(){
-		$("a[rel=images]").fancybox(
-				{
-					'transitionIn'		: 'none',
-					'transitionOut'		: 'none',
-					'titlePosition' 	: 'over',
-					'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
-						return '<span id="fancybox-title-over" >Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
-					}
-				});
-	});
-</script>
-	
-	<div id="body">	
-		
+	<div id="body">
+
 		<div id="firstColumn" >
 		<div >
 			<input id="add_item_buttom" type="button" style="width:<?php echo(strlen($index->toView($T))*9); ?>px" onClick="window.location='<?php echo $T; ?>.php'" value="<?php echo $index->toView($T); ?>" >
@@ -82,9 +68,9 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 					$display_name=$menu['menu_display_names'][$menu_id];
 					//var_dump($menu['menu_pages']); die();
 			?>
-					
-			<?php 
-					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu); if($res) { ?><tr ><td><span ><a href="<?php if(strpos($mnu, '.php')===false) echo $mnu.'.php'; else echo $mnu; ?>" ><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>	
+
+			<?php
+					$res=$index->isAllowed_2($_SESSION['control_p_group_id'],$mnu); if($res) { ?><tr ><td><span ><a href="<?php if(strpos($mnu, '.php')===false) echo $mnu.'.php'; else echo $mnu; ?>" ><?php if($display_name=="")echo $index->toView($mnu); else { echo $display_name; }?></a></span></td></tr><?php } ?>
 			<?php
 				}
 			?>
@@ -94,18 +80,18 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 	<div id="item_name" style="padding-bottom:30px;" >
 		<center><label >Add<?php echo ' '.$index->toView($mainTable).' '; ?></label></center>
 	</div>
-		
+
 	<form  method="post" action="../applications/item/saveImages.php" name='form' id='form' enctype="multipart/form-data" onsubmit="">
 
-<!-------------------------------------------------- load more input from table ------------------------------------------------> 
+<!-------------------------------------------------- load more input from table ------------------------------------------------>
 		<?php
 			$table="image_to_".$T;
 			$cols = $index->getGeneralColums($table);
 			$cols = $cols['keys'];
 		?>
 		<table style="float:left;width:200px;!important" >
-		<tr><td><b><?php echo $index->toView($T).' :</b></td><td> '.$index->toView($index->showValue($I,$T.'_id')); ?></td></tr>	
-		<?php 
+		<tr><td><b><?php echo $index->toView($T).' :</b></td><td> '.$index->toView($index->showValue($I,$T.'_id')); ?></td></tr>
+		<?php
 
 			if($cols!='0')
 			{
@@ -136,19 +122,19 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 						*/
 					if($id!='id' && $id!='status' && $id!=$T."_id" && $par )
 					{
-					
+
 						$outer= $index->toView($id);
-		?>			
+		?>
 		<script language="javascript">
 		$(function(){
 			$("#da").hide();
 		});
 		</script>
-						
+
 		<?php if($id=='date_cr'){?><tr id="da"><?php }else{ ?><tr><?php } ?><td><label><?php echo $outer; ?>:<?php echo ' '.$star; ?></label></td>
 							<td>
-							
-		<?php				
+
+		<?php
 							$foreignTable=$index->composeSelectBox($id);//return false if the table is not forien and return an array aff all values if its a forien
 							if(($foreignTable || count($foreignTable)=='0') && $id!='image_id')
 						{
@@ -161,7 +147,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 							{
 		?>
 								<option value="null">Empty</option>
-							
+
 		<?php
 							}
 							else
@@ -179,7 +165,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 								$dataCFDN['display_name']=$display_name;
 								//*********** get what columns to display *******
 								{
-			?>					
+			?>
 								<option value="null">Select</option>
 			<?php
 								}
@@ -219,16 +205,16 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 							switch($id)
 							{
 								case 'password':
-		?>					
-								
+		?>
+
 								<input type="password" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" >
 		<?php
 								break;
 		//******************************************************  in caye item has schedule ****************************************************
 								case 'schedule':
 								$dayz=array( "0" => 'Monday',"1" => 'Tuesday',"2" => 'Wednesday',"3" => 'Thursday',"4" => 'Friday',"5" => 'Saturday',"6" => 'Sunday' );
-		?>					
-								
+		?>
+
 								<table border="0" >
 		<?php
 								foreach($dayz as $id2=>$day)
@@ -274,30 +260,30 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 								break;
 		//******************************************************  in caye item has schedule ****************************************************
 								case 'image_id':
-		?>					
-								
+		?>
+
 								<input type="file" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" />
 		<?php
 								break;
-								
+
 								default:
 								{
 									switch ($type['type'])
 									{
 										case 'int':
-		?>						
-								
+		?>
+
 											<input type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
-		<?php	
+		<?php
 										break;
 										case 'varchar':
-		?>						
-								
+		?>
+
 											<input type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
-		<?php	
+		<?php
 										break;
 										case 'date':
-										
+
 											$date=' alt="date" readonly ';
 											$hideDate='';
 											if($id=='date_created')
@@ -305,16 +291,16 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 												$date=' value="'.date('Y-m-d').'" readonly ';
 												$hideDate= '<script language="javascript" >hideDate("'.$table.'['.$id.']");</script>';
 											}
-		?>						
-								
+		?>
+
 											<input type="text"<?php echo ' '.$date; ?> name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="" maxlength="<?php echo $type['length']; ?>" >
-		<?php	
-											echo $hideDate;	
+		<?php
+											echo $hideDate;
 										break;
 										case 'text':
 		?>
 											<textarea  name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" maxlength="<?php echo $type['length']; ?>" ></textarea>
-		<?php	
+		<?php
 										break;
 										case 'tinyint':
 		?>
@@ -328,7 +314,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 													</td>
 												</tr>
 											</table>
-		<?php	
+		<?php
 										break;
 										default:
 		?>
@@ -337,7 +323,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 									}
 								}
 							}
-						}	
+						}
 		?>
 							</td>
 						</tr>
@@ -351,7 +337,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 				if($showStat==true && $table==$tables[0])
 				{
 		?>
-		<tr><td ><label>Status:</label></td><td> 
+		<tr><td ><label>Status:</label></td><td>
 		<select name="<?php echo $table; ?>[status]" id="status">
 		<option value="ACTIVE">ACTIVE</option>
 		<option value="INACTIVE">INACTIVE</option>
@@ -366,7 +352,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 		</td></tr>
 		</table>
 
-<!-------------------------------------------------- load more input from table ------------------------------------------------> 
+<!-------------------------------------------------- load more input from table ------------------------------------------------>
 
 	<!-------------------------------- documents of a table ------------------------------------>
 	<table style="float:right;"  >
@@ -387,8 +373,8 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 				else
 				{
 					$del='';
-				}		
-				echo '<td style="padding-left:20px;font-size:12px" align="center" ><a  rel="images" href="'.$dir.'public/images/'.$file['image_name'].'" ><img src="'.$dir.'public/images/thumbs/'.$file['image_name'].'" ></a>'.$del.'</td>';
+				}
+				echo '<td style="padding-left:20px;font-size:12px" align="center" ><a  class="fancybox" rel="images" href="'.$dir.'public/images/'.$file['image_name'].'" ><img src="'.$dir.'public/images/thumbs/'.$file['image_name'].'" ></a>'.$del.'</td>';
 				if($C==3)
 				{
 					echo '</tr><tr>';
@@ -420,7 +406,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 	<!--------------------------------------------- datepicker ------------------------------------------------------------------------>
 	<script language="javascript">
 	$(function() {
-		var pickerOpts = 
+		var pickerOpts =
 		{
 			showAnim: 'fold',
 			//showOn: 'both',
