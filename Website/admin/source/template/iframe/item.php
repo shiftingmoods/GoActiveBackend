@@ -370,7 +370,7 @@ if($index->checkTableIfExist($table.'_language'))
 									if($tableLang)//add the display name of the table_language in the columns after the primarykey
 									{
 ?>
-										<td><?php echo $index->showValue2($value[$dispN],$dispN,$tableLang); ?></td>	
+										<td><?php echo $index->showValue2($value[$dispN],$dispN,$tableLang); ?></td>
 <?php
 									}
 									?>
@@ -380,7 +380,7 @@ if($index->checkTableIfExist($table.'_language'))
 								case 'image_id' :
 
 ?>
-									<td><?php if(file_exists('../../public/images/'.$index->showValue($value[$keyId],$keyId))) { ?><a target="_blank" href="../../public/images/<?php echo $index->showValue($value[$keyId],$keyId); ?>" ><img style="width:50px;height:50px;" src="../../public/images/thumbs/<?php echo $index->showValue($value[$keyId],$keyId); ?>" ></a><?php }else { echo 'No Image'; } ?></td>
+									<td><?php if(file_exists('../../public/images/'.$index->showValue($value[$keyId],$keyId))) { ?><a class="fancybox" target="_blank" href="../../public/images/<?php echo $index->showValue($value[$keyId],$keyId); ?>" ><img style="width:50px;height:50px;" src="../../public/images/thumbs/<?php echo $index->showValue($value[$keyId],$keyId); ?>" ></a><?php }else { echo 'No Image'; } ?></td>
 <?php
 								break;
 								default :
