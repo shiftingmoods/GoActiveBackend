@@ -1,0 +1,9 @@
+Item:
+
+Used for the default controllers for items not used as iframe like :
+
+- Add Images
+- Add Files
+- Delete Item
+
+etc...

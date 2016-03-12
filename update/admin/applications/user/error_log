@@ -1,0 +1,1 @@
+[07-Jan-2014 15:52:22 America/New_York] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Access denied for user 'root'@'localhost' (using password: NO) in /home3/shifting/public_html/hind/Claray-version6/admin/models/connection/mysql_connect.php on line 6

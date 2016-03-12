@@ -1,0 +1,12 @@
+<?php require_once "../public/constants.php";
+$C= 'ConstantsControl_p_admin';
+$C = new ReflectionClass($C);?>
+<br><br>
+<div id="footer">
+		<br>
+		<center>Copyright &copy;<?php echo ' '.$C->getConstant('COPYRIGHTYEAR'); ?><?php echo ' '.$C->getConstant('DOMAIN'); ?></center>
+		<center>Powered By:<?php echo ' '.$C->getConstant('POWEREDBYCOMPANY'); ?></center>
+</div>
+</body>
+</html>
+<?php //ob_end_flush(); ?>
