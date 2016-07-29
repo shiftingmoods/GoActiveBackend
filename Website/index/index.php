@@ -18,6 +18,7 @@
 <?php
 $table='item';
 // $index->setVar('2','lang');
+
 $languages=$index->getAllGeneralItemsWithJoins('','language');
 
 // $index->show($allItems);
@@ -60,7 +61,23 @@ $index->setVar($lang,'lang');
 ?>
 <!-------------------------------------- language Step 1 ----------------------------------------->
 <?php
-$allItems=$index->getAllGeneralItemsWithJoins('','item');
+$betTest['filterBy']='time';
+$betTest['keyword'][]='2016-07-01 08:00:54';
+$betTest['keyword'][]='2016-07-25 08:00:54';
+$betTest['between']=true;
+
+$betTest1['filterBy']='price';
+$betTest1['keyword'][]='30';
+$betTest1['keyword'][]='100';
+$betTest1['between']=true;
+
+$betTest2['filterBy']='name';
+$betTest2['keyword']="t";
+
+// $dataI['multiFilterBy'][]=$betTest;
+// $dataI['multiFilterBy'][]=$betTest1;
+// $dataI['multiFilterBy'][]=$betTest2;
+$allItems=$index->getAllGeneralItemsWithJoins($dataI,'item');
 ?>
 </form>
 <?php

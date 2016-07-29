@@ -1144,6 +1144,7 @@ class index
 					$like='%';
 					$oparator=' LIKE ';
 					$checkId=false;//if we want LIKE search && we didnt specifiy the search if on id or name ... default it will search the name
+					$between=false;
 					if(isset($filterDataChild['exact']))
 					{
 						if($filterDataChild['exact']==true)
@@ -1160,6 +1161,23 @@ class index
 							$checkId=true;
 						}
 					}
+					if(!empty($filterDataChild['between']))
+					{
+						if(is_array($filterDataChild['keyword']))
+						{
+							$between=true;
+							$numeric=false;
+							$like='';
+							$oparator=' BETWEEN ';
+							$checkId=true;//if we want exact search && we didnt specifiy the search if on id or name ... default it will search the id
+							$from=$filterDataChild['keyword'][0];
+							$to=$filterDataChild['keyword'][1];
+							if(is_numeric($from) && is_numeric($to))
+							{
+								$numeric=true;
+							}
+						}
+					}
 					if(($res=$this->isForien($filterDataChild['filterBy'])) && !$checkId)//if the key is forien (and we r using like) then the key name will be changed to new name according to the output of the table
 					{
 						$filterBy=$filterBy.' '.$res['sql'].$oparator.'"'.$like.$filterDataChild["keyword"].$like.'" ';
@@ -1172,8 +1190,22 @@ class index
 						{
 							$nowTable=$tableLang;
 						}
-						$filterBy=$filterBy.' `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'`'.$oparator.'"'.$like.$filterDataChild["keyword"].$like.'" ';
-						//if($x!=$filters){ $filterBy=$filterBy.' AND '; }
+						if(!$between)
+						{
+							$filterBy=$filterBy.' `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'`'.$oparator.'"'.$like.$filterDataChild["keyword"].$like.'" ';
+							//if($x!=$filters){ $filterBy=$filterBy.' AND '; }
+						}
+						else
+						{
+							if($numeric)
+							{
+								$filterBy=$filterBy.' ( `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'` '.$oparator.' '.$from.' AND '.$to.' ) ';
+							}
+							else
+							{
+								$filterBy=$filterBy.' ( `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'` '.$oparator.' "'.$from.'" AND "'.$to.'" ) ';
+							}
+						}
 					}
 				}
 				else// in case one of the filters = all
