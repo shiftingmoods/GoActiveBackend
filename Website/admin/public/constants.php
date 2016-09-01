@@ -10,7 +10,7 @@ class ConstantsControl_p_admin
 	const DB_dev='test_old_concept'; // local database name
 	const PASS_dev=''; // locat database password
 	const CATEGORY='dev'; // use 'dev' for development(local) / 'prod' for production(online)
-	const TIMEZONE='Asia/Beirut'; // use 'dev' for development(local) / 'prod' for production(online)
+	const TIMEZONE='+3:00'; // use 'dev' for development(local) / 'prod' for production(online)
 	const MAIL=''; //sed requests and comments to this email
 	const DEVELOPER_SITE = 'www.shiftingmoods.com';//not used
 	const DOMAIN= 'www.shiftingmoods.com';
