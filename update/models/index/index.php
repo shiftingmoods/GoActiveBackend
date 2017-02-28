@@ -777,6 +777,10 @@ class index
 		{
 			return true;
 		}
+		$y2=explode('?', $y);
+		$y=$y2[0];
+		$y=str_replace('.php', '', $y);
+		
 		$data['control_p_group_id']=$x;
 		$data['control_p_privilege']=$y;
 		$table='control_p_privilege_to_group';
@@ -1192,8 +1196,14 @@ class index
 						}
 						if(!$between)
 						{
-							$filterBy=$filterBy.' `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'`'.$oparator.'"'.$like.$filterDataChild["keyword"].$like.'" ';
+							if($filterDataChild['keyword'] == NULL)
+							{
+								$filterBy=$filterBy.' `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'` IS NULL ';
+							}else
+							{
+								$filterBy=$filterBy.' `'.$nowTable.'`.`'.$filterDataChild["filterBy"].'`'.$oparator.'"'.$like.$filterDataChild["keyword"].$like.'" ';
 							//if($x!=$filters){ $filterBy=$filterBy.' AND '; }
+							}
 						}
 						else
 						{
