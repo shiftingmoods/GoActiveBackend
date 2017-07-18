@@ -38,12 +38,23 @@ if(isset($_SESSION['lang']))
 	<!-----------------------Page Body------------------------>
 <?php
 //******************************************************** sub menu *****************************
+$tableColumns=$index->getViewColumns($table);
+$column=$index->getGeneralColums($table);
+$keys=$column['keys'];
+$filterKeys=$column['filterKeys'];
+$PRI=$column['primaryKeys'];
+$PRI=$PRI[0];
+$tableLang=false;
+if($index->checkTableIfExist($table.'_language'))
+{
+	$tableLang=$table.'_language';
+}
 //******************************************************** Filters Sort Search********************
 $filterData['filterBy']='';
 $filterData['keyword']='';
-$filterData['order']='';
-$filterData['orderBy']='';
-$filterData['perPage']=5;
+$filterData['order']='DESC';
+$filterData['orderBy']=$PRI;
+$filterData['perPage']=29;
 if(isset($_GET))
 {
 	foreach($_GET as $key=>$value)
@@ -92,21 +103,10 @@ else
 }
 $filterData['limit']=$LIMIT;
 //**********************************************************paging end*******************
-$tableColumns=$index->getViewColumns($table);
-$column=$index->getGeneralColums($table);
-$keys=$column['keys'];
-$filterKeys=$column['filterKeys'];
 $items=$index->getAllGeneralItemsWithJoins($filterData,$table);
 $filterData['limit']='';
 $all=count($index->getAllGeneralItemsWithJoins($filterData,$table));
 $all=ceil($all/$filterData['perPage']);
-$PRI=$column['primaryKeys'];
-$PRI=$PRI[0];
-$tableLang=false;
-if($index->checkTableIfExist($table.'_language'))
-{
-	$tableLang=$table.'_language';
-}
 //$index->show($column);
 ?>
 	<div id="body">
