@@ -76,15 +76,15 @@ body
 }
 #firstColumn
 {
-	width:180px;
+	width:13%;
 	padding-top:99px;
 	padding-left:70px;
 }
 #secondColumn
 {
-	width:1000px;
-	margin-left:auto;
+	margin-left:13%;
 	margin-right:auto;
+	overflow-x:scroll; 
 }
 /********************************form inputs************************************/
 input[type="text"],textarea,input[type="password"],input[type="file"]
