@@ -1901,9 +1901,9 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if($value=="null")
+						if(strtolower($value)=="null" || $value=='')
 						{
-							$fillSQL=$fillSQL.'SET `'.$key.'`= '.addslashes($value).' ';
+							$fillSQL=$fillSQL.'SET `'.$key.'`= NULL ';
 						}
 						else
 						{
@@ -1922,9 +1922,9 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if($value=="null")
+						if(strtolower($value)=="null" || $value=='')
 						{
-							$fillSQL=$fillSQL.', `'.$key.'`= '.addslashes($value).'  ';
+							$fillSQL=$fillSQL.', `'.$key.'`= NULL  ';
 						}
 						else
 						{
@@ -1942,7 +1942,7 @@ function getGeneralItemById($id,$table)
 			$fillSQL=$fillSQL.' WHERE '.$PRI.'="'.$id.'"';
 		}
 		$sql = 'UPDATE `'.$table.'` '.$fillSQL;
-		//die($sql);
+		// die($sql);
 		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			return TRUE ;
@@ -1984,9 +1984,9 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if($value=="null")
+						if(strtolower($value)=="null" || $value=='')
 						{
-							$fillSQL=$fillSQL.'SET `'.$key.'`= '.addslashes($value).'  ';
+							$fillSQL=$fillSQL.'SET `'.$key.'`= NULL  ';
 						}
 						else
 						{
@@ -2005,9 +2005,9 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if($value=="null")
+						if(strtolower($value)=="null" || $value=='')
 						{
-							$fillSQL=$fillSQL.', `'.$key.'`= '.addslashes($value).'  ';
+							$fillSQL=$fillSQL.', `'.$key.'`= NULL  ';
 						}
 						else
 						{
@@ -2025,7 +2025,7 @@ function getGeneralItemById($id,$table)
 			$fillSQL=$fillSQL.' WHERE '.$PRI.'="'.$id.'"'.$langId;
 		}
 		$sql = 'UPDATE `'.$table.'` '.$fillSQL;
-
+		
 		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			return TRUE ;
