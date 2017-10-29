@@ -1901,7 +1901,7 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if(strtolower($value)=="null" || $value=='')
+						if(strtolower($value)=="null" || $value==='')
 						{
 							$fillSQL=$fillSQL.'SET `'.$key.'`= NULL ';
 						}
@@ -1922,7 +1922,7 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if(strtolower($value)=="null" || $value=='')
+						if(strtolower($value)=="null" || $value==='')
 						{
 							$fillSQL=$fillSQL.', `'.$key.'`= NULL  ';
 						}
@@ -1984,7 +1984,7 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if(strtolower($value)=="null" || $value=='')
+						if(strtolower($value)=="null" || $value==='')
 						{
 							$fillSQL=$fillSQL.'SET `'.$key.'`= NULL  ';
 						}
@@ -2005,7 +2005,7 @@ function getGeneralItemById($id,$table)
 					}
 					else
 					{
-						if(strtolower($value)=="null" || $value=='')
+						if(strtolower($value)=="null" || $value==='')
 						{
 							$fillSQL=$fillSQL.', `'.$key.'`= NULL  ';
 						}
