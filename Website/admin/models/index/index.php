@@ -570,6 +570,7 @@ class index
 	{
 		if(!is_array($data))
 		{
+			$data=array();
 			$data['multiple']=false;
 		}
 		else
@@ -592,12 +593,12 @@ class index
 			$sql='SHOW KEYS FROM `'.$table.'` WHERE Key_name="display_name"';
 		}
 		$result = mysqli_query($this->cnx,$sql);
-		$row='';
+		$row=array();
 		while($row0 = mysqli_fetch_assoc($result))
 		{
 			$row[] = $row0;
 		}
-		if($row)
+		if(count($row))
 		{
 			if(count($row)>1 && $data['multiple'])
 			{
@@ -644,7 +645,7 @@ class index
 		$item=$this->GetGeneralItemById($id,$table);
 		$item=$item[$id];
 		$display_name_value='';
-		$display_name0='';
+		$display_name0=array();
 		$data['multiple']=true;
 		$display_name=$this->getTableDisplayName($table,$data);
 		//var_dump($item);
@@ -675,7 +676,7 @@ class index
 	function composeFullDisplayName($data)
 	{
 		$display_name_value='';
-		$display_name0='';
+		$display_name0=array();
 		$item=$data['item'];
 		$display_name=$data['display_name'];
 		if(is_array($display_name))
@@ -880,7 +881,7 @@ class index
 	}
 	function getGeneralUniqueIndexes($table)
 	{
-		$item='';
+		$item=array();
 		$sql ='SHOW INDEX FROM `'.$table.'` WHERE `Non_unique`="0" ';
 		$result = mysqli_query($this->cnx,$sql);
 		while($row = mysqli_fetch_assoc($result))
@@ -1814,7 +1815,7 @@ function getGeneralItemById($id,$table)
 	//give $data['columnNameInDB']="inputValue"; fill all the required colomns
 	function checkGeneralItemIfExist($id,$data0,$table)
 	{
-		$item =''; // use it to avoid return false from database
+		$item =array(); // use it to avoid return false from database
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
@@ -1868,7 +1869,7 @@ function getGeneralItemById($id,$table)
 			}
 		}
 		//if($table=="member") $this->show($item);
-		if(is_array($item))
+		if(count($item))
 		{
 		return implode(' Or ',$item);
 		}
