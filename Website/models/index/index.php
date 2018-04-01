@@ -4,6 +4,7 @@ class index
 {
 	public $lang=1;
 	var $cnx;
+	private $skipJoins = false;
 
 	function __construct($data)
 	{
@@ -570,6 +571,7 @@ class index
 	{
 		if(!is_array($data))
 		{
+			$data=array();
 			$data['multiple']=false;
 		}
 		else
@@ -592,12 +594,12 @@ class index
 			$sql='SHOW KEYS FROM `'.$table.'` WHERE Key_name="display_name"';
 		}
 		$result = mysqli_query($this->cnx,$sql);
-		$row='';
+		$row=array();
 		while($row0 = mysqli_fetch_assoc($result))
 		{
 			$row[] = $row0;
 		}
-		if($row)
+		if(count($row))
 		{
 			if(count($row)>1 && $data['multiple'])
 			{
@@ -644,7 +646,7 @@ class index
 		$item=$this->GetGeneralItemById($id,$table);
 		$item=$item[$id];
 		$display_name_value='';
-		$display_name0='';
+		$display_name0=array();
 		$data['multiple']=true;
 		$display_name=$this->getTableDisplayName($table,$data);
 		//var_dump($item);
@@ -675,7 +677,7 @@ class index
 	function composeFullDisplayName($data)
 	{
 		$display_name_value='';
-		$display_name0='';
+		$display_name0=array();
 		$item=$data['item'];
 		$display_name=$data['display_name'];
 		if(is_array($display_name))
@@ -880,7 +882,7 @@ class index
 	}
 	function getGeneralUniqueIndexes($table)
 	{
-		$item='';
+		$item=array();
 		$sql ='SHOW INDEX FROM `'.$table.'` WHERE `Non_unique`="0" ';
 		$result = mysqli_query($this->cnx,$sql);
 		while($row = mysqli_fetch_assoc($result))
@@ -1329,8 +1331,10 @@ class index
 							if(!isset($PRIO)){ $PRIO=$PRI; }
 							$forienColumn=$this->getTableDisplayName($forienTable,'');
 							//$joinsFrom=$joinsFrom.', '.$forienTable.' ';
-							$joinsSelect=$joinsSelect.',`'.$forienTable.'`.`'.$forienColumn.'` AS `'.$forienTableO.'_'.$forienColumn.'` ';
-							$joinsInner=' LEFT JOIN `'.$forienTableO.'` ON (`'.$table.'`.`'.$forienTableO.'_id` = `'.$forienTableO.'`.`'.$PRIO.'`)'.$langJoin.$joinsInner;
+							if(!$this->skipJoins){
+								$joinsSelect=$joinsSelect.',`'.$forienTable.'`.`'.$forienColumn.'` AS `'.$forienTableO.'_'.$forienColumn.'` ';
+								$joinsInner=' LEFT JOIN `'.$forienTableO.'` ON (`'.$table.'`.`'.$forienTableO.'_id` = `'.$forienTableO.'`.`'.$PRIO.'`)'.$langJoin.$joinsInner;
+							}
 						}
 					}
 				}
@@ -1583,107 +1587,11 @@ class index
 		}
 		return $item; // array must return something
 	}
-	function getAllGeneralItems($status='all',$filterData,$table)
-	{
-		if(!is_array($filterData))//if there is $filterData given is not array
-		{
-			$filterData= Array();
-		}
-//***************************************************************************************
-		if(isset($filterData['limit']))//if there is paging or limit on output
-		{
-			$limit=$filterData["limit"];
-		}
-		else//empty stinr will be added to the end of sql
-		{
-			$limit='';
-		}
-//***************************************************************************************
-		if(isset($filterData['orderBy']))//if there is a filter by set
-		{
-			if($filterData['orderBy']!='')
-			{
-				$orderBy='ORDER By '.$filterData["orderBy"].' '.$filterData["order"];
-			}
-			else
-			{
-				$orderBy='';
-			}
-		}
-		else//case wont be executed cuz by default the variable id defined as null is the page
-		{
-			$orderBy='';
-		}
-//***************************************************************************************
-		if($filterData['filterBy']!='')//if there is a filter by set
-		{
-			if($filterData['filterBy']!='all')//if filter is not set to default
-			{
-				if($status=='all')//then there is no where in the sql statment
-				{
-					$filterBy='WHERE ('.$filterData["filterBy"].' LIKE "%'.$filterData["keyword"].'%" )';
-				}
-				else
-				{
-					$filterBy='AND ('.$filterData["filterBy"].' LIKE "%'.$filterData["keyword"].'%" )';
-				}
-			}
-			else
-			{
-				$i=1;
-				foreach($filterData['filterKeys'] as $keyName=>$keyValue)//filterKeys are the names of the colomns of the table in db but without some elements like (password )
-				{
-					if($i==1)
-					{
-						if($status=='all')
-						{
-							$filterBy='WHERE ( ';
-						}
-						else
-						{
-							$filterBy='AND ( ';
-						}
-					}
-					elseif($i<count($filterData['filterKeys']))
-					{
-						$filterBy=$filterBy.' '.$keyName.' LIKE "%'.$filterData["keyword"].'%" OR ';
-					}
-					else
-					{
-						$filterBy=$filterBy.' '.$keyName.' LIKE "%'.$filterData["keyword"].'%"';
-						$filterBy=$filterBy.' ) ';
-					}
-					$i++;
-				}
-			}
-		}
-		else//case wont be executed cuz by default the variable id defined as null is the page
-		{
-			$filterBy='';
-		}
-//***************************************************************************************
-		if($status=='all')
-		{
-			$sql2='';
-		}
-		else
-		{
-			$sql2 ='WHERE status = "'.addslashes($status).'"';
-		}
-//***************************************************************************************
-		$item = array(); // use it to avoid return false from database
-		$sql = 'SELECT *  FROM `'.$table.'` '.$sql2.' '.$filterBy.' '.$orderBy.' '.$limit; // change by function
-		//var_dump($sql);die();
-		$result = mysqli_query($this->cnx,$sql); // use it to fetch
-		$cols=$this->getGeneralColums($table);
-		$PRI=$cols['primaryKeys'];
-		$PRI=$PRI[0];
 
-		while($row = mysqli_fetch_assoc($result))
-		{
-			$item[$row[$PRI]] = $row; // fill up the array
-		}
-		return $item; // array must return something
+	function getAllGeneralItems($filterData,$table)
+	{
+		$this->skipJoins = true;
+		return $this->getAllGeneralItemsWithJoins($filterData,$table);
 	}
 
 	/********************************
@@ -1814,7 +1722,7 @@ function getGeneralItemById($id,$table)
 	//give $data['columnNameInDB']="inputValue"; fill all the required colomns
 	function checkGeneralItemIfExist($id,$data0,$table)
 	{
-		$item =''; // use it to avoid return false from database
+		$item =array(); // use it to avoid return false from database
 		$cols=$this->getGeneralColums($table);
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
@@ -1868,7 +1776,7 @@ function getGeneralItemById($id,$table)
 			}
 		}
 		//if($table=="member") $this->show($item);
-		if(is_array($item))
+		if(count($item))
 		{
 		return implode(' Or ',$item);
 		}
