@@ -18,7 +18,7 @@ $PRI=$PRI[0];
 if(isset($_GET[$PRI]))
 {
 	if($_GET[$PRI]!='0')
-	{	
+	{
 		$selectedItemId=$_GET[$PRI];
 		if(!$index->checkIdIfExist($selectedItemId,$table))
 		{
@@ -30,8 +30,8 @@ if(isset($_GET[$PRI]))
 }
 
 ?>
-<div id="body">	
-		
+<div id="body">
+
 		<div id="firstColumn" >
 		<div >
 			<input id="add_item_buttom" type="button" style="width:<?php echo(strlen($table)*9); ?>px" onClick="window.location='<?php echo '../index/edit'.$TABLE; ?>.php?id=<?php echo $selectedItemId; ?>'" value="<?php echo 'Edit '.$Table; ?>" >
@@ -47,11 +47,11 @@ if(isset($_GET[$PRI]))
 	function reload()
 	{
 		var selectedItemId = document.form.item.value;
-		
-		
+
+
 		window.location='?selectedItemId='+selectedItemId ;
-	}	
-		
+	}
+
 	</script>
 <br><br><br>
 <form method="post" name="form" >
@@ -63,7 +63,7 @@ if(isset($_GET[$PRI]))
 <input type="hidden" value="<?php echo $selectedItemId;?>" name="item" >
 </td>
 </tr>
-<?php 
+<?php
 
 //************************* general Variables **************************************
 
@@ -121,7 +121,7 @@ if(isset($selectedItemId))
 									$dataCFDN['display_name']=$display_name;
 									//*********** get what columns to display *******
 			?>
-								
+
 								<select disabled name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>"<?php if($Ftable=='language') echo (' onchange="changeEditMode()"'); ?> >
 								<option value="null" >Select</option>
 			<?php
@@ -148,15 +148,15 @@ if(isset($selectedItemId))
 								switch($id)
 								{
 									case 'password':
-			?>					
+			?>
 									<input type="password" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.'_optional'; ?>" value="Private" >
-			<?php				
+			<?php
 									break;
 			//*********************************************************  case when the user has a schedule ******************************
 									case 'schedule':
 									$dayz=array( "0" => 'Monday',"1" => 'Tuesday',"2" => 'Wednesday',"3" => 'Thursday',"4" => 'Friday',"5" => 'Saturday',"6" => 'Sunday' );
-			?>					
-									
+			?>
+
 									<table border="0" >
 			<?php
 									$schedule=unserialize($itm[$id]);
@@ -206,19 +206,19 @@ if(isset($selectedItemId))
 									break;
 			//*********************************************************  END case when the user has a schedule ******************************
 									case 'image_id':
-			?>					
+			?>
 			<?php if(file_exists('../../public/images/'.$index->showValue($itm[$id],$id))) { ?><img src="../../public/images/thumbs/<?php echo $index->showValue($itm[$id],$id); ?>" ></img><br><?php } ?>
-									
-			<?php				
+
+			<?php
 									break;
 									default :
 									switch ($type['type'])
 										{
 											case 'int':
-			?>						
-									
+			?>
+
 												<input  disabled type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 											break;
 											case 'date':
 												$date=' alt="" readonly ';
@@ -228,17 +228,17 @@ if(isset($selectedItemId))
 													$date=' readonly ';
 													$hideDate= '<script language="javascript" >hideDate("'.$table.'['.$id.']");</script>';
 												}
-			?>						
-									
+			?>
+
 												<input disabled type="text"<?php echo ' '.$date; ?> name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 												echo $hideDate;
 											break;
 											case 'varchar':
-			?>						
-									
+			?>
+
 												<input disabled type="text" name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" value="<?php echo $itm[$id]; ?>" maxlength="<?php echo $type['length']; ?>" >
-			<?php	
+			<?php
 											break;
 											case 'tinyint':
 			?>
@@ -252,12 +252,12 @@ if(isset($selectedItemId))
 														</td>
 													</tr>
 												</table>
-			<?php	
+			<?php
 											break;
 											case 'text':
 			?>
 												<textarea disabled name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php echo $Table.'-'.$outer.$optional; ?>" maxlength="<?php echo $type['length']; ?>" ><?php echo $itm[$id]; ?></textarea>
-			<?php	
+			<?php
 											break;
 											default:
 			?>
@@ -265,7 +265,7 @@ if(isset($selectedItemId))
 			<?php
 										}
 								}
-							}	
+							}
 			?>
 							</td>
 							</tr>
@@ -276,7 +276,7 @@ if(isset($selectedItemId))
 					if($showStat==true && $table==$tables[0])
 					{
 			?>
-					<tr><td><label>Status:</label></td><td> 
+					<tr><td><label>Status:</label></td><td>
 					<select disabled name="<?php echo $table; ?>[status]" id="status">
 					<option value="ACTIVE"<?php if($itm['status']=="ACTIVE") echo("selected"); else echo(""); ?> >ACTIVE</option>
 					<option value="INACTIVE" <?php if($itm['status']=="INACTIVE") echo("selected"); else echo(""); ?> >INACTIVE</option>
@@ -285,7 +285,7 @@ if(isset($selectedItemId))
 					}
 				}
 			}
-		
+
 ?>
 <tr><td><input type="button" value="Close" onClick="window.close()" /></td></tr>
 </table>

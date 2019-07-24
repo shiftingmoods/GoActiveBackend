@@ -284,7 +284,8 @@ class index
 	}
 	function composeSelectBox($data)
 	{
-
+		$return["status"] = 0;
+		$return["items"] = array();
 		if($pos=strrpos($data,'_id'))
 		{
 			$table=substr($data, 0, $pos);
@@ -297,7 +298,11 @@ class index
 				$item=$this->getAllGeneralItemsWithJoins($filterData,$table);
 				if(!$item)
 				{
-					$item=true;
+					$return["status"] = 1;
+				}else
+				{
+					$return["items"] = $item;
+					$return["status"] = 3;
 				}
 			}
 			else
@@ -305,19 +310,24 @@ class index
 				$item=$this->getAllGeneralItemsWithJoins('',$table);
 				if(!$item)
 				{
-					$item=true;
+					$return["status"] = 1;
+				}else
+				{
+					$return["items"] = $item;
+					$return["status"] = 3;
 				}
 			}
-			return $item;
+			return $return;
 		}
 		else
 		{
-			return false;
+			$return["status"] = 0;
+			return $return;
 		}
+
 	}
 	function composeSelectBoxWithFilter($data,$filterData)
 	{
-
 		if($pos=strrpos($data,'_id'))
 		{
 			$table=substr($data, 0, $pos);
@@ -782,7 +792,7 @@ class index
 		$y2=explode('?', $y);
 		$y=$y2[0];
 		$y=str_replace('.php', '', $y);
-		
+
 		$data['control_p_group_id']=$x;
 		$data['control_p_privilege']=$y;
 		$table='control_p_privilege_to_group';
@@ -1933,7 +1943,7 @@ function getGeneralItemById($id,$table)
 			$fillSQL=$fillSQL.' WHERE '.$PRI.'="'.$id.'"'.$langId;
 		}
 		$sql = 'UPDATE `'.$table.'` '.$fillSQL;
-		
+
 		if ($result = mysqli_query($this->cnx,$sql))
 		{
 			return TRUE ;
