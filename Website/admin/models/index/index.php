@@ -201,25 +201,32 @@ class index
 					$sql='INSERT INTO control_p_privilege (name) VALUES ("'.substr($file,0,-4).'")';
 					if($itemPage)
 					{
-						$sql1='INSERT INTO control_p_privilege (name) VALUES ("delete_'.substr($file,0,-4).'")';
-						if(!mysqli_query($this->cnx,$sql1))
-						{
-							echo 'delete_'.substr($file,0,-4).' Privilege Exists<br/>';
+						$sql1 = 'INSERT INTO control_p_privilege (name) VALUES ("delete_' . substr($file, 0, -4) . '")';
+
+						try {
+							mysqli_query($this->cnx, $sql1);
+						} catch (mysqli_sql_exception $e) {
+							if ($e->getCode() == 1062) {
+								echo 'delete_' . substr($file, 0, -4) . ' Privilege Exists<br/>';
+							} else {
+								echo "MySQL Error [{$e->getCode()}]: " . $e->getMessage() . "<br/>";
+							}
 						}
 					}
 					//$sql3='INSERT INTO control_p_page_levels (page,menu_display_names,menu_pages) VALUES ("'.substr($file,0,-4).'","'.$this->toView(substr($Ffile,0,-4)).'","'.substr($Ffile,0,-4).'")';
 					$sql3='INSERT INTO control_p_page_levels (page,menu_display_names,menu_pages) VALUES ("'.substr($file,0,-4).'","","")';
-					if(mysqli_query($this->cnx,$sql))
-					{
-							if(mysqli_query($this->cnx,$sql3))
-							{
+					try {
+						if (mysqli_query($this->cnx, $sql)) {
+							if (mysqli_query($this->cnx, $sql3)) {
 								$i++;
 							}
-
-					}
-					else
-					{
-						echo substr($file,0,-4).' Privilege Exists<br/>';
+						}
+					} catch (mysqli_sql_exception $e) {
+						if ($e->getCode() == 1062) {
+							echo substr($file, 0, -4) . ' Privilege Exists<br/>';
+						} else {
+							echo "MySQL Error [{$e->getCode()}]: " . $e->getMessage() . "<br/>";
+						}
 					}
 
 				}
@@ -255,8 +262,10 @@ class index
 	}
 	function checkTableIfExist($table)//check table if exist in db
 	{
-		$sql='SELECT * FROM `'.$table.'`';
-		if(mysqli_query($this->cnx,$sql))
+ 		$sql='SHOW TABLES LIKE "'.$table.'"';
+ 		$result=mysqli_query($this->cnx,$sql);
+
+		if(mysqli_num_rows($result)>0)
 		{
 			return true;
 		}
@@ -282,10 +291,53 @@ class index
 		$item=ucfirst(strtolower($data));
 		return $item;
 	}
+// 	function composeSelectBox($data)
+// 	{
+// 		$return["status"] = 0;
+// 		$return["items"] = array();
+// 		if($pos=strrpos($data,'_id'))
+// 		{
+// 			$table=substr($data, 0, $pos);
+// 			if($this->hasLanguage($table))
+// 			{
+// 				$filter1['filterBy']='language_id';
+// 				$filter1['keyword']=1;
+// 				$filter1['exact']=true;
+// 				$filterData['multiFilterBy'][]=$filter1;
+// 				$item=$this->getAllGeneralItemsWithJoins($filterData,$table);
+// 				if(!$item)
+// 				{
+// 					$return["status"] = 1;
+// 				}else
+// 				{
+// 					$return["items"] = $item;
+// 					$return["status"] = 3;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				$item=$this->getAllGeneralItemsWithJoins('',$table);
+// 				if(!$item)
+// 				{
+// 					$return["status"] = 1;
+// 				}else
+// 				{
+// 					$return["items"] = $item;
+// 					$return["status"] = 3;
+// 				}
+// 			}
+// 			return $return;
+// 		}
+// 		else
+// 		{
+// 			$return["status"] = 0;
+// 			return $return;
+// 		}
+
+// 	}
 	function composeSelectBox($data)
 	{
-		$return["status"] = 0;
-		$return["items"] = array();
+
 		if($pos=strrpos($data,'_id'))
 		{
 			$table=substr($data, 0, $pos);
@@ -298,11 +350,7 @@ class index
 				$item=$this->getAllGeneralItemsWithJoins($filterData,$table);
 				if(!$item)
 				{
-					$return["status"] = 1;
-				}else
-				{
-					$return["items"] = $item;
-					$return["status"] = 3;
+					$item=true;
 				}
 			}
 			else
@@ -310,21 +358,15 @@ class index
 				$item=$this->getAllGeneralItemsWithJoins('',$table);
 				if(!$item)
 				{
-					$return["status"] = 1;
-				}else
-				{
-					$return["items"] = $item;
-					$return["status"] = 3;
+					$item=true;
 				}
 			}
-			return $return;
+			return $item;
 		}
 		else
 		{
-			$return["status"] = 0;
-			return $return;
+			return false;
 		}
-
 	}
 	function composeSelectBoxWithFilter($data,$filterData)
 	{
@@ -2013,16 +2055,14 @@ function getGeneralItemById($id,$table)
 		}
 		$sql = 'INSERT INTO `'.$table.'`('.$fillSQLcol.') VALUES ('.$fillSQLval.')';
 		//die($sql);
-		if ($result = mysqli_query($this->cnx,$sql))
-		{
+		try {
+			$result = mysqli_query($this->cnx,$sql);
 			if($id = mysqli_insert_id($this->cnx))
-			{
-				return $id;
-			}
-			else
-			{
-				return true;
-			}
+			return $id;
+		}
+		catch(Exception $e)
+		{
+			return true;
 		}
 	}
 	function editGeneralItemNewLang($id,$data,$table)   //$name_en,$name_ar
@@ -2110,8 +2150,9 @@ function getGeneralItemById($id,$table)
 	// check if this table is a language table and not the main
 	function hasLanguage($table)
 	{
-		$sql='SELECT language_id FROM `'.$table.'`';
-		if(mysqli_query($this->cnx,$sql))
+	    $sql = 'SHOW COLUMNS FROM `' . $table . '` LIKE "language_id"';
+		$result=mysqli_query($this->cnx,$sql);
+		if(mysqli_num_rows($result)>0)
 		{
 			return true;
 		}

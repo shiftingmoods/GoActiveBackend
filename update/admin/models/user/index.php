@@ -20,6 +20,7 @@ class user
 
 		if($row = mysqli_fetch_assoc($result))
 		{
+			unset($row['password']);
 			return $row;
 		}
 		else

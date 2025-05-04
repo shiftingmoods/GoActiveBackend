@@ -21,10 +21,10 @@ if($info=$user->login($_POST))
 	$info['online']='Yes';
 	$info['start_date']=date("F j, Y, g:i a");
 	$info['end_date']='PENDING';
-	//var_dump($info); die();
+
 	if($id=$index->addGeneralItem($info,$table='control_p_login',$cnx))
 	{
-		if(isset($info['username']))   
+		if(isset($info['username']))
 		{
 			$_SESSION['username']=$info['username'];
 		}

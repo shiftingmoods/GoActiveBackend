@@ -1,0 +1,99 @@
+[13-Jun-2016 16:09:33 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/shifting/public_html/v8/admin/source/template/TEMP/ajax/editItem.php on line 23
+[13-Jun-2016 16:09:33 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/shifting/public_html/v8/admin/source/template/TEMP/ajax/editItem.php:22) in /home/shifting/public_html/v8/admin/source/template/TEMP/ajax/editItem.php on line 73
+[13-Jun-2016 16:09:33 UTC] PHP Fatal error:  Call to a member function toView() on a non-object in /home/shifting/public_html/v8/admin/source/template/TEMP/ajax/editItem.php on line 79
+[27-Dec-2016 00:41:38 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[27-Dec-2016 00:41:38 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[27-Dec-2016 00:41:38 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[27-Dec-2016 00:41:38 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[28-Dec-2016 23:20:33 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[28-Dec-2016 23:20:33 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[28-Dec-2016 23:20:33 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[28-Dec-2016 23:20:33 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[30-Dec-2016 09:09:32 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[30-Dec-2016 09:09:32 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[30-Dec-2016 09:09:32 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[30-Dec-2016 09:09:32 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[30-Dec-2016 10:50:45 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[30-Dec-2016 10:50:45 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[30-Dec-2016 10:50:45 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[30-Dec-2016 10:50:45 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[31-Dec-2016 16:58:22 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[31-Dec-2016 16:58:22 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[31-Dec-2016 16:58:22 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[31-Dec-2016 16:58:22 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[31-Dec-2016 23:46:08 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[31-Dec-2016 23:46:08 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[31-Dec-2016 23:46:08 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[31-Dec-2016 23:46:08 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[01-Jan-2017 02:18:20 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[01-Jan-2017 02:18:20 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[01-Jan-2017 02:18:20 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[01-Jan-2017 02:18:20 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[02-Jan-2017 23:08:29 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[02-Jan-2017 23:08:29 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[02-Jan-2017 23:08:29 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[02-Jan-2017 23:08:29 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[03-Jan-2017 00:08:01 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[03-Jan-2017 00:08:01 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[03-Jan-2017 00:08:01 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[03-Jan-2017 00:08:01 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[03-Jan-2017 01:35:44 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[03-Jan-2017 01:35:44 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[03-Jan-2017 01:35:44 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[03-Jan-2017 01:35:44 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[05-Jan-2017 00:50:45 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[05-Jan-2017 00:50:45 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[05-Jan-2017 00:50:45 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[05-Jan-2017 00:50:45 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[05-Jan-2017 01:23:16 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[05-Jan-2017 01:23:16 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[05-Jan-2017 01:23:16 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[05-Jan-2017 01:23:16 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[06-Jan-2017 13:28:04 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[06-Jan-2017 13:28:04 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[06-Jan-2017 13:28:04 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[06-Jan-2017 13:28:04 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[08-Jan-2017 10:06:57 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[08-Jan-2017 10:06:57 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[08-Jan-2017 10:06:57 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[08-Jan-2017 10:06:57 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[08-Jan-2017 12:10:16 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[08-Jan-2017 12:10:16 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[08-Jan-2017 12:10:16 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[08-Jan-2017 12:10:16 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[12-Jan-2017 22:37:24 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[12-Jan-2017 22:37:24 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[12-Jan-2017 22:37:24 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[12-Jan-2017 22:37:24 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[13-Jan-2017 16:58:40 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[13-Jan-2017 16:58:40 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[13-Jan-2017 16:58:40 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[13-Jan-2017 16:58:40 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[25-Jan-2017 05:48:45 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[25-Jan-2017 05:48:45 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[25-Jan-2017 05:48:45 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[25-Jan-2017 05:48:45 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[03-Feb-2017 03:14:35 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[03-Feb-2017 03:14:35 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[03-Feb-2017 03:14:35 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[03-Feb-2017 03:14:35 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[09-Feb-2017 02:49:00 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[09-Feb-2017 02:49:00 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[09-Feb-2017 02:49:00 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[09-Feb-2017 02:49:00 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[18-Feb-2017 19:16:19 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[18-Feb-2017 19:16:19 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[18-Feb-2017 19:16:19 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[18-Feb-2017 19:16:19 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[04-Mar-2017 01:51:26 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[04-Mar-2017 01:51:26 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[04-Mar-2017 01:51:26 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[04-Mar-2017 01:51:26 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[21-Mar-2017 17:16:33 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[21-Mar-2017 17:16:33 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 24
+[21-Mar-2017 17:16:33 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[21-Mar-2017 17:16:33 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/item.php on line 55
+[08-Apr-2017 06:52:27 America/Denver] PHP Notice:  Undefined variable: menu in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[08-Apr-2017 06:52:27 America/Denver] PHP Warning:  Invalid argument supplied for foreach() in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 23
+[08-Apr-2017 06:52:27 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46
+[08-Apr-2017 06:52:27 America/Denver] PHP Fatal error:  Call to a member function getGeneralColums() on null in /home4/imagefur/public_html/v8/admin/source/template/TEMP/ajax/addItem.php on line 46

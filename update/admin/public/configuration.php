@@ -21,7 +21,7 @@ class cnct_class
 		else
 		{
 			$cnx = $connect->db_connect($C->getConstant('HOST_dev'),$C->getConstant('ROOT_dev'),$C->getConstant('PASS_dev'),$C->getConstant('DB_dev'));
-		}
+		}		
 		$sql="SET time_zone = '".$C->getConstant('TIMEZONE')."'";
 		mysqli_query($cnx,$sql);
 		return $cnx;

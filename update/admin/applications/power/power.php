@@ -4,21 +4,22 @@
 $power=new power();
 $cnct=new cnct_class();
 
-$index_data['cnx']=$cnct->cnct();
-$index=new index($index_data);
 ?>
 <?php
 if(isset($_POST['functionName']) && md5($_POST['code'])=='5eb26332474bcde6594a04c243a613e2')
 {
 	if($_POST['functionName']=='constructAdminAndDB')
 	{
-		if($cnct->serverCnct_createDB())
+		$con = $cnct->serverCnct_createDB();
+		if($con)
 		{
 			$cnct->cnct();
-			echo $res=$power->constructBasicDB();
+			echo $res=$power->constructBasicDB($con);
 			if($res!==false)
 			{
 				echo "DB successfully Created<br/>--------------------------------<br/>";
+				$index_data['cnx']=$cnct->cnct();
+				$index=new index($index_data);
 				$index->clearAdmin();
 				echo $index->createFilesFromDbTablesAuto();
 				echo $index->addAllPrivilegesAuto();
@@ -36,6 +37,8 @@ if(isset($_POST['functionName']) && md5($_POST['code'])=='5eb26332474bcde6594a04
 	}
 	else
 	{
+		$index_data['cnx']=$cnct->cnct();
+		$index=new index($index_data);
 		$cnct->cnct();
 		switch ($_POST['functionName'])
 		{

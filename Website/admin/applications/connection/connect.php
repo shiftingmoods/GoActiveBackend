@@ -33,7 +33,7 @@ class cnct_class
 	
 	function serverCnct_createDB()
 	{
-		global $power;
+		global $power, $connect;
 		$C= 'ConstantsControl_p_admin';
 		$C = new ReflectionClass($C);
 		if (!isset($mod))
@@ -63,7 +63,7 @@ class cnct_class
 		if($res)
 		{
 			$cox = $this->cnct();
-			return $cnx;
+			return $cox;
 		}
 		return false;
 	}

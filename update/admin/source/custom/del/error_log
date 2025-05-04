@@ -1,0 +1,111 @@
+[16-Jun-2016 14:28:13 UTC] PHP Fatal error:  Call to a member function hasLanguage() on a non-object in /home/shifting/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[16-Jun-2016 14:30:05 UTC] PHP Warning:  require_once(../public/configuration.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/shifting/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[16-Jun-2016 14:30:05 UTC] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '../public/configuration.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/shifting/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[16-Jun-2016 14:31:53 UTC] PHP Fatal error:  Call to a member function checkTableIfExist() on a non-object in /home/shifting/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[16-Jun-2016 14:35:11 UTC] PHP Fatal error:  Call to a member function toView() on a non-object in /home/shifting/public_html/v8/admin/source/custom/del/editPrivacy_policy.php on line 103
+[16-Jun-2016 14:44:00 UTC] PHP Warning:  require_once(../public/configuration.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/shifting/public_html/v8/admin/source/custom/del/viewFooter_page_text.php on line 1
+[16-Jun-2016 14:44:00 UTC] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '../public/configuration.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/shifting/public_html/v8/admin/source/custom/del/viewFooter_page_text.php on line 1
+[16-Jun-2016 14:47:17 UTC] PHP Warning:  require_once(../public/configuration.php) [<a href='function.require-once'>function.require-once</a>]: failed to open stream: No such file or directory in /home/shifting/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[16-Jun-2016 14:47:17 UTC] PHP Fatal error:  require_once() [<a href='function.require'>function.require</a>]: Failed opening required '../public/configuration.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/shifting/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[16-Jun-2016 14:57:11 UTC] PHP Fatal error:  Call to a member function toView() on a non-object in /home/shifting/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[03-Sep-2017 03:20:30 America/Denver] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home4/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[03-Sep-2017 03:20:30 America/Denver] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/usr/php/56/usr/lib64:/usr/php/56/usr/share/pear') in /home4/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[13-Sep-2017 07:59:13 America/Denver] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home4/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[13-Sep-2017 07:59:13 America/Denver] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/usr/php/56/usr/lib64:/usr/php/56/usr/share/pear') in /home4/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[13-Sep-2017 20:24:19 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 48
+[13-Sep-2017 20:24:19 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[13-Sep-2017 20:24:19 America/Denver] PHP Fatal error:  Call to a member function checkTableIfExist() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[14-Sep-2017 04:14:35 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 48
+[14-Sep-2017 04:14:35 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[14-Sep-2017 04:14:35 America/Denver] PHP Fatal error:  Call to a member function checkTableIfExist() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[16-Sep-2017 09:06:10 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 48
+[16-Sep-2017 09:06:10 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[16-Sep-2017 09:06:10 America/Denver] PHP Fatal error:  Call to a member function checkTableIfExist() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[19-Sep-2017 14:31:41 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[19-Sep-2017 14:31:42 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 05:20:27 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 05:20:27 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 09:40:33 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 09:40:33 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 12:44:02 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 12:44:02 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 15:19:39 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[20-Sep-2017 15:19:39 America/Denver] PHP Fatal error:  Call to a member function hasLanguage() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/privacy_policy.php on line 45
+[26-Sep-2017 11:03:30 America/Denver] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home4/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[26-Sep-2017 11:03:30 America/Denver] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/usr/php/56/usr/lib64:/usr/php/56/usr/share/pear') in /home4/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[01-Oct-2017 15:34:37 America/Denver] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home4/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[01-Oct-2017 15:34:37 America/Denver] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/usr/php/56/usr/lib64:/usr/php/56/usr/share/pear') in /home4/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[07-Nov-2017 03:31:34 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 50
+[07-Nov-2017 03:31:34 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 03:31:34 America/Denver] PHP Fatal error:  Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 10:29:10 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 50
+[07-Nov-2017 10:29:10 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 10:29:10 America/Denver] PHP Fatal error:  Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 13:36:27 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 50
+[07-Nov-2017 13:36:27 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 13:36:27 America/Denver] PHP Fatal error:  Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 22:39:28 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 50
+[07-Nov-2017 22:39:28 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[07-Nov-2017 22:39:28 America/Denver] PHP Fatal error:  Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[08-Nov-2017 01:44:40 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 50
+[08-Nov-2017 01:44:40 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[08-Nov-2017 01:44:40 America/Denver] PHP Fatal error:  Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[13-Jan-2018 20:35:22 America/Denver] PHP Notice:  Undefined variable: table0 in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 50
+[13-Jan-2018 20:35:22 America/Denver] PHP Notice:  Undefined variable: index in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[13-Jan-2018 20:35:22 America/Denver] PHP Fatal error:  Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[01-Jul-2019 16:05:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[02-Jul-2019 08:42:49 UTC] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[02-Jul-2019 19:22:18 UTC] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home4/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[24-Aug-2019 06:07:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function checkTableIfExist() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php:49
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[24-Aug-2019 10:06:18 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[24-Aug-2019 10:06:18 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[25-Aug-2019 02:12:44 UTC] PHP Fatal error:  Uncaught Error: Call to a member function checkTableIfExist() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php:49
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[25-Aug-2019 17:30:11 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[25-Aug-2019 17:30:11 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[26-Aug-2019 16:03:00 UTC] PHP Fatal error:  Uncaught Error: Call to a member function checkTableIfExist() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php:49
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/addPrivacy_policy.php on line 49
+[27-Aug-2019 08:10:07 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[27-Aug-2019 08:10:07 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[30-Aug-2019 00:18:21 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[30-Aug-2019 00:18:21 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[30-Aug-2019 01:33:27 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[30-Aug-2019 01:33:27 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/index-viewBlog_article.php on line 1
+[30-Aug-2019 21:48:28 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[30-Aug-2019 21:48:28 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[31-Aug-2019 00:30:12 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[31-Aug-2019 00:30:12 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[06-Sep-2019 12:59:46 UTC] PHP Warning:  require_once(../public/configuration.php): failed to open stream: No such file or directory in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[06-Sep-2019 12:59:46 UTC] PHP Fatal error:  require_once(): Failed opening required '../public/configuration.php' (include_path='.:/opt/cpanel/ea-php73/root/usr/share/pear') in /home1/imagefur/public_html/v8/admin/source/custom/del/viewBlog_article.php on line 1
+[30-Oct-2019 16:25:36 UTC] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[05-Nov-2019 18:28:24 UTC] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[10-Jan-2020 10:14:09 UTC] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103
+[09-Mar-2020 16:54:26 America/Boise] PHP Fatal error:  Uncaught Error: Call to a member function toView() on null in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php:103
+Stack trace:
+#0 {main}
+  thrown in /home1/imagefur/public_html/v8/admin/source/custom/del/editBlog_article - Copy.php on line 103

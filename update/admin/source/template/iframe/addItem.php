@@ -185,8 +185,9 @@ if(!isset($seq))
 								<td>
 
 			<?php
-								$foreignTable=$index->composeSelectBox($id);//return false if the table is not foreign and return an array of all values if its a forien
-								if($foreignTable["status"] != 0 && $id!='image_id')
+								$foreignTable=$index->composeSelectBox($id); //return false if the table is not foreign and return an array of all values if its a forien
+								$countForeignTable = is_array($foreignTable) ? count($foreignTable) == '0' : false;
+								if (($foreignTable || $countForeignTable) && $id != 'image_id')
 							{
 			//var_dump($item);
 			//$index->show($foreignTable);
@@ -194,7 +195,7 @@ if(!isset($seq))
 
 								<select name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php  echo $Table.'-'.$outer.$optional;  ?>"  >
 			<?php
-								if(count($foreignTable["items"])=='0')
+								if(count($foreignTable)=='0')
 								{
 			?>
 									<option value="null">Empty</option>
@@ -220,7 +221,7 @@ if(!isset($seq))
 									<option value="null">Select</option>
 				<?php
 									}
-									foreach($foreignTable["items"] as $id2=>$item)
+									foreach($foreignTable as $id2=>$item)
 									{
 										$dataCFDN['item']=$item;
 										$FDN=$index->composeFullDisplayName($dataCFDN);
@@ -349,7 +350,7 @@ if(!isset($seq))
 												echo $hideDate;
 											break;
 											case 'datetime':
-												$date=' alt="datetime" readonly ';
+												$date=' alt="datetime" ';
 												$hideDate='';
 												if($id=='date_created')
 												{

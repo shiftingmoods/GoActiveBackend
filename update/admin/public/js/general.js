@@ -61,8 +61,10 @@ function hoverStyle(image_name,id)
 
 		$(function() {
 			$("input[alt='datetime']").datetimepicker({
-			 timepicker:true,
-			 format:'Y-m-d H:i:s'
+				timepicker:true,
+				format:'Y-m-d H:i:s',
+				step:5,
+				timepickerScrollbar:true
 			});
 		});
 

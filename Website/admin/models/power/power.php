@@ -16,7 +16,7 @@ class power
 			return false;
 		}
 	}
-	function constructBasicDB()
+	function constructBasicDB($con)
 	{
 		if(file_exists("../../source/basicDB/DB.txt"))
 		{
@@ -29,9 +29,9 @@ class power
 			foreach($queries as $ind=>$query)
 			{	if($query)
 				{
-					if(!mysql_query($query))
+					if(!mysqli_query($con, $query))
 					{
-						$error.= mysql_error().' _'.$query.'_ <br/>';
+						$error.= mysqli_error($con).' _'.$query.'_ <br/>';
 					}
 				}
 			}

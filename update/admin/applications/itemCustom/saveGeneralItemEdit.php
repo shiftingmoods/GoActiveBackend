@@ -151,11 +151,15 @@ else
 		}
 	}
 */
+	$error = false;
 	foreach($seq as $table=>$parents)//fill the rest
 	{
 		if($tablesData[$table]!="exists")
 		{
 			$added[$table]=$index->editGeneralItem($ids[$table],$post[$table],$table);
+			if($added[$table]){
+				$error = true;
+			}
 		}
 		else
 		{
@@ -165,7 +169,7 @@ else
 			}
 		}
 	}
-	if(mysql_error()=='')
+	if($error)
 	{
 		unset($tablesData);
 		//unset($_SESSION['postData']);

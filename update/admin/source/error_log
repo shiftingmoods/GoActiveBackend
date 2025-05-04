@@ -1,0 +1,37 @@
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: imagick: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/php/56/usr/lib64/php/modules/pdo_mysql.so' - /usr/php/56/usr/lib64/php/modules/pdo_mysql.so: undefined symbol: mysqlnd_allocator in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: pdo_sqlite: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: pdo_pgsql: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: magickwand: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: mailparse: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: Unable to load dynamic library '/usr/php/56/usr/lib64/php/modules/oauth.so' - /usr/php/56/usr/lib64/php/modules/oauth.so: undefined symbol: zval_used_for_init in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: oci8: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0
+[15-Dec-2018 01:58:29 UTC] PHP Warning:  PHP Startup: uploadprogress: Unable to initialize module
+Module compiled with module API=20131226
+PHP    compiled with module API=20151012
+These options need to match
+ in Unknown on line 0

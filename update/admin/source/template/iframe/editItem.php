@@ -402,7 +402,7 @@ else
 												echo $hideDate;
 											break;
 											case 'datetime':
-												$date=' alt="datetime" readonly ';
+												$date=' alt="datetime" ';
 												$hideDate='';
 												if($id=='date_created')
 												{

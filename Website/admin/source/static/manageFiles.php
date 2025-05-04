@@ -136,14 +136,14 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 
 		<?php
 							$foreignTable=$index->composeSelectBox($id);//return false if the table is not forien and return an array aff all values if its a forien
-							if($foreignTable["status"] != 0 && $id!='image_id')
+							if(($foreignTable || count($foreignTable)=='0') && $id!='image_id')
 						{
 		//var_dump($item);
 		?>
 
 							<select name="<?php echo $table; ?>[<?php echo $id; ?>]" id="<?php  echo $Table.'-'.$outer.$optional;  ?>"  >
 		<?php
-							if(count($foreignTable["items"])=='0')
+							if(count($foreignTable)=='0')
 							{
 		?>
 								<option value="null">Empty</option>
@@ -169,7 +169,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 								<option value="null">Select</option>
 			<?php
 								}
-								foreach($foreignTable["items"] as $id2=>$item)
+								foreach($foreignTable as $id2=>$item)
 								{
 									$dataCFDN['item']=$item;
 									$FDN=$index->composeFullDisplayName($dataCFDN);
