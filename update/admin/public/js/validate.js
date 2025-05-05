@@ -69,9 +69,12 @@ function check(input)
 	{
 			if((form.elements[i].type=='file'))
 			{
-				if(form.elements[i].value!="" && getFileExtension(form.elements[i].value)!='jpg' )
+				if (
+					form.elements[i].value !== "" &&
+					!['jpg', 'jpeg', 'png' , 'gif'].includes(getFileExtension(form.elements[i].value).toLowerCase())
+				)
 				{
-						missinginfo += "\n     -Invalid Image Type ( Only .jpg Allowed )";
+						missinginfo += "\n     -Invalid Image Type ( Only .jpg, .jpeg, .png and .gif Allowed )";
 						$('textarea[name="'+form.elements[i].name+'"]').attr('class','missing');
 				}
 				else if(getFileExtension(form.elements[i].value))

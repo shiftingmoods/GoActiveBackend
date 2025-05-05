@@ -977,8 +977,8 @@ class index
 		$PRI=$cols['primaryKeys'];
 		$PRI=$PRI[0];
 		$imageExist=array();
-		$item_images=false;
-		$images=false;
+		$item_images=[];
+		$images=[];
 		foreach($cols['keys'] as $key1=>$value1)// check if the table has an image in order to delete it too
 		{
 			if($key1=='image_id')//direct id link to the image

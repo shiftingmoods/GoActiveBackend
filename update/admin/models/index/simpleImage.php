@@ -69,6 +69,8 @@ class simpleImage
    }
    function resize($width,$height) 
    {
+	  $height = (int) $height;
+	  $width = (int) $width;
       $new_image = imagecreatetruecolor($width, $height);
       imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
       $this->image = $new_image;   
@@ -85,7 +87,7 @@ class simpleImage
 	//upload new image
 	function uploadImage($data,$name='image') // $name,$status 
 	{
-		if(( $data[$name]['type']=="image/gif" || $data[$name]['type']=="image/jpg" || $data[$name]['type']=="image/pjpeg" || $data[$name]['type']=="image/x-png"  || $data[$name]['type']=="image/jpeg" ) && $data[$name]['size']< 2097152  )
+		if(( $data[$name]['type']=="image/gif" || $data[$name]['type']=="image/jpg" || $data[$name]['type']=="image/png"  || $data[$name]['type']=="image/jpeg" ) && $data[$name]['size']< 2097152  )
 		{
 			$valid=TRUE; 
 		}
@@ -108,6 +110,9 @@ class simpleImage
 			return $new_name;
 			
 			
+		}else
+		{
+			die('invalid image format or size');
 		}
 	}
 function uploadFile($data,$name='file') // $name,$status 

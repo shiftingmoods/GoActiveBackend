@@ -14,7 +14,6 @@
 	$Table=$index->capitalize($table);
 	$id=$_GET['id'];
 	$item_id=$_GET['item_id'];
-	$file=$_GET['file'];
 	$data[]=$id;
 ?>
 <?php

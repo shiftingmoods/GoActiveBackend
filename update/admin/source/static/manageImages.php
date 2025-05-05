@@ -1,6 +1,9 @@
 <?php require_once('../public/layouts/theme_1/_header.html');?>
 <?php require_once("../models/index/index.php");
-$index=new index();
+require_once('../public/configuration.php');
+$cnct=new cnct_class();
+$index_data['cnx']=$cnct->cnct();
+$index=new index($index_data);
 $cnct=new cnct_class();
 $cnct->cnct();
 //************************************* check if the user control_p_group allow him to enter this page *******
@@ -38,8 +41,8 @@ else
 	if(strpos($_SERVER["HTTP_REFERER"],'?')===false) { $char='?' ; } else { $char='&'; } echo  '<script language="javascript" > window.location="'.$_SERVER["HTTP_REFERER"].$char.'note=Not Exist"; </script>';
 	die('Please enable JavaScript To Continue');
 }
-$_SESSION['postData']['seq']='';// clear seq
-$_SESSION['postData']['seq']['image_to_'.$T]=''; // gen the default seq (only one table)
+$_SESSION['postData']['seq']=[];// clear seq
+$_SESSION['postData']['seq']['image_to_'.$T]=[]; // gen the default seq (only one table)
 //********************************************************* get folder uploaded to ************************************
 ?>
 <?php
@@ -103,7 +106,8 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 			$cols = $index->getGeneralColums($table);
 			$cols = $cols['keys'];
 		?>
-		<table style="float:left;width:200px;!important" >
+		<div>
+		<table style="float:left;width: 30%" >
 		<tr><td><b><?php echo $index->toView($T).' :</b></td><td> '.$index->toView($index->showValue($I,$T.'_id')); ?></td></tr>	
 		<?php 
 
@@ -369,7 +373,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 <!-------------------------------------------------- load more input from table ------------------------------------------------> 
 
 	<!-------------------------------- documents of a table ------------------------------------>
-	<table style="float:right;"  >
+	<table style="width:70%;"  >
 	<tr>
 	<?php
 	$dir='../../';
@@ -400,6 +404,7 @@ $files=$index->getAllGeneralItemsWithJoins($FD,'image_to_'.$T);
 	?>
 	</tr>
 	</table>
+	</div>
 	<!-------------------------------- END: documents of a table ------------------------------------>
 	<input type="hidden" name="<?php echo 'image_to_'.$T; ?>[<?php echo $T; ?>_id]" value="<?php echo $I; ?>" >
 	</form>

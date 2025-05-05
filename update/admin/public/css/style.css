@@ -32,7 +32,7 @@ body
 	min-height:80px;
     height:auto !important;
     height:80px;
-	width:1000px;
+	width:70%;
 	
 	border-bottom-width:1px;
 	border-bottom-style:solid;
@@ -70,19 +70,12 @@ body
 #firstColumn
 {
 	float:left;
-	
-/*	border-style:solid;
-	border-width:2px; */
-}
-#firstColumn
-{
-	/*width:13%;*/
+	width:15%;
 	padding-top:99px;
-	padding-left:70px;
 }
 #secondColumn
 {
-	/*margin-left:13%;*/
+	width:70%;
 	margin-right:auto;
 	overflow-x:scroll; 
 }
